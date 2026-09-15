@@ -32,7 +32,28 @@ az role assignment create \
   --role Contributor \
   -o none || true
 
-echo "--> 3. Setting GitHub Secrets for ${GITHUB_REPO}..."
+echo "--> 3. Configuring Federated Identity Credentials for GitHub Actions..."
+az ad app federated-credential create \
+  --id "${CLIENT_ID}" \
+  --parameters "{
+    \"name\": \"github-azure-env-with-ids\",
+    \"issuer\": \"https://token.actions.githubusercontent.com\",
+    \"subject\": \"repo:Peeyush2005@116378935/SIH-2026@1371223089:environment:azure\",
+    \"description\": \"GitHub Actions OIDC with IDs for azure environment\",
+    \"audiences\": [\"api://AzureADTokenExchange\"]
+  }" -o none || true
+
+az ad app federated-credential create \
+  --id "${CLIENT_ID}" \
+  --parameters "{
+    \"name\": \"github-main-with-ids\",
+    \"issuer\": \"https://token.actions.githubusercontent.com\",
+    \"subject\": \"repo:Peeyush2005@116378935/SIH-2026@1371223089:ref:refs/heads/main\",
+    \"description\": \"GitHub Actions OIDC with IDs for main branch\",
+    \"audiences\": [\"api://AzureADTokenExchange\"]
+  }" -o none || true
+
+echo "--> 4. Setting GitHub Secrets for ${GITHUB_REPO}..."
 gh secret set AZURE_CLIENT_ID --repo "${GITHUB_REPO}" --body "${CLIENT_ID}"
 gh secret set AZURE_TENANT_ID --repo "${GITHUB_REPO}" --body "${TENANT_ID}"
 gh secret set AZURE_SUBSCRIPTION_ID --repo "${GITHUB_REPO}" --body "${SUBSCRIPTION_ID}"
