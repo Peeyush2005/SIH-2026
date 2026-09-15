@@ -21,8 +21,8 @@ The project is a research prototype. Its side-scan sonar (SSS) and forward-looki
 
 ### Interactive demo and inspection desk
 
-- **One-click demo:** choose **Try demo** to load a generated sonar scene instantly. Shuffle pipeline, scattered-return and coverage scenarios, select contacts, explore the map, make review decisions and download reports. Demo imagery, scores and locations are explicitly synthetic; no model inference or real survey data is represented. Demo history stays separate from uploaded inspections.
-- **A focused workspace:** searchable Reports, sensor-filtered model profiles, responsive image inspection and a consistent ocean design across every page.
+- **One-click demo:** choose **Try demo** to load a generated sonar scene instantly. Choose pipeline, wreck silhouette, harbour debris, rocky seabed, interrupted coverage and forward-looking fan scenes, select contacts, explore the map, make review decisions and download reports. Demo imagery, scores and locations are explicitly synthetic; no model inference or real survey data is represented. **Surprise me** always changes the environment; **New variation** regenerates the selected scene. Demo history stays separate from uploaded inspections.
+- **A focused workspace:** searchable Reports, a visual demo scene explorer, responsive image inspection and a consistent ocean design across every page.
 - **Guided human review:** contact queue, completion progress, retain/false-alert/uncertain decisions, optional advance to the next unreviewed contact, and J/K navigation. Notes, reviewers, revisions and original predictions stay attached to each contact.
 - **Batch image inspections:** submit up to four images from a confirmed sensor/model combination. Inference runs sequentially; each source has separate results and failures.
 - **Focused visual inspection:** an expanded workspace, display-only brightness and contrast, original-pixel bounding boxes, and an aspect-preserving local geographic view.

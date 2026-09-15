@@ -29,13 +29,12 @@ try{
  await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});
  await page.getByRole('button',{name:'Reports',exact:true}).click();
  await page.locator('.batch-panel summary').waitFor();
- await page.getByRole('button',{name:'Models',exact:true}).click();
- await page.getByRole('heading',{name:'Model availability',exact:true}).waitFor();
+ assert.equal(await page.getByRole('button',{name:'Models',exact:true}).count(),0);
  await page.getByRole('button',{name:'New inspection',exact:true}).click();
  await page.getByLabel('Sonar source',{exact:true}).setInputFiles(process.env.BLUECHO_PIPELINE_SAMPLE||'E:/Hackathon/execution/phase1_engine_20260914/samples/pipeline_positive.pbm');
  await page.getByLabel('Confirm source modality').waitFor();
  await page.getByLabel('Model route').waitFor();
  assert.deepEqual(errors,[]);
- await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify({status:'PASS',checks:['Problem and solution visible','No homepage numbers, statistics, gallery or history clutter','Configuration appears after upload','Reports and model details remain accessible','Desktop and mobile layout checked','Sonar motion pauses and respects reduced motion','Features and value proposition are visible'],errors},null,2));
+ await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify({status:'PASS',checks:['Problem and solution visible','No homepage numbers, statistics, gallery or history clutter','Configuration appears after upload','Reports accessible; Models page removed','Desktop and mobile layout checked','Sonar motion pauses and respects reduced motion','Features and value proposition are visible'],errors},null,2));
  console.log('PASS minimal homepage, progressive upload, secondary tools and mobile layout');
 }finally{await browser.close()}

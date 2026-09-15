@@ -1,0 +1,183 @@
+{
+  "version": "0.5.1",
+  "date": "2026-09-15",
+  "environment": "Windows, headless Chrome, browser ONNX and local Python API builds",
+  "results": {
+    "scene_variety": {
+      "status": "PASS",
+      "checks": [
+        "Models navigation removed",
+        "All six scenes load and show contacts",
+        "Each scene opens with complete image geometry",
+        "All 15 scene pairs visibly differ after image downsampling",
+        "Surprise me never repeats the active environment",
+        "Viewer above fold on desktop",
+        "Mobile layout and horizontal scene picker usable"
+      ],
+      "distances": [
+        {
+          "scenes": [
+            "pipeline",
+            "wreck"
+          ],
+          "meanPixelDifference": 32.389973958333336
+        },
+        {
+          "scenes": [
+            "pipeline",
+            "objects"
+          ],
+          "meanPixelDifference": 23.702473958333332
+        },
+        {
+          "scenes": [
+            "pipeline",
+            "reef"
+          ],
+          "meanPixelDifference": 26.077473958333332
+        },
+        {
+          "scenes": [
+            "pipeline",
+            "coverage"
+          ],
+          "meanPixelDifference": 23.764973958333332
+        },
+        {
+          "scenes": [
+            "pipeline",
+            "fls"
+          ],
+          "meanPixelDifference": 45.003255208333336
+        },
+        {
+          "scenes": [
+            "wreck",
+            "objects"
+          ],
+          "meanPixelDifference": 34.1640625
+        },
+        {
+          "scenes": [
+            "wreck",
+            "reef"
+          ],
+          "meanPixelDifference": 25.747395833333332
+        },
+        {
+          "scenes": [
+            "wreck",
+            "coverage"
+          ],
+          "meanPixelDifference": 27.872395833333332
+        },
+        {
+          "scenes": [
+            "wreck",
+            "fls"
+          ],
+          "meanPixelDifference": 31.385416666666668
+        },
+        {
+          "scenes": [
+            "objects",
+            "reef"
+          ],
+          "meanPixelDifference": 27.865885416666668
+        },
+        {
+          "scenes": [
+            "objects",
+            "coverage"
+          ],
+          "meanPixelDifference": 28.35546875
+        },
+        {
+          "scenes": [
+            "objects",
+            "fls"
+          ],
+          "meanPixelDifference": 42.145833333333336
+        },
+        {
+          "scenes": [
+            "reef",
+            "coverage"
+          ],
+          "meanPixelDifference": 25.93359375
+        },
+        {
+          "scenes": [
+            "reef",
+            "fls"
+          ],
+          "meanPixelDifference": 34.998697916666664
+        },
+        {
+          "scenes": [
+            "coverage",
+            "fls"
+          ],
+          "meanPixelDifference": 37.138020833333336
+        }
+      ],
+      "errors": []
+    },
+    "browser_demo": {
+      "checks": [
+        "One click opens generated sonar and contacts without model downloads or a demo backend",
+        "Review actions persist across reload",
+        "Interactive map shows explicitly fictional locations",
+        "JSON, CSV, GeoJSON, curation JSON, PDF and evidence ZIP export successfully with demo provenance",
+        "Shuffle changes the scene and the coverage scenario exposes a generated quality band",
+        "Reports searches and filters demo history; workspace and reports fit mobile",
+        "Models page removed from navigation",
+        "Demo history clears independently"
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    "local_demo": {
+      "checks": [
+        "One click opens generated sonar and contacts without model downloads or a demo backend",
+        "Review actions persist across reload",
+        "Interactive map shows explicitly fictional locations",
+        "JSON, CSV, GeoJSON, curation JSON, PDF and evidence ZIP export successfully with demo provenance",
+        "Shuffle changes the scene and the coverage scenario exposes a generated quality band",
+        "Reports searches and filters demo history; workspace and reports fit mobile",
+        "Models page removed from navigation",
+        "Demo history clears independently"
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    "real_browser_inference": {
+      "checks": [
+        "Two real images complete sequentially through batch submission and remain individually reviewable",
+        "Display contrast preserves box geometry and resets",
+        "Focus workspace expands and Escape restores navigation",
+        "Human decision updates progress and exports provenance-preserving curation candidates",
+        "PDF brief downloads with real sonar image",
+        "Curation export respects displayed scope",
+        "Review decision and completion survive reload",
+        "Review desk remains within mobile viewport",
+        "Clearing demo history preserves both real inspections"
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    "homepage": {
+      "status": "PASS",
+      "checks": [
+        "Problem and solution visible",
+        "No homepage numbers, statistics, gallery or history clutter",
+        "Configuration appears after upload",
+        "Reports accessible; Models page removed",
+        "Desktop and mobile layout checked",
+        "Sonar motion pauses and respects reduced motion",
+        "Features and value proposition are visible"
+      ],
+      "errors": []
+    }
+  }
+}

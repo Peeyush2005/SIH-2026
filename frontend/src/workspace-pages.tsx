@@ -1,5 +1,6 @@
-import React,{useState} from 'react';
-import {Icon,modelName,modalityName,stateName} from './design';
+import React,{useState,useMemo} from 'react';
+import {Icon,stateName} from './design';
+import {DEMO_SCENARIOS,demoScene} from './demo-scene';
 type Obj=Record<string,any>;
 
 export function ReportsPage({jobs,open,demo,clearDemos,batch}:{jobs:Obj[],open:(j:Obj)=>void,demo:()=>void,clearDemos:()=>void,batch:React.ReactNode}){
@@ -12,16 +13,11 @@ export function ReportsPage({jobs,open,demo,clearDemos,batch}:{jobs:Obj[],open:(
  </div>;
 }
 
-export function ModelsPage({caps,choose}:{caps:Obj|null,choose:(m:Obj)=>void}){
- const[sensor,setSensor]=useState('all');const models=(caps?.models||[]).filter((m:Obj)=>sensor==='all'||m.modalities.some((x:string)=>x.startsWith(sensor)));
- return <div className="models-page"><div className="workspace-page-heading"><div><p className="section-kicker">CHOOSE WITH CONTEXT</p><h1>Models & system</h1><p>The right specialist starts with the sonar that produced your image.</p></div><span className="engine-status"><i/>{caps?'Workspace connected':'Connecting'}</span></div>
-  <div className="model-guidance"><Icon name="wave" size={25}/><p>Match the sensor, then read the model’s scope. A model being available does not establish accuracy on your survey.</p></div>
-  <section aria-label="Model availability"><div className="model-library-heading"><h2>Model availability</h2><div className="sensor-filters">{[['all','All sensors'],['SSS','Side-scan'],['FLS','Forward-looking']].map(([id,label])=><button key={id} aria-pressed={sensor===id} className={sensor===id?'active':''} onClick={()=>setSensor(id)}>{label}</button>)}</div></div>
-  <div className="model-library">{models.map((m:Obj)=><article className="model-profile" key={m.id}><div className="model-profile-head"><span className="model-symbol"><Icon name={m.modalities.some((x:string)=>x.startsWith('FLS'))?'wave':'scan'} size={25}/></span><span className={'badge '+(m.state==='ready'?'available':'')}>{m.state==='ready'?'Available':'Unavailable'}</span></div><p className="model-sensor">{m.modalities.map(modalityName).join(' / ')}</p><h3>{modelName(m.id)}</h3><p className="model-scope">{m.evidence}</p><details><summary>Classes & model details</summary><div className="model-class-list">{Object.values(m.classes||{}).map((c:any)=><span key={c}>{c}</span>)}</div><pre>{JSON.stringify(m,null,2)}</pre></details><div className="model-profile-footer">{m.source?<a href={m.source} target="_blank" rel="noreferrer">Source & licence ↗</a>:<span>Source details in model record</span>}<button disabled={m.state!=='ready'} onClick={()=>choose(m)}>Use model<Icon name="arrow" size={15}/></button></div></article>)}</div></section>
-  <details className="model-limits"><summary>Coverage, limitations & system details</summary>{caps?.unavailable.map((x:string)=><p key={x}>{x}</p>)}<p>Detection scores are uncalibrated. Class names do not establish material identity or field truth.</p><pre>{JSON.stringify(caps,null,2)}</pre></details>
- </div>;
-}
-
 export function DemoGuide({scenario,change,exit,busy}:{scenario:string,change:(s?:string)=>void,exit:()=>void,busy:boolean}){
- return <section className="demo-guide"><div className="demo-guide-title"><span className="demo-label">DEMO WORKSPACE</span><h2>Take the controls.</h2><p>Select a contact, try a review decision, explore the map, or download a report.</p><small>Generated sonar, simulated contacts, scores and locations. No AI inference or real survey data.</small></div><div className="demo-guide-actions"><label>Demo scene<select aria-label="Demo scene" value={scenario} disabled={busy} onChange={e=>change(e.target.value)}><option value="pipeline">Pipeline corridor</option><option value="objects">Scattered returns</option><option value="coverage">Interrupted coverage</option></select></label><div><button disabled={busy} onClick={()=>change(scenario)}><Icon name="wave" size={16}/>Shuffle scene</button><button onClick={exit}>Exit demo</button></div></div></section>;
+ const previews=useMemo(()=>Object.fromEntries(DEMO_SCENARIOS.map((s,i)=>[s.id,demoScene(42+i,s.id,.23).canvas.toDataURL('image/jpeg',.8)])),[]);
+ const active=DEMO_SCENARIOS.find(s=>s.id===scenario)||DEMO_SCENARIOS[0];
+ return <section className="demo-guide" aria-label="Demo scene explorer"><div className="demo-explorer-heading"><div><span className="demo-label">INTERACTIVE DEMO</span><h1>Explore beneath the surface.</h1><p>Pick an environment. Follow a return. Make the call.</p></div><div className="demo-explorer-actions"><button className="surprise-button" disabled={busy} onClick={()=>change()}><Icon name="wave" size={17}/>{busy?'Opening scene…':'Surprise me'}</button><button onClick={exit}>Exit demo</button></div></div>
+ <div className="scene-gallery" aria-label="Choose a demo scene">{DEMO_SCENARIOS.map(s=><button key={s.id} className={'scene-card '+(scenario===s.id?'active':'')} aria-label={'Open '+s.name} aria-pressed={scenario===s.id} disabled={busy} onClick={()=>change(s.id)}><img src={previews[s.id]} alt=""/><span className="scene-card-copy"><strong>{s.name}</strong><small>{s.terrain}</small></span>{scenario===s.id&&<span className="scene-selected"><Icon name="check" size={12}/></span>}</button>)}</div>
+ <div className="active-scene"><div><h2>{active.name}</h2><p>{active.description}</p></div><button disabled={busy} onClick={()=>change(scenario)} aria-label={'Generate another '+active.name}>New variation<Icon name="wave" size={15}/></button></div>
+ <div className="scene-context"><span><Icon name="scan" size={15}/>{active.hint}</span><small>Simulated imagery, contacts, scores and locations · no model inference</small></div></section>;
 }

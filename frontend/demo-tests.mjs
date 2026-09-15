@@ -10,11 +10,11 @@ const errors=[],requests=[],receipt={checks:[]};
 page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));
 const pass=s=>{console.log('PASS',s);receipt.checks.push(s)};
 async function download(name,file){const event=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await event).saveAs(path.join(out,file));return fs.readFile(path.join(out,file));}
-async function ready(){await page.waitForFunction(()=>{const b=[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Shuffle scene'));return b&&!b.disabled});await page.locator('[data-candidate]').first().waitFor();}
+async function ready(){await page.waitForFunction(()=>{const b=[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Surprise me')||b.textContent.includes('Opening scene'));return b&&!b.disabled});await page.locator('[data-candidate]').first().waitFor();}
 try{
  await page.goto(process.env.BLUECHO_URL||'http://127.0.0.1:8010');
  await page.getByRole('button',{name:'Try demo',exact:true}).click();await ready();
- assert.equal(await page.locator('[data-candidate]').count(),4);
+ await page.getByRole('button',{name:'Open Pipeline corridor',exact:true}).click();await ready();assert.equal(await page.locator('[data-candidate]').count(),4);
  assert.ok(!requests.some(r=>/\.onnx|huggingface|\/api\/v1\/demo/.test(r)));
  pass('One click opens generated sonar and contacts without model downloads or a demo backend');
  const original=JSON.parse(await download('JSON','initial.json'));
@@ -39,12 +39,12 @@ try{
  assert.equal((await download('PDF brief','demo.pdf')).subarray(0,5).toString(),'%PDF-');
  await download('Evidence ZIP','demo.zip');
  pass('JSON, CSV, GeoJSON, curation JSON, PDF and evidence ZIP export successfully with demo provenance');
- await page.getByRole('button',{name:'Shuffle scene',exact:true}).click();await ready();
+ await page.getByRole('button',{name:'Generate another Pipeline corridor',exact:true}).click();await ready();
  const shuffled=JSON.parse(await download('JSON','shuffled.json'));
  assert.notEqual(shuffled.source_sha256,original.source_sha256);assert.notEqual(shuffled.demo.seed,original.demo.seed);
- await page.getByLabel('Demo scene',{exact:true}).selectOption('coverage');await ready();
+ await page.getByRole('button',{name:'Open Interrupted coverage',exact:true}).click();await ready();
  await page.getByRole('button',{name:'Quality',exact:true}).click();
- await page.getByText('simulated dark band',{exact:true}).waitFor();
+ await page.getByText('simulated dark band',{exact:true}).first().waitFor();
  pass('Shuffle changes the scene and the coverage scenario exposes a generated quality band');
  await page.getByRole('button',{name:'Image',exact:true}).click();
  await page.screenshot({path:path.join(out,'workspace.png'),fullPage:true});
@@ -53,20 +53,14 @@ try{
  await page.screenshot({path:path.join(out,'workspace-mobile.png'),fullPage:true});
  await page.getByRole('button',{name:'Reports',exact:true}).click();
  await page.locator('.inspection-row').first().waitFor();
- await page.getByLabel('Search inspections').fill('Interrupted');assert.equal(await page.locator('.inspection-row').count(),1);
+ await page.getByLabel('Search inspections').fill('Interrupted');assert.ok(await page.locator('.inspection-row').count()>=1);
  await page.getByLabel('Search inspections').fill('');await page.getByLabel('Filter inspections').selectOption('uploads');assert.equal(await page.locator('.inspection-row .demo-label').count(),0);
- await page.getByLabel('Filter inspections').selectOption('demo');assert.equal(await page.locator('.inspection-row').count(),3);
+ await page.getByLabel('Filter inspections').selectOption('demo');assert.ok(await page.locator('.inspection-row').count()>=3);
  await page.screenshot({path:path.join(out,'reports-mobile.png'),fullPage:true});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:path.join(out,'reports.png'),fullPage:true});
  pass('Reports searches and filters demo history; workspace and reports fit mobile');
- await page.getByRole('button',{name:'Models',exact:true}).click();await page.locator('.model-profile').first().waitFor();
- await page.getByRole('button',{name:'Forward-looking',exact:true}).click();assert.ok(await page.locator('.model-profile').count()>=1);assert.ok((await page.locator('.model-sensor').allTextContents()).every(s=>s.includes('Forward-looking')));
- await page.getByRole('button',{name:'All sensors',exact:true}).click();
- await page.screenshot({path:path.join(out,'models.png'),fullPage:true});
- await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:path.join(out,'models-mobile.png'),fullPage:true});
- await page.getByRole('button',{name:'Use model',exact:true}).first().click();await page.getByRole('heading',{name:'Start an inspection',exact:true}).waitFor();
- pass('Models filters by sonar type and routes to a new inspection');
+ assert.equal(await page.getByRole('button',{name:'Models',exact:true}).count(),0);pass('Models page removed from navigation');
  await page.getByRole('button',{name:'Reports',exact:true}).click();await page.getByLabel('Filter inspections').selectOption('demo');await page.getByRole('button',{name:'Clear demo history',exact:true}).click();await page.locator('.workspace-empty').waitFor();
  assert.equal(await page.locator('.inspection-row').count(),0);pass('Demo history clears independently');
  assert.deepEqual(errors,[]);receipt.status='PASS';
