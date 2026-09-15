@@ -1,4 +1,6 @@
-# BluEcho local inspection dashboard · 0.1.4
+# BluEcho local inspection dashboard
+
+See the [0.2 dashboard redesign and browser edition](DASHBOARD_REDESIGN.md) for the current website. The workflow below describes the local Python application.
 
 Team BluMatrix · SIH26-26057. The dashboard is a local review application over the existing RecordingEngine. No model training, altered thresholds or automatic learning occurs.
 
@@ -9,7 +11,7 @@ Tested on Linux x86-64, Python 3.12.14, Node 20.11.1 (build only), Chrome 153, C
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install torch==2.4.1+cpu torchvision==0.19.1+cpu --index-url https://download.pytorch.org/whl/cpu
-.venv/bin/python -m pip install 'bluecho-sonar[inspection,inference,onnx,geospatial,api]==0.1.5'
+.venv/bin/python -m pip install 'bluecho-sonar[inspection,inference,onnx,geospatial,api]'
 .venv/bin/python -m pip check
 .venv/bin/bluecho doctor
 .venv/bin/bluecho serve --registry '/path/to/verified registry' --storage '/path/to/inspection data' --port 8011

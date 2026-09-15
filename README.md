@@ -39,7 +39,7 @@ source .venv/bin/activate
 
 python -m pip install torch==2.4.1+cpu torchvision==0.19.1+cpu \
   --index-url https://download.pytorch.org/whl/cpu
-python -m pip install 'bluecho-sonar[inspection,inference,onnx,api]==0.1.5'
+python -m pip install --upgrade 'bluecho-sonar[inspection,inference,onnx,api]'
 
 bluecho --version
 bluecho doctor
