@@ -1,0 +1,4 @@
+
+# Preserve byte-for-byte demo asset hashes across Windows and Linux checkouts.
+frontend/public/real-demo/** -text
+src/bluecho/dashboard/static/real-demo/** -text
