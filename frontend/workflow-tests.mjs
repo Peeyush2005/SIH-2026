@@ -1,0 +1,41 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const url=process.env.BLUECHO_URL||'http://127.0.0.1:8010';
+const samples=process.env.BLUECHO_DEMO_ROOT||'E:/Hackathon/execution/phase1_engine_20260914/samples';
+const out=process.env.BLUECHO_EVIDENCE||'E:/Hackathon/execution/competitor_review_20260915/workflow';
+await fs.mkdir(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME||(process.platform==='win32'?'C:/Program Files/Google/Chrome/Application/chrome.exe':'/usr/bin/google-chrome')});
+const context=await browser.newContext({viewport:{width:1536,height:1050},acceptDownloads:true});
+const page=await context.newPage(),errors=[],receipt={checks:[]};page.on('pageerror',e=>errors.push(e.message));
+const pass=s=>{console.log('PASS',s);receipt.checks.push(s)};
+async function download(name,file){const event=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await event).saveAs(path.join(out,file))}
+try{
+ await page.goto(url);await page.getByText('Browser engine ready',{exact:true}).waitFor();
+ await page.locator('.batch-panel summary').click();
+ await page.getByLabel('Batch sonar images',{exact:true}).setInputFiles([path.join(samples,'pipeline_positive.pbm'),path.join(samples,'pipeline_empty.pbm')]);
+ await page.getByLabel('Confirm batch model and modality').selectOption('sss-pipeline-v3|SSS_LF');
+ await page.getByRole('button',{name:'Start batch (2)',exact:true}).click();
+ await page.locator('.batch-row').filter({hasText:'pipeline_empty.pbm'}).getByText('Ready for review',{exact:true}).waitFor({timeout:240000});
+ await page.screenshot({path:path.join(out,'batch.png'),fullPage:true});
+ await page.locator('.batch-row').filter({hasText:'pipeline_positive.pbm'}).getByRole('button').click();
+ await page.getByRole('heading',{name:'1 contact needs a decision',exact:true}).waitFor();
+ pass('Two real images complete sequentially through batch submission and remain individually reviewable');
+ const box=page.locator('[data-candidate]').first(),before=await box.getAttribute('x');
+ await page.getByLabel('Display contrast',{exact:true}).fill('160');
+ assert.equal(await box.getAttribute('x'),before);assert.match(await page.locator('svg.sonar image').getAttribute('style'),/contrast\(160%\)/);
+ await page.getByRole('button',{name:'Reset display',exact:true}).click();assert.equal(await page.getByLabel('Display contrast').inputValue(),'100');pass('Display contrast preserves box geometry and resets');
+ await page.getByRole('button',{name:'Focus view',exact:true}).click();assert.equal(await page.locator('.nav').isVisible(),false);await page.screenshot({path:path.join(out,'focus.png'),fullPage:true});
+ await page.locator('h2').first().click();await page.keyboard.press('Escape');assert.equal(await page.locator('.nav').isVisible(),true);pass('Focus workspace expands and Escape restores navigation');
+ await page.getByLabel('Reviewer (optional)',{exact:true}).fill('Review regression operator');
+ await page.getByLabel('Review note',{exact:true}).fill('Candidate retained for further inspection, not field verified.');
+ await page.getByRole('button',{name:'Retain candidate',exact:true}).click();await page.getByRole('heading',{name:'Every contact has a review decision'}).waitFor();
+ assert.equal(await page.getByRole('progressbar',{name:'Review completion'}).getAttribute('value'),'1');
+ await download('Review candidates JSON','review-candidates.json');const reviewed=JSON.parse(await fs.readFile(path.join(out,'review-candidates.json'),'utf8'));assert.equal(reviewed.candidates.length,1);assert.equal(reviewed.candidates[0].review_state,'retained');assert.ok(reviewed.candidates[0].review_history.length);assert.ok(reviewed.candidates[0].original_prediction);pass('Human decision updates progress and exports provenance-preserving curation candidates');
+ await download('PDF brief','inspection.pdf');const pdf=await fs.readFile(path.join(out,'inspection.pdf'));assert.equal(pdf.subarray(0,5).toString(),'%PDF-');assert.ok(pdf.length>10000);pass('PDF brief downloads with real sonar image');
+ await page.getByLabel('Find a class').fill('absent-class');await page.getByLabel('Export scope').selectOption('displayed');await download('Review candidates JSON','empty-scope.json');assert.equal(JSON.parse(await fs.readFile(path.join(out,'empty-scope.json'),'utf8')).candidates.length,0);await page.getByLabel('Find a class').fill('');await page.getByLabel('Export scope').selectOption('all');pass('Curation export respects displayed scope');
+ await page.reload();await page.getByRole('heading',{name:'Every contact has a review decision'}).waitFor();pass('Review decision and completion survive reload');
+ await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(out,'workspace.png'),fullPage:true});await page.setViewportSize({width:390,height:844});await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));pass('Review desk remains within mobile viewport');
+ assert.deepEqual(errors,[]);receipt.status='PASS';
+}catch(e){receipt.status='FAIL';receipt.failure=e.stack;await page.screenshot({path:path.join(out,'failure.png'),fullPage:true});throw e}finally{receipt.errors=errors;await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify(receipt,null,2));await browser.close()}

@@ -19,11 +19,21 @@ The project is a research prototype. Its side-scan sonar (SSS) and forward-looki
 - **Source-bound geolocation:** coordinate enrichment when verified raster metadata or a matching sidecar supports it. Results without defensible locations retain null geometry.
 - **Controlled model setup:** explicit acquisition or local import, pinned model hashes, and separate model/data licence information.
 
+### Inspection desk, version 0.3
+
+- **Guided human review:** contact queue, completion progress, retain/false-alert/uncertain decisions, optional advance to the next unreviewed contact, and J/K navigation. Notes, reviewers, revisions and original predictions stay attached to each contact.
+- **Batch image inspections:** submit up to four images from a confirmed sensor/model combination. Inference runs sequentially; each source has separate results and failures.
+- **Focused visual inspection:** an expanded workspace, display-only brightness and contrast, original-pixel bounding boxes, and an aspect-preserving local geographic view.
+- **PDF inspection briefs:** download annotated sonar, included contacts, score interpretation, supported coordinates, source/model hashes and operator audit trails. JSON retains full Unicode text where the PDF's standard font cannot represent it.
+- **Review-candidate export:** export reviewed annotations for further curation. This is not an exhaustive labelled dataset, field verification, or an automatic retraining loop. False alerts do not turn whole images into verified negatives.
+
+These workflows operate in both the browser edition and the local dashboard. PDF and review exports respect the selected window, review revision and export scope. [Design comparison and implementation notes](docs/inspection-desk-0.3.md) explain the externally reviewed ideas and their limits.
+
 ## Website and on-device inference
 
 The redesigned [BluEcho website](https://bluecho-sih-2026.vercel.app) runs the pipeline ONNX model **inside your browser**. Sonar images and review records stay in browser storage; no Python API or paid cloud inference server is required. First use downloads the hash-verified 10.6 MB model from Hugging Face and the WebAssembly runtime from the site.
 
-The web edition supports PNG, JPEG, BMP and PBM/portable images (32 MiB, up to 8 million pixels), tiled pipeline detection, image/map review, source-bound affine JSON metadata in EPSG:4326 or EPSG:3857, and JSON/CSV/GeoJSON/HTML/ZIP downloads. Keep the tab open during inference and export reports before clearing site data. Browser reports use the explicit `bluecho-browser/1.0` schema; the Python API retains its existing schema.
+The web edition supports PNG, JPEG, BMP and PBM/portable images (32 MiB, up to 8 million pixels), tiled pipeline detection, image/map review, source-bound affine JSON metadata in EPSG:4326 or EPSG:3857, and PDF/JSON/CSV/GeoJSON/HTML/ZIP downloads. Keep the tab open during inference and export reports before clearing site data. Browser reports use the explicit `bluecho-browser/1.0` schema; the Python API retains its existing schema.
 
 The **local application** provides raw XTF, TIFF/GeoTIFF, additional model routes and broader metadata support. Browser execution is a separate runtime check, not a new accuracy benchmark. The public web detector labels pipelines only.
 
