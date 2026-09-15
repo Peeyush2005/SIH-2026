@@ -14,17 +14,17 @@
 set -euo pipefail
 
 # Configuration defaults (override by setting environment variables)
-RESOURCE_GROUP="${RESOURCE_GROUP:-bluecho-rg}"
+RESOURCE_GROUP="${RESOURCE_GROUP:-blueco-sih26-rg}"
 LOCATION="${LOCATION:-eastus}"
-PLAN_NAME="${PLAN_NAME:-bluecho-plan}"
+PLAN_NAME="${PLAN_NAME:-blueco-sih26-plan}"
 PLAN_SKU="${PLAN_SKU:-B2}" # B1 or B2 recommended for containerized workload
 GITHUB_REPO="${GITHUB_REPO:-Peeyush2005/SIH-2026}" # format: owner/repo
 
 # Unique suffix for ACR and Web App naming
 RANDOM_SUFFIX="${RANDOM_SUFFIX:-$(LC_ALL=C tr -dc 'a-z0-9' </dev/urandom | head -c 4 || echo "1024")}"
-ACR_NAME="${ACR_NAME:-bluechoacr${RANDOM_SUFFIX}}"
-WEBAPP_NAME="${WEBAPP_NAME:-bluecho-sonar-${RANDOM_SUFFIX}}"
-ENTRA_APP_NAME="${ENTRA_APP_NAME:-bluecho-github-actions-${RANDOM_SUFFIX}}"
+ACR_NAME="${ACR_NAME:-bluecosih26acr}"
+WEBAPP_NAME="${WEBAPP_NAME:-bluecho-sonar}"
+ENTRA_APP_NAME="${ENTRA_APP_NAME:-bluecho-github-actions}"
 
 echo "======================================================================"
 echo "BluEcho Sonar - Azure Infrastructure & GitHub Actions Setup"
