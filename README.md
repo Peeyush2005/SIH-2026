@@ -1,85 +1,150 @@
-# BluEcho local inspection dashboard
+# BluEcho
 
-Phase 3 adds a same-origin React interface, CPU job queue and persistent review to the existing engine. See [Dashboard quick start and five-minute demo](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/DASHBOARD.md). This is release 0.1.4 of `bluecho-sonar`.
+**Local sonar inspection, detection, and evidence review.**
 
-# BluEcho sonar inspection
+[PyPI package](https://pypi.org/project/bluecho-sonar/) · [Source code](https://github.com/Sharon-codes/SIH-2026) · [Documentation](https://github.com/Sharon-codes/SIH-2026/tree/main/docs) · [Report an issue](https://github.com/Sharon-codes/SIH-2026/issues)
 
-BluEcho wraps the existing RecordingEngine with a deterministic, CPU physics-aware inspection supervisor and a persistent review queue. The package includes a local inspection dashboard. It does not include a new foundation model or trigger training.
+BluEcho is a Python toolkit and local dashboard for turning sonar imagery into reviewable detection results. It brings together model inference, annotated images, human review, and structured exports in a workflow that can run offline after dependencies and model files have been prepared.
 
-Python 3.12 on Linux x86-64 is the tested platform. Other Python versions are currently excluded. No large detector checkpoints, datasets, private recordings or credentials are included in the wheel. Small fitted verifier parameters and model metadata are included. Core import/help require only NumPy and Pillow; inference and geospatial libraries are optional.
+**Created for the Smart India Hackathon (SIH) 2026 by Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, and Aditya Banerjee.**
 
-## Install and run
+The project is a research prototype. Its side-scan sonar (SSS) and forward-looking sonar (FLS) routes use separate models with different evidence and limitations; the capability table below explains what each route supports.
 
-Use a fresh environment. Install CPU Torch explicitly **before** the inference extra: the upstream Ultralytics dependency otherwise allows a platform-default Torch distribution, which can include CUDA libraries.
+## What BluEcho provides
+
+- **Sonar detection:** explicit model and sensor selection, with predictions expressed in original image coordinates.
+- **Local inspection dashboard:** a bundled React interface and Python API for running inspections, examining candidates, and reviewing results.
+- **Traceable human review:** persistent review history, corrected boxes, labels, and false-alert decisions while preserving original predictions.
+- **Portable evidence:** annotated images, object crops, JSON/CSV, GeoJSON, and local HTML review bundles through the relevant inspection and export commands.
+- **Source-bound geolocation:** coordinate enrichment when verified raster metadata or a matching sidecar supports it. Results without defensible locations retain null geometry.
+- **Controlled model setup:** explicit acquisition or local import, pinned model hashes, and separate model/data licence information.
+
+## Installation
+
+The full application is tested on **Linux x86-64 with Python 3.12**. A GPU is not required for the CPU setup below. Other platforms are not verified for the complete workflow.
+
+Create a virtual environment and install the CPU PyTorch build before the inference dependencies:
 
 ```bash
-python3.12 -m venv sonar-env
-. sonar-env/bin/activate
-python -m pip install torch==2.4.1+cpu torchvision==0.19.1+cpu --index-url https://download.pytorch.org/whl/cpu
-python -m pip install 'bluecho-sonar[inspection,inference,onnx]==0.1.4'
+python3.12 -m venv .venv
+source .venv/bin/activate
+
+python -m pip install torch==2.4.1+cpu torchvision==0.19.1+cpu \
+  --index-url https://download.pytorch.org/whl/cpu
+python -m pip install 'bluecho-sonar[inspection,inference,onnx,api]==0.1.5'
+
 bluecho --version
 bluecho doctor
 bluecho capabilities
 ```
 
-For an offline installation, use the exact release wheel: `python -m pip install '/absolute/path/bluecho_sonar-0.1.4-py3-none-any.whl[inspection,inference,onnx]'`. To run the dashboard, also install the `api` extra: `python -m pip install 'bluecho-sonar[api]==0.1.4'`.
+The package name is `bluecho-sonar`; the Python import and command are both `bluecho`. The base package requires only NumPy and Pillow. Optional extras provide inspection, inference, ONNX, geospatial, API, and training dependencies. Add the `geospatial` extra when working with raster georeferencing.
 
-A cold installation has a pinned direct-source experimental SSS inference route:
+Large detector weights and datasets are acquired separately. The distribution includes model metadata and small fitted verifier parameters. See the [model setup guide](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/MODELS.md) for acquisition, verification, licensing, and offline installation.
 
-```bash
-bluecho models fetch --model sss-wreck-experimental --registry "$HOME/.cache/bluecho/models"
-bluecho models verify --model sss-wreck-experimental --registry "$HOME/.cache/bluecho/models"
-bluecho inspect '/absolute/path/sonar.jpg' --modality SSS --model sss-wreck-experimental --registry "$HOME/.cache/bluecho/models" --output '/absolute/fresh/inspection'
-```
+## Quick start
 
-The download is about 43 MiB. It verifies the pinned SHA256 before loading. Review the inherited model/data terms in `bluecho capabilities`. Native labels `ghost_net`, `mine_cylinder` and `crab_pot` remain **unvalidated proposals**, never validated real nets/cylinders. The frozen threshold and preprocessing are unchanged.
+### 1. Prepare a model
 
-For the existing pipeline, import your authorized Phase 1 native weight with its original `manifest.json` alongside it:
+The experimental SSS route has a pinned ONNX download of approximately 43 MiB. Review its model/data terms using `bluecho capabilities` before use:
 
 ```bash
-bluecho models import --model sss-pipeline-v3 --registry "$HOME/.cache/bluecho/models" --local '/absolute/phase1/registry/sss-v3/native.pt'
-bluecho inspect '/absolute/path/pipeline.pbm' --modality SSS_LF --model sss-pipeline-v3 --registry "$HOME/.cache/bluecho/models" --output '/absolute/fresh/pipeline'
+bluecho models fetch --model sss-wreck-experimental \
+  --registry "$HOME/.cache/bluecho/models"
+bluecho models verify --model sss-wreck-experimental \
+  --registry "$HOME/.cache/bluecho/models"
 ```
 
-The four existing routes remain available via `bluecho.phase1.engine.RecordingEngine`. Existing `bluecho predict`, `batch`, `model-info` and `api` arguments are compatibility wrappers. The original `python -m bluecho.phase1.cli --help` commands remain supported. New `bluecho inspect` runs on CPU and writes both unchanged `results.json` and a separate `inspection.json` per window.
+This route produces experimental candidates; an independent wreck benchmark is unavailable.
 
-## Capabilities
+### 2. Inspect a local image
 
-| Model ID | Modality | Capability and evidence | Acquisition |
-|---|---|---|---|
-| sss-pipeline-v3 | SSS_LF | Pipeline; frozen correlated validation, default preserved | Verified local native import + original manifest |
-| uatd-fls | FLS_UATD | Ten native classes including cylinder; selected compatibility sample, overlap unknown | Pinned download + Linux bubblewrap restricted conversion |
-| sss-wreck-experimental | SSS | Experimental pipeline/wreck; no independent wreck benchmark | Pinned ONNX download |
-| fls-debris-development | FLS_ARIS | Trained detector: can, bottle, drink-carton, chain, propeller, tire, hook, valve, shampoo-bottle, standing-bottle; no independent benchmark | Verified local import; inherited CC BY-NC-SA terms |
-| ghost-net-real | â€” | Unavailable | No verified real-net model |
-
-Bottle appearance does not establish plastic material. FLS fan geometry and SSS slant geometry are distinct. No weights changed and no accuracy improvement is claimed.
-
-## Inspection and review
+Replace the example paths with your own input and a new output directory:
 
 ```bash
-bluecho inspect '/absolute/path/recording.xtf' --channel 0 --max-pings 32 --nav-crs EPSG:4326 --model sss-wreck-experimental --registry '/absolute/models' --output '/absolute/fresh/xtf'
-bluecho review seed --database '/absolute/review.sqlite' --input '/absolute/fresh/pipeline/inspection.json' --source-group 'survey-recording-family' --output '/absolute/review.json'
-bluecho review export --database '/absolute/review.sqlite' --output '/absolute/review.json'
-bluecho review import --database '/absolute/second.sqlite' --input '/absolute/review.json' --output '/absolute/roundtrip.json'
+bluecho inspect '/absolute/path/sonar.jpg' \
+  --modality SSS \
+  --model sss-wreck-experimental \
+  --registry "$HOME/.cache/bluecho/models" \
+  --output '/absolute/path/new-inspection'
 ```
 
-The XTF CRS above is a user-supplied interpretation, not a datum discovered from NavUnits. Default bottom tracking cannot promote first returns to altitude without verified calibration, flat seabed, level sensor and a physical motion bound. In the available real recording all altitude estimates remain unreliable and all target locations unavailable. Navigation is preserved separately.
+`inspect` runs on CPU and writes model results and a separate inspection record per window. Select the route that matches the source sensor; SSS and FLS inputs are not interchangeable.
 
-Review bundles contain unreviewed detections and some apparently clear regions. They do not invent human reviews. Use the Python ReviewQueue API to append confirmed/corrected/false-alert/missed-object/clear-region events, then export/import. A frozen source/group exclusion manifest is mandatory for development export; no training is triggered.
+### 3. Open the dashboard
 
-See [physics assumptions](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/PHYSICS.md), [review workflow](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/REVIEW.md), [package interfaces](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/INTERFACES.md), [offline/model terms](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/MODELS.md), [validation](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/VALIDATION.md), and [Phase 3 integration contract](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/PHASE3.md). Source is AGPL-3.0-or-later; model/data licenses are separate.
+```bash
+bluecho serve \
+  --registry "$HOME/.cache/bluecho/models" \
+  --storage "$HOME/bluecho-inspections" \
+  --port 8010
+```
 
-## Final bounded improvement cycle
+Open **http://127.0.0.1:8010** in your browser. The frontend is included in the package, so running it does not require Node.js. The local server provides interactive API documentation at `/docs`.
 
-The original v3 default remains unchanged. Small supervised logistic verifiers were actually fitted on existing training-source candidates. Generic and additional acoustic-feature comparisons use the same single-survey development-validation observations; no independent generalization confirmation exists. These are acoustic image proxies, not a PINN or a trained foundation model. See docs/FINAL_IMPROVEMENT.md.
+See the [dashboard guide](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/DASHBOARD.md) for the inspection workflow, review controls, exports, and troubleshooting.
 
-`bluecho pipeline-review image.pbm --manifest /absolute/registry/sss-v3/manifest.json --mode baseline --output /absolute/baseline.json` uses the original operating point. Explicit `--mode generic` or `--mode acoustic --range-axis x` requires `--threshold` and exposes exploratory learned scores alongside unchanged boxes/raw scores. Missing range orientation or truncated lateral context falls back to the generic verifier. It is never applied to FLS.
+## Models and evidence
 
-## SSS detection handoff â€” Team BluMatrix / SIH26-26057
+| Model | Sensor route | Intended labels | Current evidence and setup |
+| --- | --- | --- | --- |
+| `sss-pipeline-v3` | `SSS_LF` | Pipeline | Evaluated on correlated development observations from one survey. Requires verified local weights and their original manifest. |
+| `sss-wreck-experimental` | `SSS` | Experimental pipeline and wreck candidates | Pinned ONNX download. Independent wreck performance is unavailable; additional native labels remain unvalidated proposals. |
+| `uatd-fls` | `FLS_UATD` | Ten native classes, including cylinder | Selected compatibility sample; source overlap is unknown. Pinned acquisition with restricted conversion on Linux. |
+| `fls-debris-development` | `FLS_ARIS` | Ten debris classes | Trained development detector without an independent benchmark. Requires verified local import; inherited CC BY-NC-SA terms apply. |
 
-`bluecho boxes` generates automatic boxes, crops, JSON/CSV and a local HTML inspection report. See docs/SSS_DETECTION_PHASE1.md. ENGINE_DELIVERY is complete after release checks; REQUIRED_SSS_CLASS_COVERAGE is incomplete: pipe evaluated on correlated development data, wreck experimental, SSS cylinder and real nets unavailable. FLS routes remain supplemental.
+The FLS debris labels are `can`, `bottle`, `drink-carton`, `chain`, `propeller`, `tire`, `hook`, `valve`, `shampoo-bottle`, and `standing-bottle`. A bottle label alone does not establish plastic composition. FLS cylinder support does not establish SSS cylinder detection. Verified real ghost-net detection is unavailable.
 
-## Source-bound geolocation
+For the pipeline route, keep the original `manifest.json` beside your authorized native checkpoint, then import it:
 
-`bluecho geotag results.json --source original.tif --sidecar metadata.json --output fresh-report` repositions saved predictions without inference. `bluecho validate-sidecar metadata.json --source original.tif --width 1024 --height 1024` validates binding. See docs/GEOLOCATION.md. Unlocated candidates remain in GeoJSON with null geometry. Actual NOAA candidate-to-coordinate demonstration is not confirmed wreck detection or validated field accuracy.
+```bash
+bluecho models import --model sss-pipeline-v3 \
+  --registry "$HOME/.cache/bluecho/models" \
+  --local '/absolute/path/sss-v3/native.pt'
+
+bluecho inspect '/absolute/path/pipeline.pbm' \
+  --modality SSS_LF \
+  --model sss-pipeline-v3 \
+  --registry "$HOME/.cache/bluecho/models" \
+  --output '/absolute/path/new-pipeline-inspection'
+```
+
+## Interpreting results
+
+Detection scores are **uncalibrated model scores**, not probabilities of correct identification. Repeated views within a survey are correlated, and development results do not establish performance at new sites or across the ocean. An empty result is not proof that an area is clear.
+
+Geolocation depends on verified source metadata and sensor assumptions. BluEcho does not invent latitude, longitude, altitude, surveyed area, or physical object identity when those inputs are absent. Image-based acoustic verifiers remain exploratory and do not establish a physics-informed neural network or foundation model.
+
+Human review records are retained separately from automatic predictions. Reviewing an image does not trigger training or silently change the detector.
+
+## Documentation
+
+| Guide | Contents |
+| --- | --- |
+| [Dashboard](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/DASHBOARD.md) | Local setup, demonstration, review, exports, and troubleshooting |
+| [Models and licences](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/MODELS.md) | Model acquisition, hashes, offline use, and inherited terms |
+| [CLI and Python interfaces](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/INTERFACES.md) | Programmatic integration and command reference |
+| [Validation](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/VALIDATION.md) | Evaluation evidence and limitations |
+| [Review workflow](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/REVIEW.md) | Persistent review records and controlled export |
+| [Geolocation](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/GEOLOCATION.md) | Source binding, coordinate enrichment, and missing metadata |
+| [Physics assumptions](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/PHYSICS.md) | Sonar geometry, altitude prerequisites, and uncertainty |
+| [SSS detection workflow](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/SSS_DETECTION_PHASE1.md) | Boxes, crops, structured outputs, and local HTML reports |
+| [Experimental verifiers](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/FINAL_IMPROVEMENT.md) | Optional learned review scores and development comparisons |
+
+## Team · SIH 2026
+
+BluEcho was made for the **Smart India Hackathon 2026** by:
+
+- **Khushi Mhamane**
+- **Sharon Melhi**
+- **Kirti Rajput**
+- **Peeyush Rampal**
+- **Aditya Banerjee**
+
+## Licence and acknowledgements
+
+The BluEcho source code is licensed under **AGPL-3.0-or-later**. See [LICENSE](https://github.com/Sharon-codes/SIH-2026/blob/main/LICENSE).
+
+Third-party models, datasets, and examples retain their own licences and attribution requirements. The software licence does not replace those terms. BluEcho acknowledges the researchers and maintainers whose sonar datasets, model releases, and open-source tools support this work; consult the [model documentation](https://github.com/Sharon-codes/SIH-2026/blob/main/docs/MODELS.md) and packaged manifests for source-specific details.
+
+For reproducible bug reports, include the package version, platform, selected model and modality, the command used, and a non-sensitive description of the input. Submit reports through [GitHub Issues](https://github.com/Sharon-codes/SIH-2026/issues).

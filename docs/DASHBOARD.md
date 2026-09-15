@@ -4,12 +4,12 @@ Team BluMatrix · SIH26-26057. The dashboard is a local review application over 
 
 ## Install and start
 
-Tested on Linux x86-64, Python 3.12.14, Node 20.11.1 (build only), Chrome 153, CPU. Other operating systems and Python versions are not verified. Install the supplied wheel; production PyPI publication is blocked pending publisher access. Do not assume this version can be installed from PyPI yet.
+Tested on Linux x86-64, Python 3.12.14, Node 20.11.1 (build only), Chrome 153, CPU. Other operating systems and Python versions are not verified. Install the published package from PyPI using the command below.
 
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install torch==2.4.1+cpu torchvision==0.19.1+cpu --index-url https://download.pytorch.org/whl/cpu
-.venv/bin/python -m pip install './dist/bluecho_sonar-0.1.4-py3-none-any.whl[inspection,inference,onnx,geospatial,api]'
+.venv/bin/python -m pip install 'bluecho-sonar[inspection,inference,onnx,geospatial,api]==0.1.5'
 .venv/bin/python -m pip check
 .venv/bin/bluecho doctor
 .venv/bin/bluecho serve --registry '/path/to/verified registry' --storage '/path/to/inspection data' --port 8011
@@ -23,7 +23,7 @@ Use Ctrl-C to stop a foreground server. Jobs continue when a browser closes but 
 
 ## Prepare cached weights and offline dependencies
 
-Follow [MODELS.md](MODELS.md) and the packaged model manifests. There are no model weights in the wheel or source archive. Administrative acquisition commands verify pinned hashes and preserve specialist conversion restrictions:
+Follow [MODELS.md](MODELS.md) and the packaged model manifests. Large detector checkpoints are not included in the wheel or source archive; small fitted verifier parameters are included. Administrative acquisition commands verify pinned hashes and preserve specialist conversion restrictions:
 
 ```bash
 .venv/bin/bluecho models fetch --model sss-wreck-experimental --registry '/path/to/verified registry'
@@ -86,4 +86,4 @@ This prototype binds127.0.0.1 only. Local-host validation and same-origin write 
 
 Preserve the project AGPL-3.0-or-later license. See [MODELS.md](MODELS.md), catalog manifests and acquisition evidence for independent model/data terms. The portable NOAA window derives from NOAA survey H12907 (CC0/public US-government survey data); it is a georeferencing example, not object ground truth. Other author/UATD/SubPipe samples remain in the user's original workspace; the public source release does not redistribute them or restricted weights.
 
-Local builds and tests are reported separately from remote CI. GitHub write attempt:403 Resource not accessible by integration. Authorize repository Contents write for the integration or configure local authenticated Git access for Sharon-codes/SIH-2026, then push the prepared branch without overwriting history. PyPI:PUBLISH_BLOCKED; configure a securely stored replacement credential for the owned project or a pending Trusted Publisher for owner Sharon-codes, repository SIH-2026, workflow release.yml, environment pypi. Never paste tokens into chat. A404 name lookup is not proof of registrability. No remote release/publication is claimed.
+Source is published at [Sharon-codes/SIH-2026](https://github.com/Sharon-codes/SIH-2026), and the package is available as [bluecho-sonar on PyPI](https://pypi.org/project/bluecho-sonar/). Release 0.1.4 passed Linux CI before publication; documentation release 0.1.5 updates the README and SIH 2026 creator credits without changing detector behavior. See [GitHub Actions](https://github.com/Sharon-codes/SIH-2026/actions) for release-specific checks.
