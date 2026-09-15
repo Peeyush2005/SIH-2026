@@ -65,6 +65,7 @@ resource webApp 'Microsoft.Web/sites@2023-01-01' = {
     httpsOnly: true
     siteConfig: {
       linuxFxVersion: 'DOCKER|${acr.properties.loginServer}/bluecho-sonar:${initialImageTag}'
+      acrUseManagedIdentityCreds: true
       alwaysOn: true
       ftpsState: 'Disabled'
       minTlsVersion: '1.2'

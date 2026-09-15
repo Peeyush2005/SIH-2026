@@ -25,14 +25,20 @@ az role assignment create \
   --role AcrPull \
   -o none || true
 
-echo "--> 2. Granting Contributor role to GitHub Actions Entra App on Resource Group..."
+echo "--> 2. Configuring Web App to authenticate against ACR with Managed Identity..."
+az resource update \
+  --ids "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Web/sites/${WEBAPP_NAME}/config/web" \
+  --set properties.acrUseManagedIdentityCreds=true \
+  -o none
+
+echo "--> 3. Granting Contributor role to GitHub Actions Entra App on Resource Group..."
 az role assignment create \
   --assignee "${CLIENT_ID}" \
   --scope "${RG_ID}" \
   --role Contributor \
   -o none || true
 
-echo "--> 3. Configuring Federated Identity Credentials for GitHub Actions..."
+echo "--> 4. Configuring Federated Identity Credentials for GitHub Actions..."
 az ad app federated-credential create \
   --id "${CLIENT_ID}" \
   --parameters "{
@@ -53,7 +59,7 @@ az ad app federated-credential create \
     \"audiences\": [\"api://AzureADTokenExchange\"]
   }" -o none || true
 
-echo "--> 4. Setting GitHub Secrets for ${GITHUB_REPO}..."
+echo "--> 5. Setting GitHub Secrets for ${GITHUB_REPO}..."
 gh secret set AZURE_CLIENT_ID --repo "${GITHUB_REPO}" --body "${CLIENT_ID}"
 gh secret set AZURE_TENANT_ID --repo "${GITHUB_REPO}" --body "${TENANT_ID}"
 gh secret set AZURE_SUBSCRIPTION_ID --repo "${GITHUB_REPO}" --body "${SUBSCRIPTION_ID}"

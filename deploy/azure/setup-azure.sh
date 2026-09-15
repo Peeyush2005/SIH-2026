@@ -100,6 +100,12 @@ az role assignment create \
   --role AcrPull \
   -o none || true
 
+echo "    Configuring Web App to authenticate against ACR with Managed Identity..."
+az resource update \
+  --ids "/subscriptions/${SUBSCRIPTION_ID}/resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Web/sites/${WEBAPP_NAME}/config/web" \
+  --set properties.acrUseManagedIdentityCreds=true \
+  -o none
+
 echo "    Configuring Web App application settings..."
 az webapp config appsettings set \
   --name "${WEBAPP_NAME}" \
