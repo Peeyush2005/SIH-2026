@@ -1,0 +1,25 @@
+{
+  "source": "https://zenodo.org/records/15101686",
+  "title": "Marine Debris FLS Datasets",
+  "license": {
+    "id": "cc-by-nc-sa-4.0"
+  },
+  "creators": [
+    {
+      "name": "Valdenegro, Matias",
+      "affiliation": "University of Groningen",
+      "orcid": "0000-0001-5793-9498"
+    },
+    {
+      "name": "Wehbe, Bilal",
+      "affiliation": "German Research Centre for Artificial Intelligence",
+      "orcid": "0000-0003-2132-631X"
+    },
+    {
+      "name": "Petillot, Yvan",
+      "affiliation": "Heriot-Watt University",
+      "orcid": "0000-0002-1596-289X"
+    }
+  ],
+  "source_snapshot_sha256": "ee1357e222479959ea3f275a8566efafc893d0fa74bb955d7ff23b902d68ae6b"
+}

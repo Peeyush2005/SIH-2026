@@ -1,0 +1,133 @@
+[
+  {
+    "id": "pipeline",
+    "name": "Pipeline survey",
+    "terrain": "SubPipe \u00b7 low frequency",
+    "description": "Correlated development example; not an independent pipeline test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "preview": "/real-demo/pipeline/preview.jpg",
+    "source": "https://zenodo.org/records/12666132",
+    "credit": "OceanScan-MST / REMARO; \u00c1lvarez-Tu\u00f1\u00f3n, Ribeiro Marnet, Antal, Aubard, Costa, Brodskiy",
+    "license": "CC-BY-4.0",
+    "files": {
+      "original.png": "74a9b11a3ece69d3e8c1f3ae96b4996aae94d1a72c6d7cb7b79d986a87217a88",
+      "preview.jpg": "7978e1436f3bab7d898ed8c3441857bf4014d221ba1ffa68790656012ba68b86",
+      "quality.png": "74a9b11a3ece69d3e8c1f3ae96b4996aae94d1a72c6d7cb7b79d986a87217a88",
+      "results.json": "575f63fc0582cfe538472691bc0605323201eaa82d9d5fffa9c77437c78b0a53",
+      "contexts/f6220393c915e3310fe53204.png": "a99bc2dec0359fd6e77c435f3a9aad3618df5c22587f990b7f62380a69281113"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "seabed",
+    "name": "Seabed survey",
+    "terrain": "SubPipe \u00b7 low frequency",
+    "description": "Correlated development example; not an independent pipeline test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "preview": "/real-demo/seabed/preview.jpg",
+    "source": "https://zenodo.org/records/12666132",
+    "credit": "OceanScan-MST / REMARO; \u00c1lvarez-Tu\u00f1\u00f3n, Ribeiro Marnet, Antal, Aubard, Costa, Brodskiy",
+    "license": "CC-BY-4.0",
+    "files": {
+      "original.png": "935e6083c42626425c3b915951e64358c3044f475035659a8e57019152643925",
+      "preview.jpg": "0ca57f04b028c70bb98a0e9d95885be091a6dcae510215ff25fe3e4c854fe996",
+      "quality.png": "935e6083c42626425c3b915951e64358c3044f475035659a8e57019152643925",
+      "results.json": "c043282f3f6af5a365146e078c33751f08ac1c53860a8ad705832e227e353cce"
+    },
+    "detections": 0,
+    "proposals": 0
+  },
+  {
+    "id": "propeller",
+    "name": "Propeller sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/propeller/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "2f864dba32959e19701decc0980daca8a85de41a64a7a20d5abec4ccb11ea01d",
+      "preview.jpg": "af0cef154332727ce208ed8ba7b08cff387369f2cdae2746ade24ccc55cd3da6",
+      "quality.png": "92be1098b43ca690fe485dec34db126a26f2139441b0829cc6a754bb4bdbe2c3",
+      "results.json": "7943a2672f524b882f9c4a400fa1dc40a43f67574a6b16fbbdc39092840107c1",
+      "contexts/12d3deef70d0578cb08d8f1c.png": "e0edcd324a0d5d2c72846945a9136b6e0df6c11d2a720b9150b55c37dc9805f1",
+      "contexts/570ce8424141b8fe217fb948.png": "ea46bcdafffd728e4b71737a1b339f7ca625494c4ca76c5d6aa4dc307c530b7a"
+    },
+    "detections": 2,
+    "proposals": 0
+  },
+  {
+    "id": "bottle",
+    "name": "Shampoo-bottle sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/bottle/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "3ee0585bbbbf6ea04da570f476800bfe008310833853b16b38ac464cec0f7679",
+      "preview.jpg": "505e47183e6501e8cb780fcd8eb179e5296d4bd66e22ce09e1ec5a0d3354451d",
+      "quality.png": "fcf719e65d6c3f3e2061e1de8a8c30e49a9b98ce63408b75a5722241676e0e7a",
+      "results.json": "92b275ab0a2debda270c1766c64dec43b99dc378aaef8738201dece3834b3724",
+      "contexts/dc374aa3ede9c583aee67fa5.png": "9aca5ec4e623b89e7b096da33ccb0e02d444c4ce272cb0656a6ef0f9bdf6e7ae"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "noaa0",
+    "name": "Gulf survey \u00b7 west",
+    "terrain": "NOAA \u00b7 georeferenced",
+    "description": "Real NOAA survey mosaic. Object labels are unconfirmed; model alerts may be false positives. Not for navigation.",
+    "hint": "Select Map for genuine metadata-based locations.",
+    "model": "sonarvision-sss",
+    "modality": "SSS",
+    "preview": "/real-demo/noaa0/preview.jpg",
+    "source": "https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html",
+    "credit": "NOAA/NOS, survey H12907, R/V Ocean Explorer, EdgeTech 4125",
+    "license": "CC0-1.0",
+    "files": {
+      "original.png": "b124668621eb61653ad07c5899bd1891512a954482baa117d0dd7df12e2a3018",
+      "preview.jpg": "53b23b0c54968d04ca255d668423b40bc8ed03f36b5887ce19a92cd85c160afa",
+      "quality.png": "44c21b17eef198af035479b5dfa3d62df909383bea55fcaa7e182b78767c5070",
+      "results.json": "7846d1b95d3b442534bd9cd94d2706edf2cb76fe1324b0d25b49be071ab8f438"
+    },
+    "detections": 0,
+    "proposals": 0
+  },
+  {
+    "id": "noaa1",
+    "name": "Gulf survey \u00b7 east",
+    "terrain": "NOAA \u00b7 georeferenced",
+    "description": "Real NOAA survey mosaic. Object labels are unconfirmed; model alerts may be false positives. Not for navigation.",
+    "hint": "Select Map for genuine metadata-based locations.",
+    "model": "sonarvision-sss",
+    "modality": "SSS",
+    "preview": "/real-demo/noaa1/preview.jpg",
+    "source": "https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html",
+    "credit": "NOAA/NOS, survey H12907, R/V Ocean Explorer, EdgeTech 4125",
+    "license": "CC0-1.0",
+    "files": {
+      "original.png": "91bdf6aff5e01aa7441fdf010566f911d0de5a65255422537cec0828f6b42a16",
+      "preview.jpg": "ef00543f6660827c5c4c30c66224602fbfe82147bebbb77ab1166ae6e64b5a68",
+      "quality.png": "aa8372bcef802d8a31d4d5e294c379e7ab91f624d4510a036cd7c2d83a538b71",
+      "results.json": "729f12df1cbb20f46357b084a6849de760018bc645a4b826921e8ecf4219b710",
+      "contexts/d4b8d0edbad5a90e5d1ea4f7.png": "10c682316dd2483b89c1e4bb45edf5fac9bc0f527aadfa851e3eae903c935be0"
+    },
+    "detections": 1,
+    "proposals": 0
+  }
+]

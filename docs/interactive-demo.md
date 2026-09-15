@@ -1,41 +1,36 @@
-# Interactive demo and workspace refresh
+# Real sonar demo
 
-Version 0.5.1 adds **Try demo** to the ocean homepage and empty inspection workspace. Reports also offers **Explore a demo**.
+Version 0.6.0 replaces all procedural scenes with six genuine sonar inputs: SubPipe pipeline and seabed samples, Marine Debris FLS propeller/shampoo-bottle source examples, and two NOAA H12907 side-scan mosaic windows.
 
-## Explore without setup
+The dataset builder runs the installed CPU detectors and freezes their actual outputs. Images, results, model hashes, source hashes and timestamps are published together. The UI fetches and verifies those files, then lets operators review, correct and export them. The banner explicitly says saved detector results: opening a demo does not run a model again. Uploads continue to execute the normal inference workflow. Predicted labels may be false alerts; the NOAA examples are not confirmed wreck discoveries. The propeller source also produces a hook prediction, which is retained rather than hidden.
 
-A click generates a sonar-like canvas and opens the normal inspection controls. Choose Pipeline corridor, Wreck silhouette, Harbour debris, Rocky seabed, Interrupted coverage or Forward-looking fan from visual scene cards. Surprise me always selects a different environment; New variation regenerates the current environment with a new cryptographic random seed; the deterministic scene renderer preserves that seed in provenance. Select contacts, pan and zoom, adjust display contrast, review or correct boxes, view the fictional map, record scan requests and export reports. Reviews survive reload through browser IndexedDB. No model or dataset download is needed for the demo.
+There is no procedural image generation, score randomisation or artificial geographic anchor in the current demo. Legacy synthetic demo jobs are excluded from the active browser library; their stored data is not overwritten. The six scene cards use previews of their real source images. Surprise me excludes the active sample. Real inputs do not have fake generated variations.
 
-These are procedural interface fixtures. Images, contacts, scores and geographic coordinates are simulated. The image has a baked-in simulation watermark; the workspace, map and exported results explicitly identify the demo. They are not model predictions, measured accuracy or real survey observations. Real-source inference still requires an appropriate model and sensor selection. Demo results cannot accept real geotagging metadata.
+## Geolocation
 
-Demo jobs and sources have reserved IDs and explicit provenance. The local edition routes only those jobs through the browser fixture store; real inspections continue through its Python API. Demo history is limited to twelve scenes and can be cleared from Reports without removing uploaded inspections. Clearing browser site data also removes demo history. Structured exports retain the simulation flags; PDF and HTML include visible disclosures.
+NOAA H12907 GeoTIFF windows preserve their source NAD83/UTM zone 15N (EPSG:26915) affine transforms. The Python engine generates the original geographic results; Proj4js performs the same conversion for reviewer box corrections in the browser. A corrected example agrees with PyProj to less than 0.1 metre numerically. This checks implementation agreement, not field position accuracy. Survey footprints remain visible even for zero-detection results. No object marker is invented for an empty result.
 
-## A consistent working interface
+SubPipe and tank examples have no verified per-image geographic metadata in these selected files. Their coordinates remain null, and Map explicitly says location metadata is needed. The tank class label does not imply a location or material composition.
 
-Reports now provides filename search, upload/demo/attention filters and readable inspection rows, with batch processing tucked into a disclosure. The Models & system page is removed. Model selection and its scope disclosure remain in the upload configuration. The demo places its full-frame sonar viewer immediately after the scene picker, ahead of review progress and technical details. The inspection viewer, contact review, filters and report downloads use the same ocean palette and responsive layout. The homepage retains its sonar animation, motion control, problem, solution and features without numeric marketing claims.
+## Sources and redistribution
 
-## Executed verification
+See `frontend/public/real-demo/ATTRIBUTION.md`: SubPipe CC BY 4.0; Marine Debris FLS CC BY-NC-SA 4.0 for this noncommercial SIH demonstration; NOAA H12907 CC0 1.0, not for navigation. The data licenses are distinct from the software and model licenses. No gated or ambiguous-author images are bundled.
 
-See `demo-verification.json`. Both production build modes compile with TypeScript. Headless Chrome exercised demo creation, no model downloads, review persistence, random regeneration, coverage, map selection, exports, search, sensor filters and mobile layout in browser and local editions. The browser workflow also ran two real pipeline images sequentially, tested review/PDF exports and confirmed demo clearing preserves real jobs. The local API regression checked real inference, image geometry, metadata, corrections, all exports and partial XTF cancellation. Local evidence and screenshots are under `E:/Hackathon/execution/demo_20260915`; raw survey examples are not added to this repository.
+Only lossless RGB decoding to PNG is used for the full images. Pixel arrays are asserted equal to the decoded original files. JPEG previews alone are resized. The FLS input SHA-256 hashes additionally match the corresponding images in the acquired original dataset. `catalog.json` lists every image/result/context hash, and exported results retain source, license and inference provenance.
 
-Commands actually executed from the repository (PowerShell):
+## Executed workflow
 
 ```powershell
+$env:PYTHONPATH='src'
+python scripts/build_real_demo.py --samples <existing-samples> --noaa <existing-GeoTIFF-windows> --registry <model-registry> --output frontend/public/real-demo --work <new-empty-evidence-directory>
 $env:VITE_BROWSER_ENGINE='1'
 npm.cmd run build --prefix frontend
-node frontend/demo-tests.mjs
+node frontend/real-demo-tests.mjs
 node frontend/workflow-tests.mjs
-node frontend/minimal-website-tests.mjs
 $env:VITE_BROWSER_ENGINE='0'
 npm.cmd run build --prefix frontend
-$env:BLUECHO_URL='http://127.0.0.1:8013'
-node frontend/demo-tests.mjs
-# Local API regression additionally requires BLUECHO_DEMO_ROOT and BLUECHO_EVIDENCE.
-node frontend/tests.mjs
+# Use BLUECHO_URL for the local API server.
+node frontend/real-demo-tests.mjs
 ```
 
-`BLUECHO_URL`, `BLUECHO_EVIDENCE`, `BLUECHO_DEMO_ROOT` and `CHROME` allow separate server, evidence, sample and browser paths. Native detector weights and their validation evidence are unchanged by this release.
-
-## Scene explorer verification
-
-`scene-explorer-verification.json` records the v0.5.1 checks. `frontend/scene-explorer-tests.mjs` opens each scene, verifies full-frame bounds and compares downsampled images across all scene pairs. It also verifies non-repeating Surprise me selections and mobile navigation. This measures fixture variety and interface behavior, not sonar realism or detector accuracy. Renderer provenance is `scene-explorer-v2`; older saved demo reviews remain intact.
+`docs/real-demo-verification.json` records executed checks. Local full inference reports and screenshots are retained under `E:/Hackathon/execution/real_demo_20260915`. Existing source imagery was not overwritten or redownloaded. This release adds no independent benchmark or new training claim.

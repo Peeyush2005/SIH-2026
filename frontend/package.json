@@ -1,6 +1,6 @@
 {
   "name": "bluecho-dashboard",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
     "jspdf": "4.2.1",
     "jszip": "3.10.2",
     "onnxruntime-web": "1.30.0",
+    "proj4": "^2.22.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },

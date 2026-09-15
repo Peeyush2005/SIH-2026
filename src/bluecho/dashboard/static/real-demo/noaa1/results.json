@@ -1,0 +1,538 @@
+{
+  "schema_version": "bluecho-browser/1.0",
+  "source_reference": {
+    "file": "noaa_window_1.tif",
+    "channel": null,
+    "ping_start": null,
+    "ping_end": null,
+    "sample_start": 0,
+    "sample_end": 1024
+  },
+  "source_sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+  "image_pixel_sha256": "e0d35d96a1024c0701a98e663b66642ddba871a4b13d92584d8486ccc453a2e4",
+  "image_dimensions": {
+    "width": 1024,
+    "height": 1024
+  },
+  "modality": "SSS",
+  "models": [
+    {
+      "id": "sonarvision-sss",
+      "version": "33a620674479",
+      "sha256": "33a620674479e6251a3fb487e2b6a47dca777e3d3dd51d49c77fec6b2043ba72",
+      "classes": {
+        "0": "unknown_debris",
+        "1": "airplane",
+        "2": "mine",
+        "3": "wreck"
+      },
+      "evidence_scope": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "calibration": "uncalibrated"
+    }
+  ],
+  "detections": [
+    {
+      "candidate_id": "d4b8d0edbad5a90e5d1ea4f7",
+      "candidate_type": "model_detection",
+      "source_reference": {
+        "file": "noaa_window_1.tif",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 1024
+      },
+      "source_sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+      "modality": "SSS",
+      "class_id": 3,
+      "class_name": "wreck",
+      "original_class": "wreck",
+      "material_identity": null,
+      "model_id": "sonarvision-sss",
+      "model_version": "33a620674479",
+      "model_sha256": "33a620674479e6251a3fb487e2b6a47dca777e3d3dd51d49c77fec6b2043ba72",
+      "model_score": 70.41277289390564,
+      "raw_score": 0.7041277289390564,
+      "score_type": "uncalibrated_model_score_0_100",
+      "box_xyxy_pixels": [
+        16.2027587890625,
+        275.3330993652344,
+        808.7470703125,
+        998.1304931640625
+      ],
+      "mask": null,
+      "pixel_dimensions": {
+        "width": 792.5443115234375,
+        "height": 722.7973937988281
+      },
+      "coordinates": [
+        -91.77548547576004,
+        29.219400585640013
+      ],
+      "crs": "EPSG:4326",
+      "position_method": "supplied_raster_affine",
+      "position_reason": null,
+      "metric_dimensions": {
+        "width_m": 792.7228337852282,
+        "height_m": 722.9602059068817,
+        "meaning": "detection-box footprint cross-image/along-image midpoint spans; not physical object size or height",
+        "method": "WGS84 geodesic between mapped edge midpoints",
+        "uncertainty_status": "unknown",
+        "units": "m"
+      },
+      "source_location_reference": {
+        "source_crs": "EPSG:26915",
+        "assumptions": [
+          "Pixel georeferencing is supplied by the raster; real positioning accuracy is not independently validated."
+        ]
+      },
+      "geographic_footprint": [
+        [
+          -91.77952302612687,
+          29.22269895772079
+        ],
+        [
+          -91.77748485356126,
+          29.222680346177615
+        ],
+        [
+          -91.77544668291772,
+          29.222661703594916
+        ],
+        [
+          -91.77340851419945,
+          29.222643029972804
+        ],
+        [
+          -91.77137034740963,
+          29.22262432531138
+        ],
+        [
+          -91.77138980916202,
+          29.220993769023064
+        ],
+        [
+          -91.77140926930787,
+          29.21936321232523
+        ],
+        [
+          -91.77142872784728,
+          29.217732655217905
+        ],
+        [
+          -91.7714481847804,
+          29.21610209770109
+        ],
+        [
+          -91.77348622252521,
+          29.21612079738978
+        ],
+        [
+          -91.77552426219796,
+          29.216139466047412
+        ],
+        [
+          -91.77756230379548,
+          29.21615810367387
+        ],
+        [
+          -91.77960034731453,
+          29.216176710269057
+        ],
+        [
+          -91.77958101941122,
+          29.21780727274601
+        ],
+        [
+          -91.77956168991226,
+          29.219437834813625
+        ],
+        [
+          -91.77954235881751,
+          29.22106839647188
+        ],
+        [
+          -91.77952302612687,
+          29.22269895772079
+        ]
+      ],
+      "location_status": "estimate",
+      "uncertainty": {
+        "status": "unknown"
+      },
+      "altitude_provenance": "not_applicable",
+      "position_reason_codes": [],
+      "positioning_assumptions": [
+        "Pixel georeferencing is supplied by the raster; real positioning accuracy is not independently validated."
+      ],
+      "metadata_provenance": {
+        "source": "noaa_window_1.tif",
+        "sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+        "input_provenance": "embedded_geotiff_transform"
+      },
+      "footprint_status": "estimated_detection_box_boundary",
+      "footprint_reason": null,
+      "metadata_canonical_sha256": "646eefb96685a2d62f22a14e8e2f9ea8a07847692605cb0e8b0ad2a3e260a2c7",
+      "position_accuracy": "unvalidated_against_independent_reference",
+      "quality_flags": [],
+      "review_state": "unreviewed",
+      "evidence_status": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "provenance": {
+        "preprocessing": {
+          "mode": "letterbox256",
+          "size": 256,
+          "color_order": "BGR",
+          "output_layout": "yolo",
+          "max_aspect_ratio": 4,
+          "intensity": "uint8 /255; centered 114 padding; preserve aspect ratio"
+        },
+        "decoding": {
+          "method": "unchanged decoded uint8 RGB",
+          "georeferencing": "EPSG:26915"
+        },
+        "terms": {
+          "weights": "Author MIT model card; Ultralytics AGPL-3.0 metadata",
+          "source": "https://huggingface.co/Dinoman1221/sonarvision-yolov8-esi-v6"
+        }
+      },
+      "source_filename": "noaa_window_1.tif",
+      "image_dimensions": {
+        "width": 1024,
+        "height": 1024
+      },
+      "native_class_name": "wreck",
+      "mapped_class_name": null,
+      "score_calibrated": false,
+      "evidence": {
+        "crop": "crops/d4b8d0edbad5a90e5d1ea4f7.png",
+        "context": "contexts/d4b8d0edbad5a90e5d1ea4f7.png",
+        "original": "original.png",
+        "overlay": "annotated.png"
+      },
+      "window_mapping": {
+        "file": "noaa_window_1.tif",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 1024
+      },
+      "demo": true,
+      "synthetic": false,
+      "review_history": []
+    }
+  ],
+  "unvalidated_proposals": [],
+  "quality": {
+    "invalid_rows": 0,
+    "saturated_rows": 240,
+    "uncertain_low_signal_rows": 0,
+    "saturated_pixel_fraction": 0.7497568130493164,
+    "regions": [
+      {
+        "flag": "high_end_saturation",
+        "box_xyxy_pixels": [
+          0,
+          0,
+          1024,
+          240
+        ],
+        "evidence": "At least 98% of displayed row samples are >=254/255",
+        "assessment": "display_observation_not_physical_cause",
+        "position": {
+          "coordinates": [
+            -91.77440620732436,
+            29.224053990594644
+          ],
+          "crs": "EPSG:4326",
+          "position_method": "supplied_raster_affine",
+          "position_reason": null,
+          "metric_dimensions": {
+            "width_m": 1024.2303582441934,
+            "height_m": 240.05399047798917,
+            "meaning": "detection-box footprint cross-image/along-image midpoint spans; not physical object size or height",
+            "method": "WGS84 geodesic between mapped edge midpoints",
+            "uncertainty_status": "unknown",
+            "units": "m"
+          },
+          "source_location_reference": {
+            "source_crs": "EPSG:26915",
+            "assumptions": [
+              "Pixel georeferencing is supplied by the raster; real positioning accuracy is not independently validated."
+            ]
+          },
+          "geographic_footprint": [
+            [
+              -91.7796602432062,
+              29.2251849774203
+            ],
+            [
+              -91.77702677666186,
+              29.225160925525227
+            ],
+            [
+              -91.77439331332761,
+              29.225136821808466
+            ],
+            [
+              -91.77175985321036,
+              29.22511266627026
+            ],
+            [
+              -91.76912639631699,
+              29.22508845891083
+            ],
+            [
+              -91.7691328710924,
+              29.2245470443938
+            ],
+            [
+              -91.76913934569032,
+              29.224005629831623
+            ],
+            [
+              -91.7691458201108,
+              29.223464215224276
+            ],
+            [
+              -91.76915229435379,
+              29.22292280057178
+            ],
+            [
+              -91.77178569587224,
+              29.22294700579432
+            ],
+            [
+              -91.77441910061428,
+              29.222971159200217
+            ],
+            [
+              -91.77705250857305,
+              29.222995260789236
+            ],
+            [
+              -91.77968591974161,
+              29.223019310561153
+            ],
+            [
+              -91.77967950087168,
+              29.223560727343642
+            ],
+            [
+              -91.7796730818258,
+              29.224102144081005
+            ],
+            [
+              -91.77966666260399,
+              29.224643560773224
+            ],
+            [
+              -91.7796602432062,
+              29.2251849774203
+            ]
+          ],
+          "location_status": "estimate",
+          "uncertainty": {
+            "status": "unknown"
+          },
+          "altitude_provenance": "not_applicable",
+          "position_reason_codes": [],
+          "positioning_assumptions": [
+            "Pixel georeferencing is supplied by the raster; real positioning accuracy is not independently validated."
+          ],
+          "metadata_provenance": {
+            "source": "noaa_window_1.tif",
+            "sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+            "input_provenance": "embedded_geotiff_transform"
+          },
+          "footprint_status": "estimated_detection_box_boundary",
+          "footprint_reason": null,
+          "metadata_canonical_sha256": "646eefb96685a2d62f22a14e8e2f9ea8a07847692605cb0e8b0ad2a3e260a2c7"
+        },
+        "recommendation": "Review source coverage and consider rescanning this interval if confirmed unusable; this is not a navigation plan"
+      }
+    ],
+    "coverage": {
+      "complete_input": true,
+      "unassessed": []
+    },
+    "policy": "No quality-based rejection of detections. Dark shadows are not treated as missing rows. Originals remain unchanged."
+  },
+  "tracks": {
+    "type": "FeatureCollection",
+    "features": []
+  },
+  "decoding": {
+    "method": "unchanged decoded uint8 RGB",
+    "georeferencing": "EPSG:26915"
+  },
+  "evidence_scopes": [
+    "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited."
+  ],
+  "review_records": [],
+  "timings": {
+    "quality_seconds": 0.08135510003194213,
+    "models": [
+      {
+        "model_id": "sonarvision-sss",
+        "startup_seconds": 0.0011422000243328512,
+        "prediction_seconds": 0.027849999954923987,
+        "device": "cpu",
+        "backend": "onnx"
+      }
+    ],
+    "geotagging_seconds": 0.02262709999922663,
+    "export_seconds": 0.15054060000693426,
+    "window_total_seconds": 0.30968240002403036,
+    "decode_seconds": 0.05007560004014522,
+    "total_seconds": 0.365196900034789
+  },
+  "memory": {
+    "process_rss_bytes": 400515072
+  },
+  "geographical_accuracy": "not evaluated against independent references",
+  "cross_model_policy": "No score averaging or cross-model duplicate suppression; each original model class and identity is retained",
+  "positioning_metadata": {
+    "schema_version": "1.0",
+    "source_sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+    "image_width": 1024,
+    "image_height": 1024,
+    "modality": "SSS",
+    "mapping": "affine",
+    "crs": "EPSG:26915",
+    "transform": [
+      1.0,
+      0.0,
+      618607.2028840939,
+      0.0,
+      -1.0,
+      3233551.362316899
+    ],
+    "assumptions": [
+      "Pixel georeferencing is supplied by the raster; real positioning accuracy is not independently validated."
+    ],
+    "metadata_provenance": {
+      "source": "noaa_window_1.tif",
+      "sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+      "input_provenance": "embedded_geotiff_transform"
+    },
+    "pixel_convention": "pixel_edge",
+    "positioning_scope": "Genuine NOAA mosaic transform, extracted without resizing; object identity and field position error unvalidated"
+  },
+  "positioning_scope": "Genuine NOAA mosaic transform, extracted without resizing; object identity and field position error unvalidated",
+  "demo": {
+    "kind": "real_sonar_saved_inference",
+    "scenario": "noaa1",
+    "synthetic": false,
+    "collection": "NOAA H12907",
+    "source_url": "https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html",
+    "license": "CC0-1.0",
+    "credit": "NOAA/NOS, survey H12907, R/V Ocean Explorer, EdgeTech 4125",
+    "source_filename": "noaa_window_1.tif",
+    "original_file_sha256": "f61193417b8519b892631310c835d661e895b7309bf9dcb19e0f78d97d9fb393",
+    "display_png_sha256": "91bdf6aff5e01aa7441fdf010566f911d0de5a65255422537cec0828f6b42a16",
+    "image_changes": "Lossless RGB decoding to PNG; pixel array verified identical. Preview only is resized.",
+    "inference": "Saved output from an actual local CPU detector run; opening the demo does not run inference again.",
+    "inference_utc": "2026-09-15T12:47:19.644763+00:00",
+    "scope": "Real NOAA survey mosaic. Object labels are unconfirmed; model alerts may be false positives. Not for navigation.",
+    "location": "Metadata-derived estimates; field accuracy unvalidated",
+    "disclaimer": "Real sonar image with saved detector output. Model labels are predictions, not field verification."
+  },
+  "runtime": "Saved Python CPU inference",
+  "saved_example": true,
+  "review_revision": 0,
+  "rescan_requests": [],
+  "evidence_scope": "Real NOAA survey mosaic. Object labels are unconfirmed; model alerts may be false positives. Not for navigation.",
+  "preprocessing": {
+    "source": "Original native inference; see candidate provenance"
+  },
+  "merging": {
+    "source": "Original native model configuration"
+  },
+  "map_layers": {
+    "processed": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -91.7796602432062,
+                29.2251849774203
+              ],
+              [
+                -91.77702677666186,
+                29.225160925525227
+              ],
+              [
+                -91.77439331332761,
+                29.225136821808466
+              ],
+              [
+                -91.77175985321036,
+                29.22511266627026
+              ],
+              [
+                -91.76912639631699,
+                29.22508845891083
+              ],
+              [
+                -91.76915402078863,
+                29.222778423323476
+              ],
+              [
+                -91.76918164202976,
+                29.220468386914096
+              ],
+              [
+                -91.76920926004071,
+                29.218158349682696
+              ],
+              [
+                -91.76923687482177,
+                29.21584831162932
+              ],
+              [
+                -91.7718700954911,
+                29.215872509871975
+              ],
+              [
+                -91.7745033193831,
+                29.215896656312918
+              ],
+              [
+                -91.77713654649088,
+                29.21592075095192
+              ],
+              [
+                -91.77976977680753,
+                29.215944793788754
+              ],
+              [
+                -91.7797423982109,
+                29.218254840929053
+              ],
+              [
+                -91.77971501641201,
+                29.220564887247754
+              ],
+              [
+                -91.77968763141055,
+                29.22287493274486
+              ],
+              [
+                -91.7796602432062,
+                29.2251849774203
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "source": "Embedded NOAA GeoTIFF georeferencing",
+          "not_for_navigation": true
+        }
+      }
+    ]
+  }
+}

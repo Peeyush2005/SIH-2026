@@ -1,0 +1,112 @@
+{
+  "schema_version": "bluecho-browser/1.0",
+  "source_reference": {
+    "file": "pipeline_empty.pbm",
+    "channel": null,
+    "ping_start": null,
+    "ping_end": null,
+    "sample_start": 0,
+    "sample_end": 2500
+  },
+  "source_sha256": "21cc500d2e2ff723547e722307262ef234c88d15c60111317ed8b0ae63b10a72",
+  "image_pixel_sha256": "2d79e03c8bfaf01386843da6ede20a6ea6848d54b740148a0857c5297b942fee",
+  "image_dimensions": {
+    "width": 2500,
+    "height": 500
+  },
+  "modality": "SSS_LF",
+  "models": [
+    {
+      "id": "sss-pipeline-v3",
+      "version": "bluecho-sss-lf-pipeline-0.1.0",
+      "sha256": "bc85c96c1d0300d59de166898fbc378f614aa9d478eaa7762827811af9fab597",
+      "classes": {
+        "0": "Pipeline"
+      },
+      "evidence_scope": "correlated development validation; reused internal benchmark",
+      "calibration": "uncalibrated"
+    }
+  ],
+  "detections": [],
+  "unvalidated_proposals": [],
+  "quality": {
+    "invalid_rows": 0,
+    "saturated_rows": 0,
+    "uncertain_low_signal_rows": 0,
+    "saturated_pixel_fraction": 0.0,
+    "regions": [],
+    "coverage": {
+      "complete_input": true,
+      "unassessed": []
+    },
+    "policy": "No quality-based rejection of detections. Dark shadows are not treated as missing rows. Originals remain unchanged."
+  },
+  "tracks": {
+    "type": "FeatureCollection",
+    "features": []
+  },
+  "decoding": {
+    "method": "unchanged decoded uint8 RGB",
+    "georeferencing": null
+  },
+  "evidence_scopes": [
+    "correlated development validation; reused internal benchmark"
+  ],
+  "review_records": [],
+  "timings": {
+    "quality_seconds": 0.07693179999478161,
+    "models": [
+      {
+        "model_id": "sss-pipeline-v3",
+        "startup_seconds": 0.0013659000396728516,
+        "prediction_seconds": 0.5800219999509864,
+        "device": "cpu",
+        "backend": "native"
+      }
+    ],
+    "geotagging_seconds": 0.0,
+    "export_seconds": 0.1456627000006847,
+    "window_total_seconds": 0.8265714999870397,
+    "decode_seconds": 0.07041149999713525,
+    "total_seconds": 0.8987998999655247
+  },
+  "memory": {
+    "process_rss_bytes": 324997120
+  },
+  "geographical_accuracy": "not evaluated against independent references",
+  "cross_model_policy": "No score averaging or cross-model duplicate suppression; each original model class and identity is retained",
+  "positioning_metadata": null,
+  "positioning_scope": "No geographic metadata",
+  "demo": {
+    "kind": "real_sonar_saved_inference",
+    "scenario": "seabed",
+    "synthetic": false,
+    "collection": "SubPipe",
+    "source_url": "https://zenodo.org/records/12666132",
+    "license": "CC-BY-4.0",
+    "credit": "OceanScan-MST / REMARO; \u00c1lvarez-Tu\u00f1\u00f3n, Ribeiro Marnet, Antal, Aubard, Costa, Brodskiy",
+    "source_filename": "pipeline_empty.pbm",
+    "original_file_sha256": "21cc500d2e2ff723547e722307262ef234c88d15c60111317ed8b0ae63b10a72",
+    "display_png_sha256": "935e6083c42626425c3b915951e64358c3044f475035659a8e57019152643925",
+    "image_changes": "Lossless RGB decoding to PNG; pixel array verified identical. Preview only is resized.",
+    "inference": "Saved output from an actual local CPU detector run; opening the demo does not run inference again.",
+    "inference_utc": "2026-09-15T12:47:17.228366+00:00",
+    "scope": "Correlated development example; not an independent pipeline test.",
+    "location": "Unavailable: no verified per-image geographic metadata",
+    "disclaimer": "Real sonar image with saved detector output. Model labels are predictions, not field verification."
+  },
+  "runtime": "Saved Python CPU inference",
+  "saved_example": true,
+  "review_revision": 0,
+  "rescan_requests": [],
+  "evidence_scope": "Correlated development example; not an independent pipeline test.",
+  "preprocessing": {
+    "source": "Original native inference; see candidate provenance"
+  },
+  "merging": {
+    "source": "Original native model configuration"
+  },
+  "map_layers": {
+    "processed": []
+  }
+}

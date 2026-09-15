@@ -1,0 +1,396 @@
+{
+  "schema_version": "bluecho-browser/1.0",
+  "source_reference": {
+    "file": "fls_4.png",
+    "channel": null,
+    "ping_start": null,
+    "ping_end": null,
+    "sample_start": 0,
+    "sample_end": 500
+  },
+  "source_sha256": "0f292c4519cb7659edfb13e917254045a3bd2d793411e5097962309ee722abc3",
+  "image_pixel_sha256": "dafce35aec379435183fc3484ac652a90e599a97d5fa4375662451d657bba85a",
+  "image_dimensions": {
+    "width": 500,
+    "height": 605
+  },
+  "modality": "FLS_ARIS",
+  "models": [
+    {
+      "id": "fls11-debris",
+      "version": "385b4e1185e4",
+      "sha256": "385b4e1185e478ec7ae90fa3091586273ca956aa957cbba1dbb96eaeae351dc2",
+      "classes": {
+        "0": "mine",
+        "1": "can",
+        "2": "bottle",
+        "3": "drink-carton",
+        "4": "chain",
+        "5": "propeller",
+        "6": "tire",
+        "7": "hook",
+        "8": "valve",
+        "9": "shampoo-bottle",
+        "10": "standing-bottle"
+      },
+      "evidence_scope": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "calibration": "uncalibrated"
+    }
+  ],
+  "detections": [
+    {
+      "candidate_id": "12d3deef70d0578cb08d8f1c",
+      "candidate_type": "model_detection",
+      "source_reference": {
+        "file": "fls_4.png",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 500
+      },
+      "source_sha256": "0f292c4519cb7659edfb13e917254045a3bd2d793411e5097962309ee722abc3",
+      "modality": "FLS_ARIS",
+      "class_id": 5,
+      "class_name": "propeller",
+      "original_class": "propeller",
+      "material_identity": null,
+      "model_id": "fls11-debris",
+      "model_version": "385b4e1185e4",
+      "model_sha256": "385b4e1185e478ec7ae90fa3091586273ca956aa957cbba1dbb96eaeae351dc2",
+      "model_score": 93.47575902938843,
+      "raw_score": 0.9347575902938843,
+      "score_type": "uncalibrated_model_score_0_100",
+      "box_xyxy_pixels": [
+        200.52383708953857,
+        299.53207993507385,
+        327.61713314056396,
+        430.02599692344666
+      ],
+      "mask": null,
+      "pixel_dimensions": {
+        "width": 127.09329605102539,
+        "height": 130.4939169883728
+      },
+      "coordinates": null,
+      "crs": null,
+      "position_method": null,
+      "position_reason": "INCOMPLETE_METADATA",
+      "metric_dimensions": null,
+      "source_location_reference": null,
+      "geographic_footprint": null,
+      "location_status": "unavailable",
+      "uncertainty": {
+        "status": "unknown"
+      },
+      "altitude_provenance": "unavailable",
+      "position_reason_codes": [
+        "INCOMPLETE_METADATA"
+      ],
+      "positioning_assumptions": [],
+      "metadata_provenance": null,
+      "footprint_status": "unavailable",
+      "footprint_reason": "position_unavailable",
+      "position_accuracy": "unvalidated_against_independent_reference",
+      "quality_flags": [
+        "geographical_position_unavailable"
+      ],
+      "review_state": "unreviewed",
+      "evidence_status": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "provenance": {
+        "preprocessing": {
+          "mode": "letterbox640",
+          "size": 640,
+          "color_order": "RGB",
+          "output_layout": "yolo",
+          "max_aspect_ratio": 4,
+          "intensity": "uint8 /255; centered 114 padding; preserve aspect ratio"
+        },
+        "decoding": {
+          "method": "unchanged decoded uint8 RGB",
+          "georeferencing": null
+        },
+        "terms": {
+          "weights": "Original author MIT; Ultralytics AGPL-3.0; separate source-data terms recorded in model card",
+          "source": "https://huggingface.co/SharonMelhi/BluEcho-FLS11-ONNX"
+        }
+      },
+      "source_filename": "fls_4.png",
+      "image_dimensions": {
+        "width": 500,
+        "height": 605
+      },
+      "native_class_name": "propeller",
+      "mapped_class_name": null,
+      "score_calibrated": false,
+      "evidence": {
+        "crop": "crops/12d3deef70d0578cb08d8f1c.png",
+        "context": "contexts/12d3deef70d0578cb08d8f1c.png",
+        "original": "original.png",
+        "overlay": "annotated.png"
+      },
+      "window_mapping": {
+        "file": "fls_4.png",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 500
+      },
+      "demo": true,
+      "synthetic": false,
+      "review_history": []
+    },
+    {
+      "candidate_id": "570ce8424141b8fe217fb948",
+      "candidate_type": "model_detection",
+      "source_reference": {
+        "file": "fls_4.png",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 500
+      },
+      "source_sha256": "0f292c4519cb7659edfb13e917254045a3bd2d793411e5097962309ee722abc3",
+      "modality": "FLS_ARIS",
+      "class_id": 7,
+      "class_name": "hook",
+      "original_class": "hook",
+      "material_identity": null,
+      "model_id": "fls11-debris",
+      "model_version": "385b4e1185e4",
+      "model_sha256": "385b4e1185e478ec7ae90fa3091586273ca956aa957cbba1dbb96eaeae351dc2",
+      "model_score": 90.3082549571991,
+      "raw_score": 0.903082549571991,
+      "score_type": "uncalibrated_model_score_0_100",
+      "box_xyxy_pixels": [
+        94.37119770050049,
+        105.40618062019348,
+        184.18044328689575,
+        207.31045269966125
+      ],
+      "mask": null,
+      "pixel_dimensions": {
+        "width": 89.80924558639526,
+        "height": 101.90427207946777
+      },
+      "coordinates": null,
+      "crs": null,
+      "position_method": null,
+      "position_reason": "INCOMPLETE_METADATA",
+      "metric_dimensions": null,
+      "source_location_reference": null,
+      "geographic_footprint": null,
+      "location_status": "unavailable",
+      "uncertainty": {
+        "status": "unknown"
+      },
+      "altitude_provenance": "unavailable",
+      "position_reason_codes": [
+        "INCOMPLETE_METADATA"
+      ],
+      "positioning_assumptions": [],
+      "metadata_provenance": null,
+      "footprint_status": "unavailable",
+      "footprint_reason": "position_unavailable",
+      "position_accuracy": "unvalidated_against_independent_reference",
+      "quality_flags": [
+        "geographical_position_unavailable"
+      ],
+      "review_state": "unreviewed",
+      "evidence_status": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "provenance": {
+        "preprocessing": {
+          "mode": "letterbox640",
+          "size": 640,
+          "color_order": "RGB",
+          "output_layout": "yolo",
+          "max_aspect_ratio": 4,
+          "intensity": "uint8 /255; centered 114 padding; preserve aspect ratio"
+        },
+        "decoding": {
+          "method": "unchanged decoded uint8 RGB",
+          "georeferencing": null
+        },
+        "terms": {
+          "weights": "Original author MIT; Ultralytics AGPL-3.0; separate source-data terms recorded in model card",
+          "source": "https://huggingface.co/SharonMelhi/BluEcho-FLS11-ONNX"
+        }
+      },
+      "source_filename": "fls_4.png",
+      "image_dimensions": {
+        "width": 500,
+        "height": 605
+      },
+      "native_class_name": "hook",
+      "mapped_class_name": null,
+      "score_calibrated": false,
+      "evidence": {
+        "crop": "crops/570ce8424141b8fe217fb948.png",
+        "context": "contexts/570ce8424141b8fe217fb948.png",
+        "original": "original.png",
+        "overlay": "annotated.png"
+      },
+      "window_mapping": {
+        "file": "fls_4.png",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 500
+      },
+      "demo": true,
+      "synthetic": false,
+      "review_history": []
+    }
+  ],
+  "unvalidated_proposals": [],
+  "quality": {
+    "invalid_rows": 0,
+    "saturated_rows": 0,
+    "uncertain_low_signal_rows": 50,
+    "saturated_pixel_fraction": 2.6446280991735536e-05,
+    "regions": [
+      {
+        "flag": "uniform_low_signal_uncertain",
+        "box_xyxy_pixels": [
+          0,
+          0,
+          500,
+          35
+        ],
+        "evidence": "Entire displayed row <=1/255; can include legitimate margins or shadows",
+        "assessment": "uncertain_not_missing_data",
+        "position": {
+          "coordinates": null,
+          "crs": null,
+          "position_method": null,
+          "position_reason": "INCOMPLETE_METADATA",
+          "metric_dimensions": null,
+          "source_location_reference": null,
+          "geographic_footprint": null,
+          "location_status": "unavailable",
+          "uncertainty": {
+            "status": "unknown"
+          },
+          "altitude_provenance": "unavailable",
+          "position_reason_codes": [
+            "INCOMPLETE_METADATA"
+          ],
+          "positioning_assumptions": [],
+          "metadata_provenance": null,
+          "footprint_status": "unavailable",
+          "footprint_reason": "position_unavailable"
+        },
+        "recommendation": "Review source coverage and consider rescanning this interval if confirmed unusable; this is not a navigation plan"
+      },
+      {
+        "flag": "uniform_low_signal_uncertain",
+        "box_xyxy_pixels": [
+          0,
+          590,
+          500,
+          605
+        ],
+        "evidence": "Entire displayed row <=1/255; can include legitimate margins or shadows",
+        "assessment": "uncertain_not_missing_data",
+        "position": {
+          "coordinates": null,
+          "crs": null,
+          "position_method": null,
+          "position_reason": "INCOMPLETE_METADATA",
+          "metric_dimensions": null,
+          "source_location_reference": null,
+          "geographic_footprint": null,
+          "location_status": "unavailable",
+          "uncertainty": {
+            "status": "unknown"
+          },
+          "altitude_provenance": "unavailable",
+          "position_reason_codes": [
+            "INCOMPLETE_METADATA"
+          ],
+          "positioning_assumptions": [],
+          "metadata_provenance": null,
+          "footprint_status": "unavailable",
+          "footprint_reason": "position_unavailable"
+        },
+        "recommendation": "Review source coverage and consider rescanning this interval if confirmed unusable; this is not a navigation plan"
+      }
+    ],
+    "coverage": {
+      "complete_input": true,
+      "unassessed": []
+    },
+    "policy": "No quality-based rejection of detections. Dark shadows are not treated as missing rows. Originals remain unchanged."
+  },
+  "tracks": {
+    "type": "FeatureCollection",
+    "features": []
+  },
+  "decoding": {
+    "method": "unchanged decoded uint8 RGB",
+    "georeferencing": null
+  },
+  "evidence_scopes": [
+    "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited."
+  ],
+  "review_records": [],
+  "timings": {
+    "quality_seconds": 0.021756500005722046,
+    "models": [
+      {
+        "model_id": "fls11-debris",
+        "startup_seconds": 0.49810349999461323,
+        "prediction_seconds": 0.0845604999922216,
+        "device": "cpu",
+        "backend": "onnx"
+      }
+    ],
+    "geotagging_seconds": 4.039995837956667e-05,
+    "export_seconds": 0.06374920002417639,
+    "window_total_seconds": 0.6835374000365846,
+    "decode_seconds": 0.02942619996611029,
+    "total_seconds": 0.7147301000077277
+  },
+  "memory": {
+    "process_rss_bytes": 407949312
+  },
+  "geographical_accuracy": "not evaluated against independent references",
+  "cross_model_policy": "No score averaging or cross-model duplicate suppression; each original model class and identity is retained",
+  "positioning_metadata": null,
+  "positioning_scope": "No geographic metadata",
+  "demo": {
+    "kind": "real_sonar_saved_inference",
+    "scenario": "propeller",
+    "synthetic": false,
+    "collection": "Marine Debris FLS",
+    "source_url": "https://zenodo.org/records/15101686",
+    "license": "CC-BY-NC-SA-4.0",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "source_filename": "fls_4.png",
+    "original_file_sha256": "0f292c4519cb7659edfb13e917254045a3bd2d793411e5097962309ee722abc3",
+    "display_png_sha256": "2f864dba32959e19701decc0980daca8a85de41a64a7a20d5abec4ccb11ea01d",
+    "image_changes": "Lossless RGB decoding to PNG; pixel array verified identical. Preview only is resized.",
+    "inference": "Saved output from an actual local CPU detector run; opening the demo does not run inference again.",
+    "inference_utc": "2026-09-15T12:47:18.057775+00:00",
+    "scope": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "location": "Unavailable: no verified per-image geographic metadata",
+    "disclaimer": "Real sonar image with saved detector output. Model labels are predictions, not field verification."
+  },
+  "runtime": "Saved Python CPU inference",
+  "saved_example": true,
+  "review_revision": 0,
+  "rescan_requests": [],
+  "evidence_scope": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+  "preprocessing": {
+    "source": "Original native inference; see candidate provenance"
+  },
+  "merging": {
+    "source": "Original native model configuration"
+  },
+  "map_layers": {
+    "processed": []
+  }
+}

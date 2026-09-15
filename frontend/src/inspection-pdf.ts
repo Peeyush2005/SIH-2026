@@ -8,7 +8,9 @@ export async function inspectionPDF(result:Obj,job:Obj,items:Obj[],base:string,s
  function rule(){doc.setDrawColor(219,229,235);doc.line(18,y,192,y);y+=8}
  doc.setProperties({title:'BluEcho inspection brief',author:'BluEcho | SIH 2026',subject:'Operator review and sonar evidence'});
  text('BluEcho',27,true);text('SONAR INSPECTION BRIEF / SIH 2026',10,true);rule();
- if(result.demo)text('DEMO: generated sonar, simulated contacts, scores and locations. No model inference or real survey data.',11,true);
+ if(result.demo)text('REAL SONAR DEMO: saved results from an actual CPU detector run. Coordinates only where genuine source metadata exists. Not field verification.',11,true);
+ if(result.demo)text(`${result.demo.credit} | ${result.demo.license} | ${result.demo.source_url}`,9);
+ if(result.demo?.collection==='SubPipe')text('SubPipe is a public dataset of a submarine outfall pipeline, property of Oceanscan-MST. This dataset was acquired with a Light Autonomous Underwater Vehicle by Oceanscan-MST, within the scope of Challenge Camp 1 of the H2020 REMARO project.',9);
  text(job.filename,16,true);text(`Inspection ${job.id} | Window ${base.split('/').pop()} | Review revision ${result.review_revision}`);
  text(`Generated ${new Date().toISOString()} | Scope: ${scope==='all'?'All contacts':'Displayed contacts only'}`);
  text(`${items.length} included contacts | ${items.filter(d=>d.review_state!=='unreviewed').length} reviewed | ${items.filter(d=>d.coordinates).length} with metadata locations`);

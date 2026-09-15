@@ -1,0 +1,106 @@
+{
+  "version": "0.6.0",
+  "date": "2026-09-15",
+  "results": {
+    "browser": {
+      "status": "PASS",
+      "checks": [
+        "All six demos load hash-verified real pixels and exact saved detector outputs",
+        "Non-georeferenced samples have null coordinates; NOAA maps use real metadata",
+        "Review corrections preserve original outputs and recompute real UTM geography",
+        "Real-demo reviews persist through reload",
+        "All report formats download with real-source provenance",
+        "Sample switching is nonrepeating and saved results open without model downloads"
+      ],
+      "errors": []
+    },
+    "local": {
+      "status": "PASS",
+      "checks": [
+        "All six demos load hash-verified real pixels and exact saved detector outputs",
+        "Non-georeferenced samples have null coordinates; NOAA maps use real metadata",
+        "Review corrections preserve original outputs and recompute real UTM geography",
+        "Real-demo reviews persist through reload",
+        "All report formats download with real-source provenance",
+        "Sample switching is nonrepeating and saved results open without model downloads"
+      ],
+      "errors": []
+    },
+    "actual_upload_workflow": {
+      "checks": [
+        "Two real images complete sequentially through batch submission and remain individually reviewable",
+        "Display contrast preserves box geometry and resets",
+        "Focus workspace expands and Escape restores navigation",
+        "Human decision updates progress and exports provenance-preserving curation candidates",
+        "PDF brief downloads with real sonar image",
+        "Curation export respects displayed scope",
+        "Review decision and completion survive reload",
+        "Review desk remains within mobile viewport",
+        "Clearing demo history preserves both real inspections"
+      ],
+      "status": "PASS",
+      "errors": []
+    }
+  },
+  "source_pixel_validation": "Builder asserted exact equality between RGB-decoded source pixels and displayed PNG for all six samples",
+  "fls_original_dataset_hash_matches": [
+    {
+      "sample": "fls_4",
+      "original_dataset_filename": "marine-debris-aris3k-4.png",
+      "sha256": "0f292c4519cb7659edfb13e917254045a3bd2d793411e5097962309ee722abc3",
+      "matches_acquired_dataset": true
+    },
+    {
+      "sample": "fls_7",
+      "original_dataset_filename": "marine-debris-aris3k-7.png",
+      "sha256": "cc45ecc644d81aaad49a30f4b0fa323f0d39ce203812a766846ceacd807329a7",
+      "matches_acquired_dataset": true
+    }
+  ],
+  "geographic_correction_vs_pyproj_error_metres": 2.761206527629826e-09,
+  "samples": [
+    {
+      "id": "pipeline",
+      "collection_url": "https://zenodo.org/records/12666132",
+      "license": "CC-BY-4.0",
+      "detections": 1,
+      "proposals": 0
+    },
+    {
+      "id": "seabed",
+      "collection_url": "https://zenodo.org/records/12666132",
+      "license": "CC-BY-4.0",
+      "detections": 0,
+      "proposals": 0
+    },
+    {
+      "id": "propeller",
+      "collection_url": "https://zenodo.org/records/15101686",
+      "license": "CC-BY-NC-SA-4.0",
+      "detections": 2,
+      "proposals": 0
+    },
+    {
+      "id": "bottle",
+      "collection_url": "https://zenodo.org/records/15101686",
+      "license": "CC-BY-NC-SA-4.0",
+      "detections": 1,
+      "proposals": 0
+    },
+    {
+      "id": "noaa0",
+      "collection_url": "https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html",
+      "license": "CC0-1.0",
+      "detections": 0,
+      "proposals": 0
+    },
+    {
+      "id": "noaa1",
+      "collection_url": "https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html",
+      "license": "CC0-1.0",
+      "detections": 1,
+      "proposals": 0
+    }
+  ],
+  "scope": "Saved actual CPU inference, not independent accuracy or field position validation"
+}
