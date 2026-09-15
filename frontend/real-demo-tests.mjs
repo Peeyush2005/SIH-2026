@@ -10,7 +10,7 @@ const page=await browser.newPage({viewport:{width:1536,height:1050},acceptDownlo
 page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));
 const pass=s=>{checks.push(s);console.log('PASS',s)};
 async function ready(){await page.waitForFunction(()=>document.querySelector('.surprise-button')&&!document.querySelector('.surprise-button').disabled&&document.querySelector('svg.sonar image'))}
-async function download(name,file){const p=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await p).saveAs(path.join(out,file));return fs.readFile(path.join(out,file));}
+async function download(name,file){await page.getByRole('button',{name:'View inspection report',exact:true}).first().click();const p=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await p).saveAs(path.join(out,file));const bytes=await fs.readFile(path.join(out,file));await page.getByRole('button',{name:'Return to inspection',exact:true}).click();await ready();return bytes;}
 try{
  await page.goto(process.env.BLUECHO_URL||'http://127.0.0.1:8010');await page.getByRole('button',{name:'Try demo',exact:true}).click();await ready();
  for(const sample of catalog.filter(s=>s.id!=='noaa0')){
@@ -31,8 +31,8 @@ try{
  pass('NOAA has metadata-derived coordinates; other samples retain unavailable positions');
  await page.getByRole('button',{name:'Open Shampoo-bottle sample',exact:true}).click();await ready();
  await page.getByLabel('Review note',{exact:true}).fill('Real sonar image; label remains unverified');await page.getByRole('button',{name:'Save note',exact:true}).click();await page.getByText('Review saved. This is not field verification.',{exact:true}).waitFor();
- await page.getByText('Correct label or box',{exact:true}).click();await page.getByLabel('Corrected label').fill('Needs field review');await page.getByLabel('Original pixels: x1, y1, x2, y2').fill('100, 100, 250, 250');await page.getByRole('button',{name:'Save correction',exact:true}).click();
- await page.waitForFunction(()=>document.querySelector('[data-candidate]')?.getAttribute('x')==='100');
+ await page.getByRole('dialog',{name:'Note saved'}).getByRole('button',{name:'Close review confirmation'}).click();await page.getByRole('button',{name:'Edit saved review',exact:true}).click();await page.getByText('Correct label or box',{exact:true}).click();await page.getByLabel('Corrected label').fill('Needs field review');await page.getByLabel('Original pixels: x1, y1, x2, y2').fill('100, 100, 250, 250');await page.getByRole('button',{name:'Save correction',exact:true}).click();
+ await page.getByRole('dialog',{name:'Correction saved'}).getByRole('button',{name:'Close review confirmation'}).click();await page.waitForFunction(()=>document.querySelector('[data-candidate]')?.getAttribute('x')==='100');
  const edited=JSON.parse(await download('JSON','corrected.json'));assert.equal(edited.review_revision,2);assert.equal(edited.detections[0].coordinates,null);
  assert.ok(edited.detections[0].original_prediction);pass('Review corrections preserve original outputs without fabricating geography');
  await page.reload();await ready();assert.equal(JSON.parse(await download('JSON','reloaded.json')).review_revision,2);pass('Real-demo reviews persist through reload');

@@ -24,4 +24,10 @@ Frozen training/export manifest:
 
 ## Decision feedback in the dashboard
 
-After saving Uncertain or False alert, an accessible confirmation explains the saved state, preservation of original predictions and what appears in reports. It offers the next unreviewed candidate, return to the saved finding, and report downloads. Uncertain boxes carry an amber outline and explicit label; false alerts carry grey dashed boxes and a False alert label. These UI decisions do not trigger training, external alerts or automatic rescans. Escape closes the confirmation; native dialog focus containment prevents accidental background actions.
+Retain candidate, False alert, Uncertain, Save note and Save correction immediately open a modal while saving. Other page controls cannot be used until the save finishes and the reviewer dismisses the modal. A synchronous guard prevents duplicate submissions. A failed save shows its error and returns the reviewer to the form; it does not claim success.
+
+After saving, the confirmation explains the action and offers the next unreviewed candidate, the saved finding or its inspection report. Review controls stay disabled on that finding until **Edit saved review** is selected. This lock is derived from saved history, so it survives reloads. Editing appends to the history and does not erase earlier decisions. A note preserves the existing decision and does not complete an unreviewed finding. Escape dismisses a completed or failed confirmation, but cannot interrupt a pending save.
+
+**Reports** is a read-only view with source imagery, a review summary, individual findings, available metadata positions, notes and review history, follow-up guidance and exports. Opening an item in Reports & history goes to this report rather than the inspector. **Open finding in inspector** returns to the corresponding candidate. Recording windows are reported separately; report downloads identify the current window and review revision.
+
+Uncertain boxes carry an amber outline and explicit label; false alerts carry grey dashed boxes and a False alert label. These UI decisions do not trigger training, external alerts or automatic rescans.

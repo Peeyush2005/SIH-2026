@@ -1,0 +1,26 @@
+import React from 'react';
+import {evidenceURL} from './browser-engine';
+import {coordinate,modelName,modalityName} from './design';
+type Obj=Record<string,any>;
+const states:Obj={retained:'Retained for follow-up',false_alert:'False alert',uncertain:'Uncertain',unreviewed:'Awaiting review',corrected_by_reviewer:'Corrected by reviewer'};
+export function InspectionReport({result:r,job,base,back,inspect,downloads,windowId,selectWindow}:{result:Obj|null;job:Obj;base:string;back:()=>void;inspect:(id?:string)=>void;downloads:React.ReactNode;windowId:string;selectWindow:(id:string)=>void}){
+ const items=r?[...r.detections,...r.unvalidated_proposals]:[];
+ const pending=items.some(d=>['unreviewed','uncertain','pending'].includes(d.review_state));
+ return <article className="inspection-report" aria-label="Inspection report">
+  <div className="report-navigation"><button onClick={back}>← All reports</button><button onClick={()=>inspect()}>Return to inspection</button></div>
+  <header className="report-cover"><p className="eyebrow">BLUECHO · INSPECTION REPORT</p><h1>{job.filename.replace(/^DEMO - /,'')}</h1><p>Sonar findings & reviewer decisions</p><div className="report-meta"><span>{job.demo?'Real sonar demo · saved detector output':'Uploaded sonar inspection'}</span><span>{new Date(job.created).toLocaleDateString(undefined,{day:'numeric',month:'long',year:'numeric'})}</span>{r&&<span>Review revision {r.review_revision}</span>}</div></header>
+  {job.windows.length>1&&<label>Report window<select value={windowId} onChange={e=>selectWindow(e.target.value)}>{job.windows.map((w:Obj)=><option key={w.id} value={w.id}>Window {w.id}</option>)}</select></label>}
+  {!r?<section className="panel"><h2>{['failed','cancelled'].includes(job.state)?'Report unavailable':'Preparing this report'}</h2><p>{job.message||'Waiting for a completed inspection window.'}</p></section>:<>
+   <section className="report-conclusion"><span className="eyebrow">REVIEW SUMMARY</span><h2>{!items.length?'No automatic candidates':pending?'Further review needed':'Saved decisions ready to share'}</h2><p>{!items.length?'No candidates were produced for this image. This does not establish that the surveyed area is clear.':pending?'Unreviewed or uncertain findings still need attention. The findings below show what is saved and what needs follow-up.':'Each finding has a saved reviewer decision. Retained and corrected findings may still need field verification.'}</p><p className="muted">Model scores are uncalibrated confidence, not confirmation of an object. Review feedback does not automatically retrain the model or send an alert.</p></section>
+   <div className="report-overview"><figure><img src={evidenceURL(base,'original.png')} alt="Original sonar evidence for this report"/><figcaption>Original sonar evidence · {r.image_dimensions.width} × {r.image_dimensions.height} pixels</figcaption></figure><section><h2>Source & location</h2><dl><dt>Sensor</dt><dd>{modalityName(r.modality)}</dd><dt>Detector</dt><dd>{(r.models||[]).map((m:Obj)=>modelName(m.id)).join(', ')||'See source record'}</dd><dt>Location availability</dt><dd>{items.some(d=>d.coordinates)?'Source metadata supports estimated candidate positions. Field accuracy is unverified.':'No verified candidate coordinates supplied. Image findings remain available.'}</dd></dl>{r.demo&&<p className="muted">{r.demo.credit} · {r.demo.license}</p>}</section></div>
+   <section className="report-findings"><h2>Findings & next steps</h2>{items.map((d:Obj)=><section className={'report-finding state-'+d.review_state} key={d.candidate_id}>
+    <div className="report-finding-heading"><h3>{d.class_name}</h3><span className="badge">{states[d.review_state]||d.review_state}</span></div>
+    <dl><dt>Model score</dt><dd>{d.model_score.toFixed(1)}% · uncalibrated</dd><dt>Box in original pixels</dt><dd>{d.box_xyxy_pixels.map((n:number)=>n.toFixed(1)).join(', ')}</dd><dt>Location</dt><dd>{d.coordinates?`${coordinate(d.coordinates[1],'lat')}, ${coordinate(d.coordinates[0],'lon')} · metadata estimate`:'Unavailable'}</dd></dl>
+    <p className="finding-next"><strong>Next step · </strong>{d.review_state==='false_alert'?'Kept in the audit record as a reviewer-rejected candidate. Reopen only if new evidence changes the decision.':d.review_state==='uncertain'?'Check surrounding sonar context or request qualified review before accepting this finding.':d.review_state==='unreviewed'?'Open this finding and record a review decision.':'Use the saved evidence for follow-up and field verification where needed.'}</p>
+    {!!d.review_history?.length&&<div className="report-history"><h4>Saved review history</h4>{d.review_history.map((event:Obj,i:number)=><div key={i}><strong>{event.action.replaceAll('_',' ')} · {event.reviewer||'Unnamed reviewer'}</strong><small>{event.timestamp?new Date(event.timestamp).toLocaleString():''}</small>{event.note&&<p>{event.note}</p>}</div>)}</div>}
+    <button onClick={()=>inspect(d.candidate_id)}>Open finding in inspector</button>
+   </section>)}</section>
+   {downloads}<details className="report-provenance"><summary>Source identity & model provenance</summary><p>Source SHA-256: {r.source_sha256}</p>{(r.models||[]).map((m:Obj)=><p key={m.id}>{m.id} · {m.sha256||m.version}</p>)}</details>
+  </>}
+ </article>;
+}
