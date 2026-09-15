@@ -6,7 +6,7 @@ export async function inspectionPDF(result:Obj,job:Obj,items:Obj[],base:string,s
  let y=24;const page=()=>{doc.addPage();y=24};
  function text(value:any,size=10,bold=false){doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size);doc.setTextColor(24,53,72);const lines=doc.splitTextToSize(clean(value),174);for(const line of lines){if(y>268)page();doc.text(line,18,y);y+=size*.47}y+=3}
  function rule(){doc.setDrawColor(219,229,235);doc.line(18,y,192,y);y+=8}
- doc.setProperties({title:'BluEcho inspection brief',author:'BluEcho | SIH 2026',subject:'Operator review and sonar evidence'});
+ doc.setProperties({title:'BluEcho inspection brief',author:'Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee, Aditya SS Varma | BluEcho | SIH 2026',subject:'Operator review and sonar evidence'});
  text('BluEcho',27,true);text('SONAR INSPECTION BRIEF / SIH 2026',10,true);rule();
  if(result.demo)text('REAL SONAR DEMO: saved results from an actual CPU detector run. Coordinates only where genuine source metadata exists. Not field verification.',11,true);
  if(result.demo)text(`${result.demo.credit} | ${result.demo.license} | ${result.demo.source_url}`,9);
@@ -32,7 +32,7 @@ export async function inspectionPDF(result:Obj,job:Obj,items:Obj[],base:string,s
   const history=d.review_history||[];if(history.length){text('Operator audit trail',10,true);for(const e of history)text(`${e.timestamp||e.created||''} | ${e.reviewer||'Unnamed reviewer'} | ${e.action}: ${e.note||'(no note)'}`,9)}else text('No operator review recorded.',9);
  }
  rule();text('Source provenance',12,true);text(`SHA-256: ${result.source_sha256}`,9);text('Keep the JSON and evidence ZIP alongside this brief for complete machine-readable provenance, review history and original Unicode text. The PDF standard font replaces unsupported characters with ?.',9);
- text('Prepared by BluEcho for Smart India Hackathon 2026. Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee.',9);
+ text('Prepared by BluEcho for Smart India Hackathon 2026. Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee, Aditya SS Varma.',9);
  const pages=doc.getNumberOfPages();for(let p=1;p<=pages;p++){doc.setPage(p);doc.setFontSize(8);doc.setTextColor(104,124,135);doc.text('BluEcho / Operator decision support',18,284);doc.text(`${p} / ${pages}`,192,284,{align:'right'})}
  return doc.output('blob');
 }

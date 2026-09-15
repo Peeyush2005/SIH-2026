@@ -116,3 +116,27 @@
 @media(prefers-reduced-motion:reduce){.ocean-moving{animation:none!important}.website-shell *, .website-shell *::before,.website-shell *::after{scroll-behavior:auto!important;transition:none!important}}
 
 .website-shell .privacy-line{color:#5f797a}.website-shell .upload-hint{color:#617e7b}.website-shell .upload small{color:#607b7d}
+
+/* Light, slow bubble trails stay decorative and never intercept controls. */
+.ocean-bubbles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.ocean-bubble{position:absolute;top:100%;display:block;border:1px solid #99eedc66;border-radius:50%;background:radial-gradient(circle at 30% 25%,#d7fff92b,transparent 55%);box-shadow:inset -1px -2px 3px #97e5d014;animation:bubble-rise 25s linear infinite;opacity:0}
+@keyframes bubble-rise{0%{transform:translate3d(0,20px,0);opacity:0}12%{opacity:.5}45%{transform:translate3d(15px,-300px,0);opacity:.35}80%{opacity:.4}100%{transform:translate3d(-10px,-820px,0);opacity:0}}
+.website-shell .inspection-welcome{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:35px;min-height:490px;padding:48px 7% 62px;border:1px solid #28535d;border-radius:20px;background:#082e3c;color:#edf7f5;box-shadow:0 18px 50px #163f490c}
+.welcome-copy{position:relative;z-index:1;max-width:460px}
+.welcome-copy .eyebrow{color:#9fc7cf;font-size:9px;letter-spacing:2px;margin:0 0 24px}
+.welcome-copy h1{font-family:Bahnschrift,"Trebuchet MS",sans-serif;color:#edf7f5;font-size:54px;font-weight:500;letter-spacing:-1.8px;line-height:1.08;margin:0 0 22px}
+.welcome-copy h1 em{font-style:normal;color:#80ebd0}
+.welcome-copy>p:not(.eyebrow){color:#acc8cd;font-size:14px;line-height:1.9;max-width:400px;margin:0 0 28px}
+.welcome-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.website-shell .welcome-actions button{display:inline-flex;justify-content:center;align-items:center;gap:14px;height:48px;min-width:154px;margin:0;padding:0 20px;font-size:13px;border-radius:8px}
+.website-shell .welcome-actions .primary{background:#a4f0dc;color:#0b4148;border-color:#a4f0dc}
+.website-shell .welcome-actions .primary:hover{background:#c4ffe9}
+.website-shell .welcome-actions .welcome-demo{color:#d6eee9;background:#123e4b;border-color:#406672}
+.website-shell .welcome-actions .welcome-demo:hover{background:#205362}
+.welcome-hint{display:block;margin-top:20px;font-size:11px;color:#92b5bf}
+.inspection-welcome .sonar-sea{height:360px;z-index:1}.inspection-welcome .sonar-instrument{transform:scale(.85)}
+.inspection-welcome .scope-caption{bottom:-2px}.inspection-welcome .motion-control{right:24px;bottom:16px;color:#a6c7cf}
+.inspection-welcome :is(button,a):focus-visible{outline-color:#a4f0dc}
+@media(max-width:850px){.website-shell .inspection-welcome{gap:0;padding:40px 6% 58px;grid-template-columns:1.2fr .8fr}.welcome-copy h1{font-size:42px}.inspection-welcome .sonar-instrument{transform:scale(.66)}.inspection-welcome .sonar-sea{height:320px}.welcome-actions{gap:10px}.website-shell .welcome-actions button{min-width:140px;padding-inline:14px}}
+@media(max-width:640px){.website-shell .inspection-welcome{grid-template-columns:1fr;gap:12px;padding:34px 24px 53px;border-radius:16px}.welcome-copy h1{font-size:43px}.welcome-copy>p:not(.eyebrow){font-size:13px}.welcome-copy .eyebrow{font-size:8px;margin-bottom:20px}.welcome-actions{display:grid;grid-template-columns:1fr 1fr}.website-shell .welcome-actions button{min-width:0;padding-inline:9px;gap:8px;font-size:12px}.welcome-hint{font-size:10px}.inspection-welcome .sonar-sea{height:260px}.inspection-welcome .sonar-instrument{transform:scale(.62)}.ocean-bubble:nth-child(2n){display:none}}
+@media(prefers-reduced-motion:reduce){.ocean-bubble{display:none;animation:none}}

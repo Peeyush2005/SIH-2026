@@ -11,7 +11,7 @@ pinned: false
 
 # BluEcho · SIH 2026
 
-Created by Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, and Aditya Banerjee for Smart India Hackathon 2026.
+Created by Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee, and Aditya SS Varma for Smart India Hackathon 2026.
 
 This CPU demonstration runs the existing side-scan pipeline detector. Uploads are processed on Hugging Face, with signed browser-session ownership for files, jobs, review records and exports. Use non-sensitive imagery. Temporary storage and session access reset when the service restarts. Download your reports before leaving.
 

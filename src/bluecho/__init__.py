@@ -1,5 +1,5 @@
 """BluEcho: offline sonar inference and physics-aware inspection."""
-__version__ = '0.6.1'
+__version__ = '0.6.2'
 __all__ = ['Engine', 'InputError', 'ModelError', 'RecordingEngine', 'InspectionSupervisor']
 
 def __getattr__(name):

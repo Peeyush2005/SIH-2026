@@ -1,6 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {Icon} from './design';
 
+function useOceanMotion() {
+ const [paused,setPaused]=useState(()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+ const [hidden,setHidden]=useState(document.hidden);
+ useEffect(()=>{const update=()=>setHidden(document.hidden);document.addEventListener('visibilitychange',update);return()=>document.removeEventListener('visibilitychange',update)},[]);
+ return {paused,setPaused,stopped:paused||hidden};
+}
+
+function OceanBubbles() {
+ const bubbles=[[3,12,23,-7],[8,6,18,-13],[14,18,28,-20],[29,7,25,-4],[43,10,30,-17],[58,6,21,-8],[72,15,26,-16],[82,8,20,-3],[89,22,31,-23],[95,11,24,-12],[98,5,19,-5]];
+ return <div className="ocean-bubbles" aria-hidden="true">{bubbles.map(([left,size,duration,delay],i)=><span key={i} className="ocean-bubble ocean-moving" style={{left:left+'%',width:size,height:size,animationDuration:duration+'s',animationDelay:delay+'s'}}/>)}</div>;
+}
+
+export function InspectionWelcome({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,busy:boolean}) {
+ const {paused,setPaused,stopped}=useOceanMotion();
+ return <section className={'inspection-welcome '+(stopped?'ocean-paused':'')}>
+  <OceanBubbles/>
+  <div className="welcome-copy"><p className="eyebrow">YOUR SONAR WORKSPACE</p><h1>A clearer view<br/><em>starts here.</em></h1><p>Bring your sonar imagery into focus. Inspect potential findings, review their context, and keep the evidence together.</p>
+   <div className="welcome-actions"><button className="primary" onClick={inspect}>New inspection<Icon name="arrow" size={18}/></button><button className="welcome-demo" disabled={busy} onClick={demo}><Icon name="scan" size={18}/>{busy?'Opening…':'Try demo'}</button></div>
+   <span className="welcome-hint">Explore the demo with real sonar imagery.</span>
+  </div>
+  <SonarSea paused={stopped}/>
+  <button className="motion-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'Play animation':'Pause animation'}</button>
+ </section>;
+}
+
 function SonarSea({paused}:{paused:boolean}) {
  return <div className={'sonar-sea '+(paused?'ocean-paused':'')} aria-hidden="true">
   <div className="sea-haze"/>
@@ -26,10 +51,9 @@ function SonarSea({paused}:{paused:boolean}) {
 }
 
 export function OceanHero({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,busy:boolean}) {
- const [paused,setPaused]=useState(()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches);
- const [hidden,setHidden]=useState(document.hidden);
- useEffect(()=>{const update=()=>setHidden(document.hidden);document.addEventListener('visibilitychange',update);return()=>document.removeEventListener('visibilitychange',update)},[]);
- return <section className={'minimal-hero ocean-hero '+(paused||hidden?'ocean-paused':'')}>
+ const {paused,setPaused,stopped}=useOceanMotion();
+ return <section className={'minimal-hero ocean-hero '+(stopped?'ocean-paused':'')}>
+  <OceanBubbles/>
   <div className="ocean-hero-inner">
    <div className="ocean-copy"><p className="eyebrow"><span/>MARINE ANOMALY INTELLIGENCE</p>
     <h1>Look deeper.<br/><em>See what matters.</em></h1>
@@ -37,7 +61,7 @@ export function OceanHero({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,bu
     <div className="ocean-actions"><button className="primary" onClick={inspect}>Inspect sonar<Icon name="arrow" size={18}/></button><button className="demo-launch" disabled={busy} onClick={demo}><Icon name="scan" size={17}/>{busy?'Opening…':'Try demo'}</button><a href="#bluecho-features">Explore the features <span>↘</span></a></div>
     <p className="ocean-promise">From acoustic imagery to informed decisions.</p>
    </div>
-   <SonarSea paused={paused||hidden}/>
+   <SonarSea paused={stopped}/>
   </div>
   <div className="sea-horizon" aria-hidden="true"><svg className="ocean-moving wave-far" viewBox="0 0 1600 100" preserveAspectRatio="none"><path d="M0 40Q200 0 400 40T800 40T1200 40T1600 40V100H0Z"/></svg><svg className="ocean-moving wave-near" viewBox="0 0 1600 100" preserveAspectRatio="none"><path d="M0 45Q200 85 400 45T800 45T1200 45T1600 45V100H0Z"/></svg></div>
   <button className="motion-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'Play animation':'Pause animation'}</button>

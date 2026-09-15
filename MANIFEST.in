@@ -1,4 +1,5 @@
 include README.md
+include AUTHORS.md
 include LICENSE
 recursive-include examples *.py
 recursive-include tests *.py
@@ -12,3 +13,5 @@ include frontend/tests.mjs frontend/browser-tests.mjs frontend/workflow-tests.mj
 recursive-include scripts *.sh *.py
 
 recursive-include frontend/licenses *.txt
+
+recursive-include docs/images *.png

@@ -1,6 +1,6 @@
 # BluEcho dashboard redesign · 0.2.0
 
-Built for Smart India Hackathon 2026 by Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, and Aditya Banerjee.
+Built for Smart India Hackathon 2026 by Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee, and Aditya SS Varma.
 
 ## Delivered workflow
 
