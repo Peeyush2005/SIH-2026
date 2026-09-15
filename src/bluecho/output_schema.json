@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bluecho:predictions:1.0.0",
+  "title": "BluEcho SSS prediction 1.0.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_reference",
+    "source_sha256",
+    "modality",
+    "model_version",
+    "model_sha256",
+    "preprocessing_version",
+    "image_dimensions",
+    "thresholds",
+    "tile_count",
+    "detections",
+    "coordinates",
+    "crs",
+    "quality_flags",
+    "end_to_end_seconds"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "source_reference": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    },
+    "modality": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": "string"
+    },
+    "model_sha256": {
+      "type": "string"
+    },
+    "preprocessing_version": {
+      "type": "string"
+    },
+    "image_dimensions": {
+      "type": "object",
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "height": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "thresholds": {
+      "type": "object"
+    },
+    "tile_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "detections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/detection"
+      }
+    },
+    "coordinates": {
+      "type": "null"
+    },
+    "crs": {
+      "type": "null"
+    },
+    "quality_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "end_to_end_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "inference_provenance": {
+      "type": "object",
+      "description": "Optional source-bound tile and suppression provenance; additive field in 0.1.2"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "detection": {
+      "type": "object",
+      "required": [
+        "detection_id",
+        "source_reference",
+        "class_name",
+        "score_type",
+        "position_method",
+        "review_status",
+        "model_version",
+        "model_sha256",
+        "preprocessing_version",
+        "class_id",
+        "image_dimensions",
+        "pixel_dimensions",
+        "material",
+        "model_score",
+        "box_xyxy_pixels",
+        "metric_dimensions",
+        "coordinates",
+        "crs",
+        "uncertainty",
+        "quality_flags"
+      ],
+      "properties": {
+        "detection_id": {
+          "type": "string"
+        },
+        "source_reference": {
+          "type": "string"
+        },
+        "class_name": {
+          "type": "string"
+        },
+        "score_type": {
+          "type": "string"
+        },
+        "position_method": {
+          "type": "string"
+        },
+        "review_status": {
+          "type": "string"
+        },
+        "model_version": {
+          "type": "string"
+        },
+        "model_sha256": {
+          "type": "string"
+        },
+        "preprocessing_version": {
+          "type": "string"
+        },
+        "class_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "image_dimensions": {
+          "type": "object",
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "pixel_dimensions": {
+          "type": "object",
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "material": {
+          "type": "null"
+        },
+        "model_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "box_xyxy_pixels": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "metric_dimensions": {
+          "type": "null"
+        },
+        "coordinates": {
+          "type": "null"
+        },
+        "crs": {
+          "type": "null"
+        },
+        "uncertainty": {
+          "type": "null"
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

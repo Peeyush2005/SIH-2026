@@ -1,0 +1,52 @@
+{
+  "id": "uatd-fls",
+  "status": "tested-local-inference",
+  "version": "uatd-620ccced06b3",
+  "modalities": [
+    "FLS_UATD"
+  ],
+  "output_task": "bounding_box_detection",
+  "runtime": "torch_state",
+  "architecture": "YOLOv8n",
+  "weights": {
+    "path": "uatd-safe-state.pt",
+    "sha256": "aea6ebe6a39853ec93537d01e835a725a4ece8c084f3b54022dca4e0f32158d9"
+  },
+  "classes": {
+    "0": "ball",
+    "1": "circle cage",
+    "2": "cube",
+    "3": "cylinder",
+    "4": "human body",
+    "5": "metal bucket",
+    "6": "plane",
+    "7": "rov",
+    "8": "square cage",
+    "9": "tyre"
+  },
+  "threshold": 0.25,
+  "preprocessing": {
+    "mode": "letterbox640",
+    "intensity": "uint8 RGB /255",
+    "resize": "preserve aspect with centered 114 padding"
+  },
+  "calibration": "uncalibrated",
+  "evidence_scope": "unknown training overlap; local sample compatibility only",
+  "material_identity": false,
+  "terms": {
+    "source": "research and educational purposes; no explicit commercial redistribution grant",
+    "weights": "Ultralytics inherited AGPL-3.0 conditions",
+    "dataset": "UATD source terms separately"
+  },
+  "redistribution": "UNCLEAR; downloader supplied, exclude third-party weight from distributable ZIP",
+  "source_checkpoint_sha256": "cfc2edda7df387aa5d9e23f419915690bec6396c9ebc3c054ae218979334694c",
+  "download": {
+    "filename": "uatd-yolov8n.pt",
+    "url": "https://raw.githubusercontent.com/lMelkorl/Sonar-Threat-Detection-YOLO/620ccced06b317ad15559a86631c3b73ea9342f6/detect/uatd_sonar_model/weights/best.pt",
+    "bytes": 6213162,
+    "git_blob_sha1": "aeaa4f70be55e830af5f5b06120a8d7f537d8f06",
+    "revision": "620ccced06b317ad15559a86631c3b73ea9342f6",
+    "repository": "lMelkorl/Sonar-Threat-Detection-YOLO",
+    "sha256": "cfc2edda7df387aa5d9e23f419915690bec6396c9ebc3c054ae218979334694c"
+  }
+}

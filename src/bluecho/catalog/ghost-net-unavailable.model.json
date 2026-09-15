@@ -1,0 +1,12 @@
+{
+  "id": "ghost-net-real",
+  "status": "unavailable",
+  "modalities": [
+    "SSS"
+  ],
+  "output_task": "segmentation",
+  "reason": "No downloadable real-trained GhostNetAI checkpoint or verified local net labels found; synthetic-only outputs cannot satisfy this class.",
+  "classes": {
+    "0": "ghost_net"
+  }
+}

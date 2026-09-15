@@ -1,0 +1,478 @@
+{
+  "outcome": "NO_VERIFIED_IMPROVEMENT \u2014 ORIGINAL_DEFAULT_RETAINED",
+  "default": {
+    "model_id": "sss-pipeline-v3",
+    "native_sha256": "bc85c96c1d0300d59de166898fbc378f614aa9d478eaa7762827811af9fab597",
+    "threshold": 0.6818633675575256,
+    "source_nms_iou": 0.5,
+    "tile_nms_iou": 0.7,
+    "verifier": null,
+    "preprocessing": "unchanged"
+  },
+  "before": {
+    "class_id": 0,
+    "class_name": "Pipeline",
+    "labelled_boxes": 365,
+    "images": 674,
+    "positive_images": 365,
+    "tp": 179,
+    "fp": 129,
+    "fn": 186,
+    "precision": 0.5811688311688312,
+    "recall": 0.4904109589041096,
+    "f1": 0.5319465081723626,
+    "mAP50": 0.5113593223695664,
+    "mAP50_95": 0.17833362867731298,
+    "AP_by_IoU": [
+      0.5113593223695664,
+      0.4393697230245116,
+      0.3278145725351578,
+      0.23297602789241992,
+      0.1423935939321948,
+      0.0736590946957828,
+      0.0358784132158496,
+      0.013728879526350752,
+      0.006069426188353476,
+      8.723339294281853e-05
+    ],
+    "false_positives_per_image": 0.1913946587537092,
+    "operational_threshold": 0.6818633675575256,
+    "matching_IoU": 0.5,
+    "mean_matched_iou": 0.7258355911389629
+  },
+  "after_default": {
+    "class_id": 0,
+    "class_name": "Pipeline",
+    "labelled_boxes": 365,
+    "images": 674,
+    "positive_images": 365,
+    "tp": 179,
+    "fp": 129,
+    "fn": 186,
+    "precision": 0.5811688311688312,
+    "recall": 0.4904109589041096,
+    "f1": 0.5319465081723626,
+    "mAP50": 0.5113593223695664,
+    "mAP50_95": 0.17833362867731298,
+    "AP_by_IoU": [
+      0.5113593223695664,
+      0.4393697230245116,
+      0.3278145725351578,
+      0.23297602789241992,
+      0.1423935939321948,
+      0.0736590946957828,
+      0.0358784132158496,
+      0.013728879526350752,
+      0.006069426188353476,
+      8.723339294281853e-05
+    ],
+    "false_positives_per_image": 0.1913946587537092,
+    "operational_threshold": 0.6818633675575256,
+    "matching_IoU": 0.5,
+    "mean_matched_iou": 0.7258355911389629
+  },
+  "candidates": [
+    {
+      "name": "threshold_v3_nms_0.4",
+      "nms": 0.4,
+      "threshold": 0.6818633675575256,
+      "metrics": {
+        "class_id": 0,
+        "class_name": "Pipeline",
+        "labelled_boxes": 365,
+        "images": 674,
+        "positive_images": 365,
+        "tp": 179,
+        "fp": 129,
+        "fn": 186,
+        "precision": 0.5811688311688312,
+        "recall": 0.4904109589041096,
+        "f1": 0.5319465081723626,
+        "mAP50": 0.5072837010949534,
+        "mAP50_95": 0.17523872194898743,
+        "AP_by_IoU": [
+          0.5072837010949534,
+          0.4335476076126299,
+          0.31923918065545764,
+          0.2275892078452032,
+          0.13779531183493768,
+          0.07151244979852138,
+          0.035526362696564714,
+          0.013736738370310178,
+          0.006069426188353476,
+          8.723339294281853e-05
+        ],
+        "false_positives_per_image": 0.1913946587537092,
+        "operational_threshold": 0.6818633675575256,
+        "matching_IoU": 0.5,
+        "mean_matched_iou": 0.7258355911389629
+      },
+      "differences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "mAP50_95": -0.003094906728325547,
+        "mean_matched_iou": 0.0
+      },
+      "quantitative_gates_pass": false
+    },
+    {
+      "name": "threshold_v3_nms_0.5",
+      "nms": 0.5,
+      "threshold": 0.6818633675575256,
+      "metrics": {
+        "class_id": 0,
+        "class_name": "Pipeline",
+        "labelled_boxes": 365,
+        "images": 674,
+        "positive_images": 365,
+        "tp": 179,
+        "fp": 129,
+        "fn": 186,
+        "precision": 0.5811688311688312,
+        "recall": 0.4904109589041096,
+        "f1": 0.5319465081723626,
+        "mAP50": 0.5113593223695664,
+        "mAP50_95": 0.17833362867731298,
+        "AP_by_IoU": [
+          0.5113593223695664,
+          0.4393697230245116,
+          0.3278145725351578,
+          0.23297602789241992,
+          0.1423935939321948,
+          0.0736590946957828,
+          0.0358784132158496,
+          0.013728879526350752,
+          0.006069426188353476,
+          8.723339294281853e-05
+        ],
+        "false_positives_per_image": 0.1913946587537092,
+        "operational_threshold": 0.6818633675575256,
+        "matching_IoU": 0.5,
+        "mean_matched_iou": 0.7258355911389629
+      },
+      "differences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "mAP50_95": 0.0,
+        "mean_matched_iou": 0.0
+      },
+      "quantitative_gates_pass": false
+    },
+    {
+      "name": "threshold_v3_nms_0.6",
+      "nms": 0.6,
+      "threshold": 0.7,
+      "metrics": {
+        "class_id": 0,
+        "class_name": "Pipeline",
+        "labelled_boxes": 365,
+        "images": 674,
+        "positive_images": 365,
+        "tp": 172,
+        "fp": 114,
+        "fn": 193,
+        "precision": 0.6013986013986014,
+        "recall": 0.4712328767123288,
+        "f1": 0.5284178187403994,
+        "mAP50": 0.5122325957812951,
+        "mAP50_95": 0.1819743240836808,
+        "AP_by_IoU": [
+          0.5122325957812951,
+          0.4439123057012267,
+          0.33558015005521846,
+          0.24190892864308844,
+          0.15116627030486973,
+          0.07742891446636276,
+          0.03745587678124342,
+          0.013907837861964518,
+          0.0060631278485958374,
+          8.723339294281853e-05
+        ],
+        "false_positives_per_image": 0.16913946587537093,
+        "operational_threshold": 0.7,
+        "matching_IoU": 0.5,
+        "mean_matched_iou": 0.7285468341550981
+      },
+      "differences": {
+        "tp": -7,
+        "fp": -15,
+        "fn": 7,
+        "mAP50_95": 0.0036406954063678276,
+        "mean_matched_iou": 0.002711243016135234
+      },
+      "quantitative_gates_pass": false
+    },
+    {
+      "name": "raw",
+      "nms": 0.5,
+      "threshold": 0.6818633675575256,
+      "metrics": {
+        "class_id": 0,
+        "class_name": "Pipeline",
+        "labelled_boxes": 365,
+        "images": 674,
+        "positive_images": 365,
+        "tp": 179,
+        "fp": 129,
+        "fn": 186,
+        "precision": 0.5811688311688312,
+        "recall": 0.4904109589041096,
+        "f1": 0.5319465081723626,
+        "mAP50": 0.5113593223695664,
+        "mAP50_95": 0.17833362867731298,
+        "AP_by_IoU": [
+          0.5113593223695664,
+          0.4393697230245116,
+          0.3278145725351578,
+          0.23297602789241992,
+          0.1423935939321948,
+          0.0736590946957828,
+          0.0358784132158496,
+          0.013728879526350752,
+          0.006069426188353476,
+          8.723339294281853e-05
+        ],
+        "false_positives_per_image": 0.1913946587537092,
+        "operational_threshold": 0.6818633675575256,
+        "matching_IoU": 0.5,
+        "mean_matched_iou": 0.7258355911389629
+      },
+      "differences": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "mAP50_95": 0.0,
+        "mean_matched_iou": 0.0
+      },
+      "quantitative_gates_pass": false
+    },
+    {
+      "name": "generic",
+      "nms": 0.5,
+      "threshold": 1.0,
+      "metrics": {
+        "class_id": 0,
+        "class_name": "Pipeline",
+        "labelled_boxes": 365,
+        "images": 674,
+        "positive_images": 365,
+        "tp": 0,
+        "fp": 0,
+        "fn": 365,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mAP50": 0.3908922137286406,
+        "mAP50_95": 0.145060329899601,
+        "AP_by_IoU": [
+          0.3908922137286406,
+          0.34331048394048425,
+          0.27806995405328955,
+          0.2005959335857895,
+          0.12302601034981045,
+          0.06447919297308219,
+          0.03090215768384293,
+          0.01350914389188425,
+          0.0057187013510048785,
+          9.950743818100404e-05
+        ],
+        "false_positives_per_image": 0.0,
+        "operational_threshold": 1.0,
+        "matching_IoU": 0.5,
+        "mean_matched_iou": null
+      },
+      "differences": {
+        "tp": -179,
+        "fp": -129,
+        "fn": 179,
+        "mAP50_95": -0.033273298777711985,
+        "mean_matched_iou": null
+      },
+      "quantitative_gates_pass": false
+    },
+    {
+      "name": "acoustic",
+      "nms": 0.5,
+      "threshold": 1.0,
+      "metrics": {
+        "class_id": 0,
+        "class_name": "Pipeline",
+        "labelled_boxes": 365,
+        "images": 674,
+        "positive_images": 365,
+        "tp": 0,
+        "fp": 0,
+        "fn": 365,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "mAP50": 0.39251853521814145,
+        "mAP50_95": 0.1463745791732751,
+        "AP_by_IoU": [
+          0.39251853521814145,
+          0.34089824857166723,
+          0.2758538796207492,
+          0.2000721786368042,
+          0.1260203224390999,
+          0.06969186540672552,
+          0.03577441694728529,
+          0.015598739557920972,
+          0.007198316297019982,
+          0.00011928903733746869
+        ],
+        "false_positives_per_image": 0.0,
+        "operational_threshold": 1.0,
+        "matching_IoU": 0.5,
+        "mean_matched_iou": null
+      },
+      "differences": {
+        "tp": -179,
+        "fp": -129,
+        "fn": 179,
+        "mAP50_95": -0.031959049504037884,
+        "mean_matched_iou": null
+      },
+      "quantitative_gates_pass": false
+    }
+  ],
+  "optional_development_candidate": null,
+  "reason": "Only one survey and repeatedly used validation exist. Verifier fitting is exploratory on detector-training observations; no independent generalization confirmation. Optional candidates must pass frozen numeric and localization gates.",
+  "physics_beat_generic_at_same_budget": false,
+  "training": {
+    "status": "SKIPPED",
+    "reason": "candidate ceiling and failure mix do not justify another detector recipe",
+    "GPU_seconds": 0
+  },
+  "frozen_grid_physics_minus_generic_TP": 0,
+  "descriptive_exact_score_comparison": {
+    "scope": "Descriptive full-score PR operating points; NOT used to change the frozen threshold-grid selection or fit any model. The frozen grid under-resolves saturated verifier scores. No promotion from this secondary diagnostic.",
+    "comparisons": {
+      "raw": {
+        "budgets": {
+          "67": {
+            "threshold": 0.7457579970359802,
+            "tp": 139,
+            "fp": 65,
+            "fn": 226,
+            "precision": 0.6813725490196079,
+            "recall": 0.38082191780821917,
+            "mean_matched_iou": 0.7209122135731199
+          },
+          "129": {
+            "threshold": 0.6818633675575256,
+            "tp": 179,
+            "fp": 129,
+            "fn": 186,
+            "precision": 0.5811688311688312,
+            "recall": 0.4904109589041096,
+            "mean_matched_iou": 0.7258355911389629
+          },
+          "134": {
+            "threshold": 0.6818633675575256,
+            "tp": 179,
+            "fp": 129,
+            "fn": 186,
+            "precision": 0.5811688311688312,
+            "recall": 0.4904109589041096,
+            "mean_matched_iou": 0.7258355911389629
+          },
+          "337": {
+            "threshold": 0.4457051753997803,
+            "tp": 224,
+            "fp": 329,
+            "fn": 141,
+            "precision": 0.4050632911392405,
+            "recall": 0.6136986301369863,
+            "mean_matched_iou": 0.7221547783468083
+          }
+        },
+        "maximum_pool_greedy_recall": 0.9232876712328767
+      },
+      "generic": {
+        "budgets": {
+          "67": {
+            "threshold": 0.9977786423753686,
+            "tp": 37,
+            "fp": 65,
+            "fn": 328,
+            "precision": 0.3627450980392157,
+            "recall": 0.10136986301369863,
+            "mean_matched_iou": 0.771910247614903
+          },
+          "129": {
+            "threshold": 0.9933531319405721,
+            "tp": 162,
+            "fp": 129,
+            "fn": 203,
+            "precision": 0.5567010309278351,
+            "recall": 0.4438356164383562,
+            "mean_matched_iou": 0.7222829861216508
+          },
+          "134": {
+            "threshold": 0.9926390950650207,
+            "tp": 167,
+            "fp": 134,
+            "fn": 198,
+            "precision": 0.5548172757475083,
+            "recall": 0.4575342465753425,
+            "mean_matched_iou": 0.7217778319332726
+          },
+          "337": {
+            "threshold": 0.9032283990945227,
+            "tp": 229,
+            "fp": 325,
+            "fn": 136,
+            "precision": 0.41335740072202165,
+            "recall": 0.6273972602739726,
+            "mean_matched_iou": 0.7141966904856496
+          }
+        },
+        "maximum_pool_greedy_recall": 0.9232876712328767
+      },
+      "acoustic": {
+        "budgets": {
+          "67": {
+            "threshold": 0.997573201980636,
+            "tp": 43,
+            "fp": 67,
+            "fn": 322,
+            "precision": 0.39090909090909093,
+            "recall": 0.1178082191780822,
+            "mean_matched_iou": 0.7759994770171039
+          },
+          "129": {
+            "threshold": 0.9937299806515246,
+            "tp": 157,
+            "fp": 129,
+            "fn": 208,
+            "precision": 0.548951048951049,
+            "recall": 0.4301369863013699,
+            "mean_matched_iou": 0.7326746637533186
+          },
+          "134": {
+            "threshold": 0.9933234841565486,
+            "tp": 166,
+            "fp": 133,
+            "fn": 199,
+            "precision": 0.5551839464882943,
+            "recall": 0.4547945205479452,
+            "mean_matched_iou": 0.7309571319784846
+          },
+          "337": {
+            "threshold": 0.9179097482620763,
+            "tp": 233,
+            "fp": 331,
+            "fn": 132,
+            "precision": 0.41312056737588654,
+            "recall": 0.6383561643835617,
+            "mean_matched_iou": 0.7135085157710415
+          }
+        },
+        "maximum_pool_greedy_recall": 0.9232876712328767
+      }
+    },
+    "physics_minus_generic_TP_at129": -5
+  }
+}

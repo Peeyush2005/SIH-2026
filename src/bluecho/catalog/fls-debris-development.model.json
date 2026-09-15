@@ -1,0 +1,163 @@
+{
+  "id": "fls-debris-development",
+  "status": "development-only",
+  "version": "phase1-0.1",
+  "modalities": [
+    "FLS_ARIS"
+  ],
+  "output_task": "bounding_box_detection",
+  "runtime": "local_ultralytics",
+  "architecture": "YOLO11n",
+  "weights": {
+    "path": "fls-development/native.pt",
+    "sha256": "6b8aee8f12464aebb26116977f40c41c39235b64d6f702487a619c72184cc25e"
+  },
+  "classes": {
+    "0": "can",
+    "1": "bottle",
+    "2": "drink-carton",
+    "3": "chain",
+    "4": "propeller",
+    "5": "tire",
+    "6": "hook",
+    "7": "valve",
+    "8": "shampoo-bottle",
+    "9": "standing-bottle"
+  },
+  "threshold": 0.25,
+  "preprocessing": {
+    "mode": "pad672",
+    "size": 672,
+    "intensity": "uint8 RGB /255; preserve fan margins; top-left pad114"
+  },
+  "calibration": "uncalibrated",
+  "evidence_scope": "DEVELOPMENT_ONLY_TRAINING_FIT; all 1868 pool images used in training; independent grouping unresolved",
+  "material_identity": false,
+  "terms": {
+    "code": "AGPL-3.0-or-later",
+    "weights": "Ultralytics AGPL-3.0 conditions; local fit",
+    "data": "Marine Debris FLS Zenodo 15101686: CC BY-NC-SA 4.0; local noncommercial research fit; inherited weight terms remain separate"
+  },
+  "redistribution": "local research handoff only; verify inherited/source terms before public distribution",
+  "onnx": {
+    "path": "fls-development/native.onnx",
+    "sha256": "080ac724f3846853af310861e2b719e3f5575941b5ad6d42d25a991991a4b782",
+    "status": "PASS",
+    "shape": [
+      1,
+      3,
+      672,
+      672
+    ]
+  },
+  "fit_metrics": {
+    "matching_iou": 0.5,
+    "per_class": {
+      "0": {
+        "class_name": "can",
+        "tp": 367,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9402670293586705
+      },
+      "1": {
+        "class_name": "bottle",
+        "tp": 449,
+        "fp": 3,
+        "fn": 0,
+        "precision": 0.9933628318584071,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9432220587692135
+      },
+      "2": {
+        "class_name": "drink-carton",
+        "tp": 349,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.9943019943019943,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9170350552002842
+      },
+      "3": {
+        "class_name": "chain",
+        "tp": 226,
+        "fp": 7,
+        "fn": 0,
+        "precision": 0.9699570815450643,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9177458714122061
+      },
+      "4": {
+        "class_name": "propeller",
+        "tp": 137,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9431536225536715
+      },
+      "5": {
+        "class_name": "tire",
+        "tp": 331,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9444361258306894
+      },
+      "6": {
+        "class_name": "hook",
+        "tp": 133,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_matched_iou": 0.937982074416141
+      },
+      "7": {
+        "class_name": "valve",
+        "tp": 208,
+        "fp": 2,
+        "fn": 0,
+        "precision": 0.9904761904761905,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9307768843246362
+      },
+      "8": {
+        "class_name": "shampoo-bottle",
+        "tp": 99,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9326914782467799
+      },
+      "9": {
+        "class_name": "standing-bottle",
+        "tp": 65,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "mean_matched_iou": 0.9499264737984028
+      }
+    },
+    "total": {
+      "tp": 2364,
+      "fp": 14,
+      "fn": 0,
+      "precision": 0.9941126997476871,
+      "recall": 1.0
+    },
+    "scope": "DEVELOPMENT_ONLY_TRAINING_FIT; all 1868 pool images used in training; independent grouping unresolved",
+    "images": 1868,
+    "threshold": 0.25
+  },
+  "origin": {
+    "kind": "existing BluEcho local development training",
+    "weights_url": null,
+    "dataset_url": "https://doi.org/10.5281/zenodo.15101686"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_sha256",
+    "raw_result_sha256",
+    "raw_result",
+    "candidates",
+    "associations",
+    "clear_region_tasks",
+    "ranked_candidate_ids"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "inspection-1.0"
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "raw_result_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "raw_result": {
+      "type": "object"
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "source_sha256",
+          "original_prediction",
+          "detector_score",
+          "quality",
+          "geometry",
+          "positional_uncertainty",
+          "reason_codes",
+          "review_priority",
+          "review_status",
+          "review_history",
+          "evidence"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "review_priority": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "review_status": {
+            "const": "unreviewed"
+          },
+          "review_history": {
+            "const": []
+          },
+          "reason_codes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z_]+$"
+            }
+          }
+        }
+      }
+    },
+    "associations": {
+      "type": "array"
+    },
+    "clear_region_tasks": {
+      "type": "array"
+    },
+    "ranked_candidate_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

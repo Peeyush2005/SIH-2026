@@ -1,0 +1,8 @@
+{
+  "filename": "drishti-fp32.onnx",
+  "url": "https://huggingface.co/rehan9599/drishti-detector/resolve/f4e70c8887e91983eb8ad17bc7da394b9e3adcd4/best_detector.onnx",
+  "bytes": 44752313,
+  "sha256": "a2801ba3bd95e4d5737f81ff1af93eef3748cd1083be5a75b3660d68a22f33ae",
+  "revision": "f4e70c8887e91983eb8ad17bc7da394b9e3adcd4",
+  "repository": "https://huggingface.co/rehan9599/drishti-detector"
+}

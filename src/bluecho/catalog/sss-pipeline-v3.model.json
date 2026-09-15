@@ -1,0 +1,55 @@
+{
+  "id": "sss-pipeline-v3",
+  "status": "evaluated-on-stated-data",
+  "version": "bluecho-sss-lf-pipeline-0.1.0",
+  "modalities": [
+    "SSS_LF"
+  ],
+  "output_task": "bounding_box_detection",
+  "runtime": "bluecho_v3",
+  "architecture": "YOLO11n",
+  "manifest": "sss-v3/manifest.json",
+  "weights": {
+    "path": "sss-v3/native.pt",
+    "sha256": "bc85c96c1d0300d59de166898fbc378f614aa9d478eaa7762827811af9fab597"
+  },
+  "classes": {
+    "0": "Pipeline"
+  },
+  "threshold": 0.6818633675575256,
+  "preprocessing": {
+    "fragment_policy": {
+      "action": "exclude entire ambiguous tile; otherwise label every visible segment",
+      "min_side_pixels": 4,
+      "minimum_visible_fraction": 0.05
+    },
+    "intensity": "Preserve source uint8 RGB /255; no stretching/filtering",
+    "mode": "tiles",
+    "padding_rgb": [
+      114,
+      114,
+      114
+    ],
+    "scale": 1.0,
+    "stride": 480,
+    "tile_size": 640
+  },
+  "calibration": "uncalibrated",
+  "evidence_scope": "correlated development validation; reused internal benchmark",
+  "terms": {
+    "code": "AGPL-3.0-or-later",
+    "weights": "Ultralytics inherited AGPL-3.0 conditions",
+    "data": "SubPipe CC BY 4.0"
+  },
+  "redistribution": "local handoff; preserve model/data attribution and inherited terms",
+  "onnx": {
+    "path": "sss-v3/native.onnx",
+    "sha256": "128d715c63b90af76dc43ca9cf4407ca76715194b20e1e2d6e502eb785e61bbc",
+    "acquisition": "explicit local import alongside original manifest; native is default"
+  },
+  "origin": {
+    "kind": "existing BluEcho local Phase 1 release",
+    "weights_url": null,
+    "dataset_url": "https://doi.org/10.5281/zenodo.12666132"
+  }
+}

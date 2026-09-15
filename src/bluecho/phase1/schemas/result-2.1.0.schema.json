@@ -1,0 +1,707 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bluecho:result:2.1.0",
+  "title": "BluEcho window result",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_reference",
+    "source_sha256",
+    "image_pixel_sha256",
+    "image_dimensions",
+    "modality",
+    "models",
+    "detections",
+    "unvalidated_proposals",
+    "quality",
+    "tracks",
+    "decoding",
+    "evidence_scopes",
+    "review_records",
+    "timings",
+    "memory"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.1.0"
+    },
+    "source_reference": {
+      "type": "object",
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "channel": {
+          "type": [
+            "integer",
+            "string",
+            "null"
+          ]
+        },
+        "ping_start": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "ping_end": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "sample_start": {
+          "type": "number"
+        },
+        "sample_end": {
+          "type": "number"
+        }
+      }
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "image_pixel_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "image_dimensions": {
+      "type": "object",
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "modality": {
+      "type": "string"
+    },
+    "models": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "sha256",
+          "classes",
+          "calibration",
+          "evidence_scope"
+        ],
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "detections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "candidate_type",
+          "source_reference",
+          "source_sha256",
+          "modality",
+          "class_id",
+          "class_name",
+          "original_class",
+          "material_identity",
+          "model_id",
+          "model_version",
+          "model_sha256",
+          "model_score",
+          "raw_score",
+          "score_type",
+          "box_xyxy_pixels",
+          "mask",
+          "pixel_dimensions",
+          "coordinates",
+          "crs",
+          "position_method",
+          "position_reason",
+          "metric_dimensions",
+          "source_location_reference",
+          "geographic_footprint",
+          "position_accuracy",
+          "quality_flags",
+          "review_state",
+          "evidence_status",
+          "provenance"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{24}$"
+          },
+          "candidate_type": {
+            "enum": [
+              "model_detection",
+              "unvalidated_proposal"
+            ]
+          },
+          "source_reference": {
+            "type": "object",
+            "required": [
+              "file"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "channel": {
+                "type": [
+                  "integer",
+                  "string",
+                  "null"
+                ]
+              },
+              "ping_start": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "ping_end": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "sample_start": {
+                "type": "number"
+              },
+              "sample_end": {
+                "type": "number"
+              }
+            }
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "modality": {
+            "type": "string"
+          },
+          "class_id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "class_name": {
+            "type": "string"
+          },
+          "original_class": {
+            "type": "string"
+          },
+          "material_identity": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "model_id": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "model_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "model_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "raw_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "score_type": {
+            "const": "uncalibrated_model_score_0_100"
+          },
+          "box_xyxy_pixels": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "mask": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "encoding",
+                  "width",
+                  "height",
+                  "counts",
+                  "coordinate_space"
+                ],
+                "properties": {
+                  "encoding": {
+                    "const": "binary_rle_row_major_zero_first"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "height": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "counts": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "minItems": 1
+                  },
+                  "coordinate_space": {
+                    "const": "original_pixels"
+                  }
+                }
+              }
+            ]
+          },
+          "pixel_dimensions": {
+            "type": "object",
+            "required": [
+              "width",
+              "height"
+            ],
+            "properties": {
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "coordinates": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180
+                  },
+                  {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90
+                  }
+                ],
+                "items": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            ]
+          },
+          "crs": {
+            "enum": [
+              "EPSG:4326",
+              null
+            ]
+          },
+          "position_method": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "position_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "metric_dimensions": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "source_location_reference": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "geographic_footprint": {
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "position_accuracy": {
+            "type": "string"
+          },
+          "quality_flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "review_state": {
+            "enum": [
+              "unreviewed",
+              "retained_candidate",
+              "false_alert",
+              "uncertain",
+              "corrected_by_reviewer"
+            ]
+          },
+          "evidence_status": {
+            "type": "string"
+          },
+          "provenance": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "unvalidated_proposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "candidate_type",
+          "source_reference",
+          "source_sha256",
+          "modality",
+          "class_id",
+          "class_name",
+          "original_class",
+          "material_identity",
+          "model_id",
+          "model_version",
+          "model_sha256",
+          "model_score",
+          "raw_score",
+          "score_type",
+          "box_xyxy_pixels",
+          "mask",
+          "pixel_dimensions",
+          "coordinates",
+          "crs",
+          "position_method",
+          "position_reason",
+          "metric_dimensions",
+          "source_location_reference",
+          "geographic_footprint",
+          "position_accuracy",
+          "quality_flags",
+          "review_state",
+          "evidence_status",
+          "provenance"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{24}$"
+          },
+          "candidate_type": {
+            "enum": [
+              "model_detection",
+              "unvalidated_proposal"
+            ]
+          },
+          "source_reference": {
+            "type": "object",
+            "required": [
+              "file"
+            ],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "channel": {
+                "type": [
+                  "integer",
+                  "string",
+                  "null"
+                ]
+              },
+              "ping_start": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "ping_end": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "sample_start": {
+                "type": "number"
+              },
+              "sample_end": {
+                "type": "number"
+              }
+            }
+          },
+          "source_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "modality": {
+            "type": "string"
+          },
+          "class_id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "class_name": {
+            "type": "string"
+          },
+          "original_class": {
+            "type": "string"
+          },
+          "material_identity": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "model_id": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "model_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "model_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "raw_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "score_type": {
+            "const": "uncalibrated_model_score_0_100"
+          },
+          "box_xyxy_pixels": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "mask": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "encoding",
+                  "width",
+                  "height",
+                  "counts",
+                  "coordinate_space"
+                ],
+                "properties": {
+                  "encoding": {
+                    "const": "binary_rle_row_major_zero_first"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "height": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "counts": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "minItems": 1
+                  },
+                  "coordinate_space": {
+                    "const": "original_pixels"
+                  }
+                }
+              }
+            ]
+          },
+          "pixel_dimensions": {
+            "type": "object",
+            "required": [
+              "width",
+              "height"
+            ],
+            "properties": {
+              "width": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "height": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "coordinates": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180
+                  },
+                  {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90
+                  }
+                ],
+                "items": false,
+                "minItems": 2,
+                "maxItems": 2
+              }
+            ]
+          },
+          "crs": {
+            "enum": [
+              "EPSG:4326",
+              null
+            ]
+          },
+          "position_method": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "position_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "metric_dimensions": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "source_location_reference": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "geographic_footprint": {
+            "type": [
+              "array",
+              "null"
+            ]
+          },
+          "position_accuracy": {
+            "type": "string"
+          },
+          "quality_flags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "review_state": {
+            "enum": [
+              "unreviewed",
+              "retained_candidate",
+              "false_alert",
+              "uncertain",
+              "corrected_by_reviewer"
+            ]
+          },
+          "evidence_status": {
+            "type": "string"
+          },
+          "provenance": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "required": [
+        "regions",
+        "coverage"
+      ]
+    },
+    "tracks": {
+      "type": "object"
+    },
+    "decoding": {
+      "type": "object"
+    },
+    "evidence_scopes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_records": {
+      "type": "array"
+    },
+    "timings": {
+      "type": "object"
+    },
+    "memory": {
+      "type": "object"
+    }
+  }
+}

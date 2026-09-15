@@ -1,0 +1,55 @@
+{
+  "id": "sss-wreck-experimental",
+  "status": "tested-local-inference",
+  "version": "drishti-f4e70c8887e9",
+  "modalities": [
+    "SSS"
+  ],
+  "output_task": "bounding_box_detection",
+  "runtime": "onnx",
+  "architecture": "YOLOv8s",
+  "weights": {
+    "path": "drishti-fp32.onnx",
+    "sha256": "a2801ba3bd95e4d5737f81ff1af93eef3748cd1083be5a75b3660d68a22f33ae"
+  },
+  "classes": {
+    "0": "crab_pot",
+    "1": "submarine_pipeline",
+    "2": "shipwreck",
+    "3": "ghost_net",
+    "4": "mine_cylinder"
+  },
+  "threshold": 0.1,
+  "preprocessing": {
+    "mode": "sss_lee640_s320",
+    "intensity": "per-tile Lee7 + CLAHE3 grid8; uint8 RGB /255",
+    "edge_padding": 0
+  },
+  "calibration": "uncalibrated; third-party calibration not imported",
+  "evidence_scope": "unknown-overlap compatibility only; author shipwreck map also includes aircraft; mine_cylinder also includes NonMILCO, not verified physical cylinders",
+  "class_evidence": {
+    "0": "author describes poor usability",
+    "1": "experimental SSS; v3 remains recommended for SSS_LF",
+    "2": "real sonar training; includes ship and aircraft wreck source labels",
+    "3": "SYNTHETIC_ONLY; suppressed from supported detections, retained as unvalidated proposals",
+    "4": "source MILCO/NonMILCO labels; cylinder identity uncertain"
+  },
+  "unsupported_as_required_classes": [
+    3,
+    4
+  ],
+  "terms": {
+    "source_code": "MIT author repository; notice retained",
+    "weights": "author model card MIT; underlying Ultralytics terms also apply",
+    "dataset": "multiple source terms; not redistributed"
+  },
+  "redistribution": "UNCLEAR inherited weight/data terms; downloader supplied; exclude third-party weights from public-ready ZIP",
+  "download": {
+    "filename": "drishti-fp32.onnx",
+    "url": "https://huggingface.co/rehan9599/drishti-detector/resolve/f4e70c8887e91983eb8ad17bc7da394b9e3adcd4/best_detector.onnx",
+    "bytes": 44752313,
+    "sha256": "a2801ba3bd95e4d5737f81ff1af93eef3748cd1083be5a75b3660d68a22f33ae",
+    "revision": "f4e70c8887e91983eb8ad17bc7da394b9e3adcd4",
+    "repository": "https://huggingface.co/rehan9599/drishti-detector"
+  }
+}

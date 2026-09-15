@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:bluecho:sidecar:1.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_sha256",
+    "image_width",
+    "image_height",
+    "modality",
+    "mapping"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "image_width": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "image_height": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "modality": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mapping": {
+      "enum": [
+        "affine",
+        "ping_rows"
+      ]
+    },
+    "crs": {
+      "type": "string"
+    },
+    "transform": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "pings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "row",
+          "ping_index",
+          "sample_count"
+        ],
+        "properties": {
+          "row": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "ping_index": {
+            "type": "integer"
+          },
+          "sample_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "timestamp": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sensor_position": {
+            "type": "object"
+          },
+          "heading_degrees": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "heading_reference": {
+            "enum": [
+              "true_north",
+              "magnetic_north",
+              null
+            ]
+          },
+          "side": {
+            "enum": [
+              "port",
+              "starboard",
+              null
+            ]
+          },
+          "range_start": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "range_end": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "range_unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "range_geometry": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sample_direction": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "altitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "altitude_unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "altitude_reference": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "allow_vessel_approximation": {
+      "type": "boolean"
+    },
+    "calibration_verified": {
+      "type": "boolean"
+    },
+    "timestamp_alignment_verified": {
+      "type": "boolean"
+    },
+    "flat_seabed_verified": {
+      "type": "boolean"
+    },
+    "level_sensor_verified": {
+      "type": "boolean"
+    },
+    "ground_range_verified": {
+      "type": "boolean"
+    },
+    "pixel_convention": {
+      "enum": [
+        "pixel_edge",
+        "pixel_center"
+      ]
+    },
+    "horizontal_error_bound_m": {
+      "type": "number",
+      "minimum": 0
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mapping": {
+            "const": "affine"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "crs",
+          "transform"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mapping": {
+            "const": "ping_rows"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "pings"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "filename": "uatd-yolov8n.pt",
+  "url": "https://raw.githubusercontent.com/lMelkorl/Sonar-Threat-Detection-YOLO/620ccced06b317ad15559a86631c3b73ea9342f6/detect/uatd_sonar_model/weights/best.pt",
+  "bytes": 6213162,
+  "git_blob_sha1": "aeaa4f70be55e830af5f5b06120a8d7f537d8f06",
+  "revision": "620ccced06b317ad15559a86631c3b73ea9342f6",
+  "repository": "lMelkorl/Sonar-Threat-Detection-YOLO",
+  "sha256": "cfc2edda7df387aa5d9e23f419915690bec6396c9ebc3c054ae218979334694c"
+}
