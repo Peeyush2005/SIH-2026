@@ -31,6 +31,7 @@ This is a research and hackathon prototype. Sensor-specific models have differen
 | **Sensor-specific detection** | Select a model for SSS or FLS imagery; inspect original-pixel bounding boxes and model scores. |
 | **Acoustic context** | Examine shadows, quality flags and surrounding seabed. Brightness and contrast controls change the display, preserving the inference input. |
 | **Human-in-the-loop review** | Every review action opens a save confirmation. Saved controls remain locked until explicitly edited; notes, corrections and previous decisions stay in the audit trail. A separate inspection report presents findings, next steps, available locations and downloads. |
+| **Guided live uploads** | Recognized presentation files select their matching detector by exact file hash. Other uploads start with a fresh sensor/model choice. Small images and incompatible selections are flagged before inference; empty results offer a model-selection retry. |
 | **Metadata-backed locations** | Map findings when matching coordinates support them. Missing geography stays unavailable rather than being invented. |
 | **Batch inspection** | Queue images for sequential processing with separate source records, results and failures. |
 | **Portable reporting** | Export annotated imagery, PDF briefs, JSON, CSV, GeoJSON, HTML evidence bundles and review candidates for further curation. |

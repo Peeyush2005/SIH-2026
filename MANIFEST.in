@@ -18,3 +18,4 @@ recursive-include docs/images *.png
 
 include frontend/review-feedback-tests.mjs frontend/real-demo-tests.mjs frontend/alignment-tests.mjs
 include frontend/review-report-flow-tests.mjs
+include frontend/live-presentation-tests.mjs frontend/public/upload-samples.json

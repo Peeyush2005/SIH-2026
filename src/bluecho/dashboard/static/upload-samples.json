@@ -1,0 +1,227 @@
+[
+  {
+    "sha256": "74a9b11a3ece69d3e8c1f3ae96b4996aae94d1a72c6d7cb7b79d986a87217a88",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "name": "Pipeline survey"
+  },
+  {
+    "sha256": "7978e1436f3bab7d898ed8c3441857bf4014d221ba1ffa68790656012ba68b86",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "name": "Pipeline survey",
+    "thumbnail": true
+  },
+  {
+    "sha256": "ad7cb97c3a8ea8bb17b0a2510f777e1669bf24a16d632c494270bfff2f2bb848",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "name": "Pipeline survey"
+  },
+  {
+    "sha256": "935e6083c42626425c3b915951e64358c3044f475035659a8e57019152643925",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "name": "Seabed survey",
+    "thumbnail": false
+  },
+  {
+    "sha256": "0ca57f04b028c70bb98a0e9d95885be091a6dcae510215ff25fe3e4c854fe996",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "name": "Seabed survey",
+    "thumbnail": true
+  },
+  {
+    "sha256": "2f864dba32959e19701decc0980daca8a85de41a64a7a20d5abec4ccb11ea01d",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Propeller sample"
+  },
+  {
+    "sha256": "af0cef154332727ce208ed8ba7b08cff387369f2cdae2746ade24ccc55cd3da6",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Propeller sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "63653278992387d4afaf77ecc9aeea2026a88331aa7b711aa19b8f822c1381c1",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Propeller sample"
+  },
+  {
+    "sha256": "3ee0585bbbbf6ea04da570f476800bfe008310833853b16b38ac464cec0f7679",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Shampoo-bottle sample"
+  },
+  {
+    "sha256": "505e47183e6501e8cb780fcd8eb179e5296d4bd66e22ce09e1ec5a0d3354451d",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Shampoo-bottle sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "a4f116466ffb1091684050b527b716d39e393c94ab77b8c6821d562b583130ec",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Shampoo-bottle sample"
+  },
+  {
+    "sha256": "b124668621eb61653ad07c5899bd1891512a954482baa117d0dd7df12e2a3018",
+    "model": "sonarvision-sss",
+    "modality": "SSS",
+    "name": "Gulf survey \u00b7 west",
+    "thumbnail": false
+  },
+  {
+    "sha256": "53b23b0c54968d04ca255d668423b40bc8ed03f36b5887ce19a92cd85c160afa",
+    "model": "sonarvision-sss",
+    "modality": "SSS",
+    "name": "Gulf survey \u00b7 west",
+    "thumbnail": true
+  },
+  {
+    "sha256": "91bdf6aff5e01aa7441fdf010566f911d0de5a65255422537cec0828f6b42a16",
+    "model": "sonarvision-sss",
+    "modality": "SSS",
+    "name": "Georeferenced survey",
+    "thumbnail": false
+  },
+  {
+    "sha256": "ef00543f6660827c5c4c30c66224602fbfe82147bebbb77ab1166ae6e64b5a68",
+    "model": "sonarvision-sss",
+    "modality": "SSS",
+    "name": "Georeferenced survey",
+    "thumbnail": true
+  },
+  {
+    "sha256": "908ef1b8e5728ad50ce7ce182202631686c43490219b561f10860a03655b4349",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Can sample"
+  },
+  {
+    "sha256": "b299c2c705bfb537151da09ae863df2a906de1690d3f30e1759e7126dbc46168",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Can sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "da993dca6a42b01c01716d9030f7e8bf98dda8046fe49de7a6257c9e09502884",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Can sample"
+  },
+  {
+    "sha256": "1d087fc52ac0bbdc93a539fd710b6f28407497d0c5ddf5b3caad18a79ca5f83a",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Chain sample"
+  },
+  {
+    "sha256": "1a8251701bc00cb7f1b7d6f4467c088054ae5bdd7b4db5e7a55141e00fd12a9d",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Chain sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "06c478e15251b18685ada78b161518b879eed328be1e3737821c2a82d392227d",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Chain sample"
+  },
+  {
+    "sha256": "2151d942cd15319dcb56016268178421cc47b8fd7974ccebd4d226fa249843b5",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Drink-carton sample"
+  },
+  {
+    "sha256": "8950a619ece86149ca41c8606c20d9b5114cdb834bf23a37c5efb4818dae8e22",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Drink-carton sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "6576ec0c466a6a7373a6980e3582b2467a78f0564a2f6322a0e1d79b09b44381",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Drink-carton sample"
+  },
+  {
+    "sha256": "5599a1f25c6bcccddbae7ffb551fba7fecd91b4b4818cfba7a00aa12c279d9be",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Valve sample"
+  },
+  {
+    "sha256": "d2c1541b15425a6171d6d67b63f5708f7d5c26304f8fc6c5634fa1bd7511f7ba",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Valve sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "880bcabacd7fd844af429663cb8f593f49de4af40d776bab1ae4034ee6f877c7",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Valve sample"
+  },
+  {
+    "sha256": "00e6d064bcd213819c0ee970f5b42df4df89fdeb5f05386d0d7f1c5a336e112d",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Standing-bottle sample"
+  },
+  {
+    "sha256": "5b14c9d757d913f6dfcbe7eb38e04998bd0c1703df7cfb52e8c711ce4c33752a",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Standing-bottle sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "db7082df1d15bf1a415db1aefe4265248d07bd73b7f55b490879c7d13b4729b3",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Standing-bottle sample"
+  },
+  {
+    "sha256": "0d4d11b6a09dd9e680994c28ded870778d9adbc7b57c58ef3344c249decae9e6",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Tire & bottle sample"
+  },
+  {
+    "sha256": "45b88d840d25fa78d3a380990ba855de4db2ffdce7304e22a859881a920fc0c5",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Tire & bottle sample",
+    "thumbnail": true
+  },
+  {
+    "sha256": "e1cb08445e05d651e821cf44f1b41b76fb6b03377bef1e85962d63fb44342b9b",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "Tire & bottle sample"
+  },
+  {
+    "sha256": "bd5a1c75ec8f99b42ed6bdd9c0366e5078b0455ae760132b04d7dfa74412ebf6",
+    "model": "ghost-pot",
+    "modality": "SSS",
+    "name": "Private crab-pot sample"
+  },
+  {
+    "sha256": "bb610c36d645265c23a6ca2732e0b78c60aa3c143b08322d1de5ecb697fa8d23",
+    "model": "sss-pipeline-v3",
+    "modality": "SSS_LF",
+    "name": "Seabed survey"
+  }
+]

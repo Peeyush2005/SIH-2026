@@ -296,6 +296,9 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192,ho
             return await run_in_threadpool(service.record_source,path,name)
         except Exception:
             shutil.rmtree(directory);raise
+    @app.get('/api/v1/sources/{source_id}')
+    def source_info(source_id:str):
+        return service.public_source(service.source(source_id))
     @app.post('/api/v1/sources/{source_id}/metadata')
     async def metadata(source_id:str,file:UploadFile=File(...)):
         s=service.source(source_id)

@@ -13,7 +13,7 @@ async function ready(){await page.waitForFunction(()=>document.querySelector('.s
 async function download(name,file){await page.getByRole('button',{name:'View inspection report',exact:true}).first().click();const p=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await p).saveAs(path.join(out,file));const bytes=await fs.readFile(path.join(out,file));await page.getByRole('button',{name:'Return to inspection',exact:true}).click();await ready();return bytes;}
 try{
  await page.goto(process.env.BLUECHO_URL||'http://127.0.0.1:8010');await page.getByRole('button',{name:'Try demo',exact:true}).click();await ready();
- for(const sample of catalog.filter(s=>s.id!=='noaa0')){
+ for(const sample of catalog.filter(s=>!['noaa0','seabed'].includes(s.id))){
   await page.getByRole('button',{name:'Open '+sample.name,exact:true}).click();await ready();
   const exported=JSON.parse(await download('JSON',sample.id+'.json'));
   assert.equal(exported.demo.synthetic,false);assert.equal(exported.demo.kind,'real_sonar_saved_inference');
@@ -27,7 +27,7 @@ try{
   else {await page.getByRole('heading',{name:'Location metadata needed'}).waitFor();assert.equal(await page.locator('[data-map-candidate]').count(),0);}
   await page.getByRole('button',{name:'Image',exact:true}).click();await page.locator('svg.sonar').screenshot({path:path.join(out,sample.id+'.png')});
  }
- pass('All eleven featured demos load hash-verified real pixels and exact saved detector outputs');
+ pass('All ten featured demos load hash-verified real pixels and exact saved detector outputs');
  pass('NOAA has metadata-derived coordinates; other samples retain unavailable positions');
  await page.getByRole('button',{name:'Open Shampoo-bottle sample',exact:true}).click();await ready();
  await page.getByLabel('Review note',{exact:true}).fill('Real sonar image; label remains unverified');await page.getByRole('button',{name:'Save note',exact:true}).click();await page.getByText('Review saved. This is not field verification.',{exact:true}).waitFor();

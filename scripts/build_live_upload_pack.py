@@ -50,7 +50,8 @@ def main():
     jpg = out / 'JPEG_Format_Examples'
     jpg.mkdir()
     for sid in ('pipeline', 'seabed', 'propeller', 'bottle'):
-        shutil.copyfile(repo / 'frontend/public/real-demo' / sid / 'preview.jpg', jpg / (sid + '.jpg'))
+        with Image.open(repo / 'frontend/public/real-demo' / sid / 'original.png') as image:
+            image.convert('RGB').save(jpg / (sid + '.jpg'), quality=96, subsampling=0)
     (out / 'source_manifest.json').write_text(json.dumps(dict(unique_images=10, additional_jpeg_encodings=4, images=rows), indent=2), encoding='utf-8')
     shutil.copyfile(repo / 'frontend/public/real-demo/ATTRIBUTION.md', out / 'DATA_ATTRIBUTION.md')
     guide = '''# BluEcho live presentation images
@@ -73,7 +74,7 @@ These samples lack verified per-image coordinates. Locations must remain unavail
 
 SubPipe: https://zenodo.org/records/12666132, CC BY 4.0. Marine Debris FLS: https://zenodo.org/records/15101686, CC BY-NC-SA 4.0. Preserve DATA_ATTRIBUTION.md and the noncommercial/share-alike terms for FLS images and derivatives. For the noncommercial SIH research demonstration.
 
-PNG source pixels were verified identical; JPEGs are smaller preview encodings. source_manifest.json records original paths, labels, hashes and geometry.
+PNG source pixels were verified identical; JPEGs preserve original dimensions with quality 96 encoding. source_manifest.json records original paths, labels, hashes and geometry.
 
 ## Team BluEcho — Smart India Hackathon 2026
 

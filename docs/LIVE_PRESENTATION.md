@@ -1,0 +1,11 @@
+# Live presentation inputs
+
+The propeller thumbnail produced no candidates when the pipeline-only detector was selected. A reproduction using the same 140 × 170 JPEG with the FLS detector produced propeller and hook predictions. The UI previously retained a preceding upload's model and defaulted arbitrary browser images to SSS_LF. Both behaviors have been removed.
+
+Known sample files are matched by SHA-256 to sensor/model hints in `frontend/public/upload-samples.json`. Hints contain no boxes or scores. Uploading still performs fresh ONNX inference; arbitrary filenames are never sufficient to select a detector. Browser job validation rejects a conflicting route for a recognized sample. Unrecognized uploads clear the previous route and require an explicit sensor/model choice. The native UI applies the same hints. Small images receive a full-resolution reminder.
+
+`scripts/prepare_presentation_pack.py --existing-pack PATH --output NEW_PATH` creates full-resolution PNG/JPG presentation copies and rebuilds the routing hashes. Preserve source attribution and keep approved-access crab-pot imagery local. JPEG pairs are re-encodings of the same source, not additional independent observations. Original archives and training data are not changed. The legacy upload-pack builder now creates full-resolution JPEGs rather than copying thumbnails.
+
+Run `node frontend/live-presentation-tests.mjs` against a browser build, using `BLUECHO_URL`, `BLUECHO_PRESENTATION` and `BLUECHO_EVIDENCE` to select the local site, image folder and output directory. This performs fresh inference on every presentation image, verifies matching source hashes/model IDs, checks positive boxes against image bounds, saves visible overlays, and exercises route-reset and negative-control recovery. It writes `LIVE_RESULTS.json` in the local image folder only after all checks pass. Predictions are selected demonstration outputs, not an independent accuracy benchmark.
+
+The deliberately empty seabed control remains available in source data but is excluded from the featured presentation gallery. Empty results are not replaced by saved predictions, invented boxes or relaxed thresholds. Their UI identifies the selected detector and offers **Choose model & run again** on the original saved source. The original empty run and review record remain in history.

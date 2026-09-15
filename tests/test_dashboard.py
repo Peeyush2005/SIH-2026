@@ -52,6 +52,15 @@ def test_safe_upload_identifiers_and_cross_origin(local):
  assert c.post('/api/v1/jobs',json={'source_id':j['request']['source_id'],'models':['ghost-net-real'],'modality':'SSS'}).status_code==422
  assert c.post('/api/v1/jobs',json={'source_id':j['request']['source_id'],'models':['synthetic'],'modality':'SSS','chunk_pings':513}).status_code==422
 
+def test_reconfigure_reads_public_source_without_exposing_storage(local):
+ c,s,j,b=local
+ response=c.get('/api/v1/sources/'+j['request']['source_id'])
+ assert response.status_code==200
+ source=response.json()
+ assert source['id']==j['request']['source_id']
+ assert 'path' not in source and 'sidecar' not in source
+ assert c.get('/api/v1/sources/not-an-id').status_code==404
+
 def test_rescan_and_restart_preserve_completed_windows(local):
  c,s,j,b=local
  assert c.post(b+'/rescan',json={'revision':0,'region':[0,0,40,40],'reason':'Human fixture; inspect missed objects'}).status_code==200
