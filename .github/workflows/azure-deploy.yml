@@ -46,9 +46,7 @@ jobs:
     name: Build Container & Deploy to Azure
     needs: test
     runs-on: ubuntu-latest
-    environment:
-      name: azure
-      url: https://${{ secrets.AZURE_WEBAPP_NAME }}.azurewebsites.net
+    environment: azure
     permissions:
       id-token: write
       contents: read
