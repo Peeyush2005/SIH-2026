@@ -1,0 +1,85 @@
+{
+  "version": "0.5.0",
+  "date": "2026-09-15",
+  "environment": "Windows, Chrome headless, Node 25.8.2; local Python CPU API and browser ONNX edition",
+  "results": {
+    "browser_demo": {
+      "checks": [
+        "One click opens generated sonar and contacts without model downloads or a demo backend",
+        "Review actions persist across reload",
+        "Interactive map shows explicitly fictional locations",
+        "JSON, CSV, GeoJSON, curation JSON, PDF and evidence ZIP export successfully with demo provenance",
+        "Shuffle changes the scene and the coverage scenario exposes a generated quality band",
+        "Reports searches and filters demo history; workspace and reports fit mobile",
+        "Models filters by sonar type and routes to a new inspection",
+        "Demo history clears independently"
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    "local_demo": {
+      "checks": [
+        "One click opens generated sonar and contacts without model downloads or a demo backend",
+        "Review actions persist across reload",
+        "Interactive map shows explicitly fictional locations",
+        "JSON, CSV, GeoJSON, curation JSON, PDF and evidence ZIP export successfully with demo provenance",
+        "Shuffle changes the scene and the coverage scenario exposes a generated quality band",
+        "Reports searches and filters demo history; workspace and reports fit mobile",
+        "Models filters by sonar type and routes to a new inspection",
+        "Demo history clears independently"
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    "real_browser_workflow": {
+      "checks": [
+        "Two real images complete sequentially through batch submission and remain individually reviewable",
+        "Display contrast preserves box geometry and resets",
+        "Focus workspace expands and Escape restores navigation",
+        "Human decision updates progress and exports provenance-preserving curation candidates",
+        "PDF brief downloads with real sonar image",
+        "Curation export respects displayed scope",
+        "Review decision and completion survive reload",
+        "Review desk remains within mobile viewport",
+        "Clearing demo history preserves both real inspections"
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    "homepage": {
+      "status": "PASS",
+      "checks": [
+        "Problem and solution visible",
+        "No homepage numbers, statistics, gallery or history clutter",
+        "Configuration appears after upload",
+        "Reports and model details remain accessible",
+        "Desktop and mobile layout checked",
+        "Sonar motion pauses and respects reduced motion",
+        "Features and value proposition are visible"
+      ],
+      "errors": []
+    },
+    "local_inference": {
+      "tests": [
+        "Uploaded real pipeline image: actual CPU inference, one automatic box",
+        "SVG original-pixel box alignment at DPR 2, zoom and viewport resize; synchronized selection",
+        "Missing coordinates: no fabricated map marker",
+        "Review note, identity and revision persist through browser refresh",
+        "Real NOAA GeoTIFF live run: selectable positions and backend footprints, labels unconfirmed",
+        "Corrected box recomputes geography and footprint in Python; immutable original retained",
+        "All five export controls download the current review revision",
+        "Explicit scan region and reason persist as human-action workflow, no autonomous plan",
+        "Real zero-detection result remains usable",
+        "Invalid uploaded content produces a useful visible error",
+        "Browser XTF extent controls reach backend; cancel retains partial inferred windows",
+        "Saved examples explicitly distinguished from live inference",
+        "390px responsive review has no horizontal overflow; keyboard focus usable",
+        "Bundled frontend and actual inference operate with external browser requests blocked"
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+      ],
+      "status": "PASS"
+    }
+  }
+}

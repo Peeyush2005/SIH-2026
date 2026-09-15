@@ -25,7 +25,7 @@ function SonarSea({paused}:{paused:boolean}) {
  </div>;
 }
 
-export function OceanHero({inspect}:{inspect:()=>void}) {
+export function OceanHero({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,busy:boolean}) {
  const [paused,setPaused]=useState(()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches);
  const [hidden,setHidden]=useState(document.hidden);
  useEffect(()=>{const update=()=>setHidden(document.hidden);document.addEventListener('visibilitychange',update);return()=>document.removeEventListener('visibilitychange',update)},[]);
@@ -34,7 +34,7 @@ export function OceanHero({inspect}:{inspect:()=>void}) {
    <div className="ocean-copy"><p className="eyebrow"><span/>MARINE ANOMALY INTELLIGENCE</p>
     <h1>Look deeper.<br/><em>See what matters.</em></h1>
     <p>Find potential debris in sonar imagery. Review the evidence, understand its location, and turn a finding into an actionable report.</p>
-    <div className="ocean-actions"><button className="primary" onClick={inspect}>Inspect sonar<Icon name="arrow" size={18}/></button><a href="#bluecho-features">Explore the features <span>↘</span></a></div>
+    <div className="ocean-actions"><button className="primary" onClick={inspect}>Inspect sonar<Icon name="arrow" size={18}/></button><button className="demo-launch" disabled={busy} onClick={demo}><Icon name="scan" size={17}/>{busy?'Opening…':'Try demo'}</button><a href="#bluecho-features">Explore the features <span>↘</span></a></div>
     <p className="ocean-promise">From acoustic imagery to informed decisions.</p>
    </div>
    <SonarSea paused={paused||hidden}/>
