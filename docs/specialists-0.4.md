@@ -4,8 +4,10 @@ Four model routes now execute in the browser, with the same three new specialist
 also available through the Python registry. This release integrates pretrained
 models; it does not represent new BluEcho training or a competitive accuracy win.
 
-The website uses top navigation, a model gallery, clear sensor selection, a large
-sonar workspace and adjacent human review controls. Source context and provenance
+The website uses a minimal homepage with the problem, our solution and a single
+upload area. Statistics and model cards are removed. Sensor/model selection
+appears after upload; optional batch tools sit under Reports. A large sonar
+workspace keeps human review controls beside the image. Source context and provenance
 remain accessible in a disclosure panel. Batch inspection, retained/false-alert/
 uncertain decisions, box corrections, review history, PDF briefs and structured
 exports remain functional. Model downloads are pinned and hash checked. One model

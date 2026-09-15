@@ -1,0 +1,33 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const out=process.env.BLUECHO_EVIDENCE||'E:/Hackathon/execution/coverage_expansion_20260915/minimal-website';
+await fs.mkdir(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:process.env.CHROME||(process.platform==='win32'?'C:/Program Files/Google/Chrome/Application/chrome.exe':'/usr/bin/google-chrome')});
+const page=await browser.newPage({viewport:{width:1536,height:1050}}),errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+try{
+ await page.goto(process.env.BLUECHO_URL||'http://127.0.0.1:8010');
+ await page.locator('.minimal-hero').waitFor();
+ await page.getByRole('heading',{name:'The problem',exact:true}).waitFor();
+ await page.getByRole('heading',{name:'Our solution',exact:true}).waitFor();
+ assert.equal(await page.locator('.overview-stats,.specialist-card,.result-summary,.recent-section').count(),0);
+ assert.doesNotMatch(await page.locator('main').innerText(),/\d/);
+ assert.equal(await page.getByLabel('Model route').count(),0);
+ await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+ await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});
+ await page.getByRole('button',{name:'Reports',exact:true}).click();
+ await page.locator('.batch-panel summary').waitFor();
+ await page.getByRole('button',{name:'Models',exact:true}).click();
+ await page.getByRole('heading',{name:'Model availability',exact:true}).waitFor();
+ await page.getByRole('button',{name:'New inspection',exact:true}).click();
+ await page.getByLabel('Sonar source',{exact:true}).setInputFiles(process.env.BLUECHO_PIPELINE_SAMPLE||'E:/Hackathon/execution/phase1_engine_20260914/samples/pipeline_positive.pbm');
+ await page.getByLabel('Confirm source modality').waitFor();
+ await page.getByLabel('Model route').waitFor();
+ assert.deepEqual(errors,[]);
+ await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify({status:'PASS',checks:['Problem and solution visible','No homepage numbers, statistics, gallery or history clutter','Configuration appears after upload','Reports and model details remain accessible','Desktop and mobile layout checked'],errors},null,2));
+ console.log('PASS minimal homepage, progressive upload, secondary tools and mobile layout');
+}finally{await browser.close()}

@@ -8,7 +8,7 @@ recursive-include docs *.md *.json
 recursive-include src/bluecho/dashboard/static *
 recursive-include frontend/src *.tsx *.ts *.css
 include frontend/package.json frontend/package-lock.json frontend/tsconfig.json frontend/vite.config.ts frontend/index.html
-include frontend/tests.mjs frontend/browser-tests.mjs frontend/workflow-tests.mjs frontend/specialist-tests.mjs
+include frontend/tests.mjs frontend/browser-tests.mjs frontend/workflow-tests.mjs frontend/specialist-tests.mjs frontend/minimal-website-tests.mjs
 recursive-include scripts *.sh *.py
 
 recursive-include frontend/licenses *.txt
