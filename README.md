@@ -21,7 +21,7 @@ The project is a research prototype. Its side-scan sonar (SSS) and forward-looki
 
 ### Interactive demo and inspection desk
 
-- **Real sonar demo:** **Try demo** opens SubPipe pipeline/seabed images, Marine Debris FLS water-tank images and NOAA survey windows. Images are genuine; boxes and confidence scores come from saved, freshly executed CPU detector runs. Opening a sample does not run inference again. **Surprise me** selects a different real sample.
+- **Real sonar demo:** **Try demo** opens SubPipe pipeline/seabed images, Marine Debris FLS water-tank images as the four featured samples. NOAA georeferencing examples remain in the source assets and saved reports, outside the main picker. Images are genuine; boxes and confidence scores come from saved, freshly executed CPU detector runs. Opening a sample does not run inference again. **Surprise me** selects a different real sample.
 - **Genuine location metadata:** NOAA samples preserve their GeoTIFF georeferencing. Samples without verified per-image geography keep null coordinates. Corrected boxes update geographic estimates; field accuracy is unvalidated.
 - **A focused workspace:** visual sample selection, searchable Reports, responsive image inspection and human review. The former Models & system page is removed.
 - **Guided human review:** contact queue, completion progress, retain/false-alert/uncertain decisions, optional advance to the next unreviewed contact, and J/K navigation. Notes, reviewers, revisions and original predictions stay attached to each contact.

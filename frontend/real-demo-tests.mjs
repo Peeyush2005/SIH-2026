@@ -13,7 +13,7 @@ async function ready(){await page.waitForFunction(()=>document.querySelector('.s
 async function download(name,file){const p=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await p).saveAs(path.join(out,file));return fs.readFile(path.join(out,file));}
 try{
  await page.goto(process.env.BLUECHO_URL||'http://127.0.0.1:8010');await page.getByRole('button',{name:'Try demo',exact:true}).click();await ready();
- for(const sample of catalog){
+ for(const sample of catalog.filter(s=>!s.id.startsWith('noaa'))){
   await page.getByRole('button',{name:'Open '+sample.name,exact:true}).click();await ready();
   const exported=JSON.parse(await download('JSON',sample.id+'.json'));
   assert.equal(exported.demo.synthetic,false);assert.equal(exported.demo.kind,'real_sonar_saved_inference');
@@ -27,13 +27,13 @@ try{
   else {await page.getByRole('heading',{name:'Location metadata needed'}).waitFor();assert.equal(await page.locator('[data-map-candidate]').count(),0);}
   await page.getByRole('button',{name:'Image',exact:true}).click();await page.locator('svg.sonar').screenshot({path:path.join(out,sample.id+'.png')});
  }
- pass('All six demos load hash-verified real pixels and exact saved detector outputs');
- pass('Non-georeferenced samples have null coordinates; NOAA maps use real metadata');
- await page.getByLabel('Review note',{exact:true}).fill('Real NOAA image; label remains unverified');await page.getByRole('button',{name:'Save note',exact:true}).click();await page.getByText('Review saved. This is not field verification.',{exact:true}).waitFor();
+ pass('All four featured demos load hash-verified real pixels and exact saved detector outputs');
+ pass('Featured samples correctly retain unavailable geographic coordinates');
+ await page.getByLabel('Review note',{exact:true}).fill('Real sonar image; label remains unverified');await page.getByRole('button',{name:'Save note',exact:true}).click();await page.getByText('Review saved. This is not field verification.',{exact:true}).waitFor();
  await page.getByText('Correct label or box',{exact:true}).click();await page.getByLabel('Corrected label').fill('Needs field review');await page.getByLabel('Original pixels: x1, y1, x2, y2').fill('100, 100, 250, 250');await page.getByRole('button',{name:'Save correction',exact:true}).click();
  await page.waitForFunction(()=>document.querySelector('[data-candidate]')?.getAttribute('x')==='100');
- const edited=JSON.parse(await download('JSON','corrected.json'));assert.equal(edited.review_revision,2);assert.ok(edited.detections[0].coordinates[0]<-90);assert.ok(edited.detections[0].coordinates[1]>28);
- assert.ok(edited.detections[0].original_prediction);pass('Review corrections preserve original outputs and recompute real UTM geography');
+ const edited=JSON.parse(await download('JSON','corrected.json'));assert.equal(edited.review_revision,2);assert.equal(edited.detections[0].coordinates,null);
+ assert.ok(edited.detections[0].original_prediction);pass('Review corrections preserve original outputs without fabricating geography');
  await page.reload();await ready();assert.equal(JSON.parse(await download('JSON','reloaded.json')).review_revision,2);pass('Real-demo reviews persist through reload');
  assert.match((await download('CSV','real.csv')).toString(),/false/);await download('GEOJSON','real.geojson');await download('PDF brief','real.pdf');await download('Evidence ZIP','real.zip');await download('Review candidates JSON','reviews.json');pass('All report formats download with real-source provenance');
  await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});

@@ -34,3 +34,7 @@ node frontend/real-demo-tests.mjs
 ```
 
 `docs/real-demo-verification.json` records executed checks. Local full inference reports and screenshots are retained under `E:/Hackathon/execution/real_demo_20260915`. Existing source imagery was not overwritten or redownloaded. This release adds no independent benchmark or new training claim.
+
+## Layout refinement in 0.6.1
+
+The main demo picker and Surprise me now use four SubPipe/FLS examples. The two Gulf survey cards are removed from this entry flow; existing saved NOAA reports and their georeferencing remain readable. Report scope sits above an aligned export-button grid. Viewer, review, navigation and demo action groups have consistent heights and spacing. `frontend/alignment-tests.mjs` checks the four-card picker, report downloads and button geometry at 1536, 1024, 768 and 390 pixels.

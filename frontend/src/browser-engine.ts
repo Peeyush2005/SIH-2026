@@ -2,7 +2,7 @@
 import JSZip from 'jszip';
 import proj4 from 'proj4';
 proj4.defs('EPSG:26915','+proj=utm +zone=15 +datum=NAD83 +units=m +no_defs');
-import {DEMO_SCENARIOS,nextDemoScenario} from './demo-scene';
+import {REAL_DEMO_SAMPLES,nextDemoScenario} from './demo-scene';
 import {SPECIALISTS,predictSpecialist} from './specialist-inference';
 type Obj=Record<string,any>;
 export const browserMode=import.meta.env.VITE_BROWSER_ENGINE==='1';
@@ -86,7 +86,7 @@ async function init(){if(initialized)return;for(const j of await list('jobs')){i
 async function createDemo(request:Obj={}){
  const existing=[...jobs.values()].filter(j=>j.demo);if(existing.length>=12)throw Error('Demo history is full. Clear demo history from Reports to explore more samples.');
  const scenario=request.scenario||nextDemoScenario(request.exclude||existing.sort((a,b)=>b.created.localeCompare(a.created))[0]?.demo.scenario);
- const sample=DEMO_SCENARIOS.find(s=>s.id===scenario);if(!sample)throw Error('Choose an available real sonar sample');
+ const sample=REAL_DEMO_SAMPLES.find(s=>s.id===scenario);if(!sample)throw Error('Choose an available real sonar sample');
  async function asset(name:string){const expected=(sample!.files as Record<string,string|undefined>)[name];if(!expected)throw Error('Sample asset is not listed in its manifest');const r=await fetch('/real-demo/'+scenario+'/'+name);if(!r.ok)throw Error('Could not load real sonar sample. Check your connection and retry.');const bytes=await r.arrayBuffer();if(await sha(bytes)!==expected)throw Error('Real sample checksum mismatch');return new Blob([bytes],{type:name.endsWith('.png')?'image/png':'application/json'})}
  const result=JSON.parse(await(await asset('results.json')).text());if(result.demo?.kind!=='real_sonar_saved_inference'||result.demo.synthetic!==false)throw Error('Sample must contain genuine sonar and saved inference provenance');
  const image=await asset('original.png'),qualityImage=await asset('quality.png'),contexts:Obj={};
@@ -101,7 +101,7 @@ async function clearDemos(){const d=await db();for(const j of [...jobs.values()]
 export async function browserCall(path:string,body?:any):Promise<any>{await init();
  if(path==='/demo')return createDemo(body);
  if(path==='/demo/clear')return clearDemos();
- if(path==='/capabilities')return{version:'0.6.0',deployment:'browser',worker_limit:1,max_upload_mib:32,models:[{id:'sss-pipeline-v3',modalities:['SSS_LF'],classes:{0:'Pipeline'},state:'ready',evidence:'Pipeline only. Frozen single-survey development model; browser CPU inference.',hash:HASH},...SPECIALISTS.map(m=>({id:m.id,name:m.name,modalities:[m.modality],classes:Object.fromEntries(m.classes.map((c,i)=>[i,c])),state:'ready',evidence:m.evidence,hash:m.hash,source:m.source,license:m.license,download_mb:+(m.bytes/1e6).toFixed(1)}))],unavailable:['Entangled nets: no validated real-sonar detector installed','Material identification: unsupported','Additional classes are sensor-specific; inspect model evidence before use']};
+ if(path==='/capabilities')return{version:'0.6.1',deployment:'browser',worker_limit:1,max_upload_mib:32,models:[{id:'sss-pipeline-v3',modalities:['SSS_LF'],classes:{0:'Pipeline'},state:'ready',evidence:'Pipeline only. Frozen single-survey development model; browser CPU inference.',hash:HASH},...SPECIALISTS.map(m=>({id:m.id,name:m.name,modalities:[m.modality],classes:Object.fromEntries(m.classes.map((c,i)=>[i,c])),state:'ready',evidence:m.evidence,hash:m.hash,source:m.source,license:m.license,download_mb:+(m.bytes/1e6).toFixed(1)}))],unavailable:['Entangled nets: no validated real-sonar detector installed','Material identification: unsupported','Additional classes are sensor-specific; inspect model evidence before use']};
  if(path==='/examples')return[];
  if(path==='/sources'){
   const file=body.get('file') as File;if((await list('sources')).filter(s=>!s.demo).length>=20)throw Error('Browser source limit reached. Download reports, then clear site data to start a fresh workspace.');const decoded=await decode(file),s={id:uid(),filename:file.name,sha:await sha(await file.arrayBuffer()),info:{width:decoded.width,height:decoded.height,bytes:file.size,format:'image',modality:'SSS_LF'},image:decoded.image,metadata_available:false};Object.assign(s.info,{sha256:s.sha});await put('sources',s.id,s);const{image,...pub}=s;return pub;

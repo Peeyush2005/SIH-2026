@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Icon,stateName} from './design';
-import {DEMO_SCENARIOS} from './demo-scene';
+import {DEMO_SCENARIOS,REAL_DEMO_SAMPLES} from './demo-scene';
 type Obj=Record<string,any>;
 
 export function ReportsPage({jobs,open,demo,clearDemos,batch}:{jobs:Obj[],open:(j:Obj)=>void,demo:()=>void,clearDemos:()=>void,batch:React.ReactNode}){
@@ -14,7 +14,7 @@ export function ReportsPage({jobs,open,demo,clearDemos,batch}:{jobs:Obj[],open:(
 }
 
 export function DemoGuide({scenario,change,exit,busy}:{scenario:string,change:(s?:string)=>void,exit:()=>void,busy:boolean}){
- const active=DEMO_SCENARIOS.find(s=>s.id===scenario)||DEMO_SCENARIOS[0];
+ const active=REAL_DEMO_SAMPLES.find(s=>s.id===scenario)||DEMO_SCENARIOS[0];
  return <section className="demo-guide" aria-label="Demo scene explorer"><div className="demo-explorer-heading"><div><span className="demo-label">REAL SONAR DEMO</span><h1>Explore beneath the surface.</h1><p>Explore real acoustic imagery with saved detector results.</p></div><div className="demo-explorer-actions"><button className="surprise-button" disabled={busy} onClick={()=>change()}><Icon name="wave" size={17}/>{busy?'Opening scene…':'Surprise me'}</button><button onClick={exit}>Exit demo</button></div></div>
  <div className="scene-gallery" aria-label="Choose a demo scene">{DEMO_SCENARIOS.map(s=><button key={s.id} className={'scene-card '+(scenario===s.id?'active':'')} aria-label={'Open '+s.name} aria-pressed={scenario===s.id} disabled={busy} onClick={()=>change(s.id)}><img src={s.preview} alt=""/><span className="scene-card-copy"><strong>{s.name}</strong><small>{s.terrain}</small></span>{scenario===s.id&&<span className="scene-selected"><Icon name="check" size={12}/></span>}</button>)}</div>
  <div className="active-scene"><div><h2>{active.name}</h2><p>{active.description}</p></div><a href={active.source} target="_blank" rel="noreferrer">View data source ↗</a></div>
