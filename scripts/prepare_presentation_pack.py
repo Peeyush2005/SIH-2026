@@ -8,6 +8,7 @@ import shutil
 from pathlib import Path
 import argparse
 from PIL import Image
+from register_upload_pack import register
 
 def sha(p):
     return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -52,6 +53,7 @@ def main():
             image.convert('RGB').save(target,quality=96,subsampling=0)
         sample=next(s for s in catalog if s['id']==sid)
         hints.append(dict(sha256=sha(target),model=sample['model'],modality=sample['modality'],name=sample['name']))
+    hints=register(args.existing_pack,hints)
     unique={r['sha256']:r for r in hints}
     (public.parent/'upload-samples.json').write_text(json.dumps(list(unique.values()),indent=2),encoding='utf-8')
     (args.output/'manifest.json').write_text(json.dumps({'images':records,'validation':'Pending live browser inference. No boxes or scores are injected by sample recognition.'},indent=2),encoding='utf-8')

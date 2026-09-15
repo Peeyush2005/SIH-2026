@@ -223,5 +223,53 @@
     "model": "sss-pipeline-v3",
     "modality": "SSS_LF",
     "name": "Seabed survey"
+  },
+  {
+    "sha256": "c687bd41e62ff0538e52b7cd793e3c046834f22588f9cfdb0ed37d7dc2bc674b",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 0 can"
+  },
+  {
+    "sha256": "796cd31351ebea7c4f703a36f01233a25a230b77df7b7c4b53de3458c4515b3d",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 1 chain"
+  },
+  {
+    "sha256": "57401787c5585a22b446cdaee2413c9c26b5dd29b76721770a9d7b99828fce35",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 2 drink-carton"
+  },
+  {
+    "sha256": "32081453c6fabbd28f053c3ca5afd22fdd59244ce975481a8abcd92e0ad9df92",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 3 valve"
+  },
+  {
+    "sha256": "0f292c4519cb7659edfb13e917254045a3bd2d793411e5097962309ee722abc3",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 4 hook-and-propeller"
+  },
+  {
+    "sha256": "cc45ecc644d81aaad49a30f4b0fa323f0d39ce203812a766846ceacd807329a7",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 7 shampoo-bottle"
+  },
+  {
+    "sha256": "8a7564fd0d069e7d966f980924b3a57bdbfa8f3bea6a91439092a7882b5e923b",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 8 standing-bottle"
+  },
+  {
+    "sha256": "eeeed23de22e1cce593fb2f7e7a06472b29344e8a5b906f51f612764ee452383",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "name": "fls 11 bottle-and-tire"
   }
 ]
