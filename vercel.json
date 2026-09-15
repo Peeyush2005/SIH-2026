@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci --prefix frontend",
+  "buildCommand": "VITE_BROWSER_ENGINE=1 npm run build --prefix frontend",
+  "outputDirectory": "src/bluecho/dashboard/static",
+  "rewrites": [
+    {
+      "source": "/((?!assets/|ort/).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": []
+}

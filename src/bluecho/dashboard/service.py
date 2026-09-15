@@ -51,6 +51,8 @@ class Service:
     def __init__(self,storage,registry,examples=None,queue_limit=8,memory_mib=8192):
         self.root=Path(storage).resolve();self.registry=Path(registry).resolve();self.root.mkdir(parents=True,exist_ok=True)
         self.database=self.root/'application.sqlite';self.lock=threading.RLock();self.stop=threading.Event();self.child=None;self.queue_limit=queue_limit;self.memory_mib=memory_mib
+        self.sessions=None
+        self.hosted=False
         self.examples=json.loads(Path(examples).read_text()) if examples else []
         for example in self.examples:
             for key in ('source','saved'):
@@ -69,6 +71,7 @@ class Service:
         return identifier
     def source(self,identifier):
         self.checked(identifier)
+        if self.sessions:self.sessions.check('source',identifier)
         with self.db() as db:row=db.execute('SELECT payload FROM sources WHERE id=?',(identifier,)).fetchone()
         if not row:raise HTTPException(404,'Source not found')
         return json.loads(row[0])
@@ -82,15 +85,17 @@ class Service:
             missing=[d for d in deps if importlib.util.find_spec(d) is None]
             state='unsupported on this runtime' if e.get('status')=='unavailable' else 'weights missing' if not path.is_file() or not path.is_relative_to(self.registry) else 'dependency missing' if missing else 'ready'
             rows.append({'id':e['id'],'version':e.get('version'),'modalities':e.get('modalities',[]),'classes':e.get('classes',{}),'evidence':e.get('evidence_scope'),'state':state,'missing_dependencies':missing,'hash':e.get('weights',{}).get('sha256')})
-        return {'version':__version__,'models':rows,'unavailable':['SSS cylinder: no validated SSS specialist','Real entangled nets: no verified detector'],'worker_limit':1,'queue_limit':self.queue_limit,'memory_limit_mib':self.memory_mib,'mode':'CPU, loopback only','setup':'Local administrator: bluecho models verify/fetch/import --model MODEL --registry YOUR_REGISTRY. No automatic downloads.'}
+        return {'version':__version__,'deployment':'hosted' if self.hosted else 'local','max_upload_mib':32 if self.hosted else 2048,'models':rows,'unavailable':['SSS cylinder: no validated SSS specialist','Real entangled nets: no verified detector'],'worker_limit':1,'queue_limit':self.queue_limit,'memory_limit_mib':self.memory_mib,'mode':'CPU, loopback only','setup':'Local administrator: bluecho models verify/fetch/import --model MODEL --registry YOUR_REGISTRY. No automatic downloads.'}
     def record_source(self,path,original_name):
         info=inspect_input(path);identifier=path.parent.name
         info.pop('path',None)
         s={'id':identifier,'filename':original_name,'path':str(path),'info':info,'metadata_available':info.get('format')=='georeferenced_raster','sidecar':None,'created':now()}
         with self.db() as db:db.execute('INSERT INTO sources VALUES(?,?)',(identifier,json.dumps(s)))
+        if self.sessions:self.sessions.claim('source',identifier)
         return self.public_source(s)
     def job(self,identifier):
         self.checked(identifier)
+        if self.sessions:self.sessions.check('job',identifier)
         with self.db() as db:row=db.execute('SELECT * FROM jobs WHERE id=?',(identifier,)).fetchone()
         if not row:raise HTTPException(404,'Job not found')
         x=dict(row);x['request']=json.loads(x.pop('payload'));x['filename']=self.source(x['request']['source_id'])['filename']
@@ -113,6 +118,7 @@ class Service:
         return files[n]
     def job_exists(self,job):
         self.checked(job)
+        if self.sessions:self.sessions.check('job',job)
         with self.db() as db:exists=db.execute('SELECT 1 FROM jobs WHERE id=?',(job,)).fetchone()
         if not exists:raise HTTPException(404,'Job not found')
     def create_job(self,request,kind='inference',extra=None):
@@ -131,6 +137,7 @@ class Service:
             if payload.get('sidecar'):
                 original=Path(payload['sidecar']);target=directory/('sidecar'+original.suffix);shutil.copyfile(original,target);payload['sidecar']=str(target)
             atomic_json(directory/'request.json',payload);db.execute('INSERT INTO jobs(id,state,payload,created,message) VALUES(?,?,?,?,?)',(identifier,'queued',json.dumps({**request,'kind':kind}),now(),'Waiting for CPU worker'))
+        if self.sessions:self.sessions.claim('job',identifier)
         return self.job(identifier)
     def work(self):
         while not self.stop.wait(.15):
@@ -141,9 +148,23 @@ class Service:
             directory=self.path(identifier)
             env={**os.environ,'OMP_NUM_THREADS':'2','OPENBLAS_NUM_THREADS':'1','MKL_NUM_THREADS':'2','PROJ_NETWORK':'OFF'}
             with (directory/'worker.log').open('w') as log:
-                self.child=subprocess.Popen([sys.executable,'-m','bluecho.dashboard.worker',str(directory)],stdout=log,stderr=subprocess.STDOUT,env=env)
-                cancelled_at=None
+                self.child=subprocess.Popen([sys.executable,'-m','bluecho.dashboard.worker',str(directory)],stdout=log,stderr=subprocess.STDOUT,env=env,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
+                cancelled_at=None;worker_started=time.monotonic()
                 while self.child.poll() is None:
+                    if self.hosted and time.monotonic()-worker_started>180:
+                        self.child.kill();self.child.wait()
+                        atomic_json(directory/'finished.json',{'state':'failed','message':'Hosted analysis exceeded 180 seconds. Use a smaller input or the local application.'})
+                        break
+                    if os.name == 'nt':
+                        import psutil
+                        try:
+                            rss=psutil.Process(self.child.pid).memory_info().rss
+                            if rss > self.memory_mib * 1024**2:
+                                self.child.kill();self.child.wait()
+                                atomic_json(directory/'finished.json',{'state':'failed','message':'Worker exceeded the local memory budget. Use a smaller source or recording window.','memory_limit_method':'supervisor RSS sampling'})
+                                break
+                        except psutil.NoSuchProcess:
+                            pass
                     if self.stop.is_set():(directory/'cancel').touch()
                     if (directory/'cancel').exists():
                         cancelled_at=cancelled_at or time.monotonic()
@@ -202,8 +223,11 @@ class Service:
         return event
 
 
-def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
+def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192,hosted=False,allowed_hosts=(),allowed_origins=()):
     service=Service(storage,registry,examples,queue_limit,memory_mib)
+    if hosted:
+        from .sessions import Sessions,owner
+        service.hosted=True;service.sessions=Sessions(service)
     @asynccontextmanager
     async def lifespan(app):
         thread=threading.Thread(target=service.work,daemon=True);thread.start()
@@ -213,11 +237,37 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
     @app.middleware('http')
     async def local_guard(request,call_next):
         host=request.headers.get('host','').split(':')[0]
-        if host not in ('127.0.0.1','localhost','testserver','[::1]'):return JSONResponse({'detail':'Local loopback service only'},status_code=403)
+        if host not in ('127.0.0.1','localhost','testserver','[::1]',*allowed_hosts):return JSONResponse({'detail':'Host is not configured for this service'},status_code=403)
         origin=request.headers.get('origin')
-        if request.method not in ('GET','HEAD','OPTIONS') and origin and origin!=str(request.base_url).rstrip('/'):
+        if request.method not in ('GET','HEAD','OPTIONS') and origin and origin not in (str(request.base_url).rstrip('/'),*allowed_origins):
             return JSONResponse({'detail':'Cross-origin writes are disabled'},status_code=403)
-        response=await call_next(request);response.headers['X-Content-Type-Options']='nosniff';response.headers['Referrer-Policy']='no-referrer';return response
+        if hosted and request.url.path.startswith('/api/'):
+            current=service.sessions.identity(request.cookies.get('bluecho-session'))
+            context=owner.set(current)
+            try:
+                content_length=request.headers.get('content-length','0')
+                if not content_length.isdigit() or int(content_length)>33*1024**2:
+                    return JSONResponse({'detail':'Hosted uploads are limited to 32 MiB. Use the local app for large recordings.'},status_code=413)
+                if request.method=='POST' and request.url.path=='/api/v1/sources' and len(service.sessions.ids('source'))>=20:
+                    return JSONResponse({'detail':'This browser session has reached its 20-source limit.'},status_code=429)
+                if request.method=='POST' and request.url.path=='/api/v1/jobs':
+                    body=await request.json()
+                    service.sessions.check('source',body.get('source_id',''))
+                    if len(service.sessions.ids('job'))>=40:
+                        return JSONResponse({'detail':'This browser session has reached its 40-inspection limit.'},status_code=429)
+                    if not 0<int(body.get('max_pings',128))<=512:
+                        return JSONResponse({'detail':'Hosted recordings require a ping limit from 1 to 512.'},status_code=422)
+                response=await call_next(request)
+                if not request.cookies.get('bluecho-session') or service.sessions.identity(request.cookies.get('bluecho-session'))!=current:
+                    response.set_cookie('bluecho-session',service.sessions.sign(current),httponly=True,secure=True,samesite='lax',max_age=86400)
+                response.headers['Cache-Control']='no-store'
+            except HTTPException as exc:
+                response=JSONResponse({'detail':exc.detail},status_code=exc.status_code)
+            finally:
+                owner.reset(context)
+        else:
+            response=await call_next(request)
+        response.headers['X-Content-Type-Options']='nosniff';response.headers['Referrer-Policy']='no-referrer';return response
     @app.exception_handler(UnidentifiedImageError)
     @app.exception_handler(struct.error)
     @app.exception_handler(ValueError)
@@ -241,7 +291,7 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
             with path.open('wb') as out:
                 while chunk:=await file.read(1024**2):
                     size+=len(chunk)
-                    if size>2*1024**3:raise HTTPException(413,'Maximum source size is 2 GiB')
+                    if size>(32*1024**2 if hosted else 2*1024**3):raise HTTPException(413,'Maximum source size is 32 MiB hosted / 2 GiB locally')
                     out.write(chunk)
             return await run_in_threadpool(service.record_source,path,name)
         except Exception:
@@ -263,6 +313,7 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
     @app.get('/api/v1/jobs')
     def jobs():
         with service.db() as db:ids=[r[0] for r in db.execute('SELECT id FROM jobs ORDER BY created DESC LIMIT 100')]
+        if service.sessions:ids=[i for i in ids if i in service.sessions.ids('job')]
         return [service.job(i) for i in ids]
     @app.get('/api/v1/jobs/{job}')
     def job_status(job:str):return service.job(job)
@@ -297,6 +348,7 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
         return service.create_job({**j['request'],'parent_job':job,'parent_revision':r['review_revision']},kind='geotag',extra={'result':str(snapshot/'results.json'),'sidecar':str(path)})
     @app.post('/api/v1/jobs/{job}/windows/{window}/export')
     def export(job:str,window:str,body:ExportRequest):
+        if hosted and shutil.disk_usage(service.root).free<3*1024**3:raise HTTPException(507,'Hosted storage is full. Download existing reports or use the local app.')
         with service.lock:
             r=service.canonical(job,window)
             if r['review_revision']!=body.revision:raise HTTPException(409,'Review changed; refresh export')
@@ -315,7 +367,7 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
             g=json.loads((out/'detections.geojson').read_text())
             for feature in g['features']:feature['properties'].update(review_revision=body.revision,review_history=ds[feature['properties']['candidate_id']].get('review_history',[]))
             atomic_json(out/'detections.geojson',g)
-            html_path=out/'report.html';html_path.write_text(html_path.read_text().replace('</html>',f'<p>Review revision {body.revision}; export scope {body.scope}. <a href="reviews.json">Review history</a> · <a href="original_predictions.json">Original predictions</a></p></html>'))
+            html_path=out/'report.html';html_path.write_text(html_path.read_text().replace('</html>',f'<p>Review revision {body.revision}; export scope {body.scope}. <a href="reviews.json">Review history</a> Â· <a href="original_predictions.json">Original predictions</a></p></html>'))
             with zipfile.ZipFile(out/'inspection.zip','w',zipfile.ZIP_DEFLATED) as z:
                 for p in out.rglob('*'):
                     if p.is_file() and p.name!='inspection.zip':z.write(p,str(p.relative_to(out)))
@@ -337,6 +389,7 @@ def create_app(storage,registry,examples=None,*,queue_limit=8,memory_mib=8192):
                 target=out/p.relative_to(e['saved']);target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
         for result in out.rglob('results.json'):(result.parent/'.dashboard-complete').touch()
         with service.db() as db:db.execute('INSERT INTO jobs(id,state,payload,created,message) VALUES(?,?,?,?,?)',(job_id,'completed_with_warnings',json.dumps({**request,'saved_example':True}),now(),'Saved example opened. No new inference was run.'))
+        if service.sessions:service.sessions.claim('job',job_id)
         return service.job(job_id)
     static=Path(__file__).parent/'static'
     if static.exists():app.mount('/',StaticFiles(directory=static,html=True),name='frontend')

@@ -16,3 +16,7 @@ node_modules/
 frontend/test-results/
 playwright-report/
 *.webm
+
+.vercel/
+frontend/check-visual.mjs
+.vercel

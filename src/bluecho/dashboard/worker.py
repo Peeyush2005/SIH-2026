@@ -1,10 +1,12 @@
 """One CPU job per child process. No user code or model URLs accepted."""
-import json,os,signal,sys,time,resource
+import json,os,signal,sys,time
 from pathlib import Path
 
 def main():
     directory=Path(sys.argv[1]);payload=json.loads((directory/'request.json').read_text())
-    resource.setrlimit(resource.RLIMIT_AS,(payload.get('memory_mib',8192)*1024**2,)*2)
+    if os.name != 'nt':
+        import resource
+        resource.setrlimit(resource.RLIMIT_AS,(payload.get('memory_mib',8192)*1024**2,)*2)
     from bluecho.phase1.download import atomic_json
     started=time.monotonic()
     def cancel(*a):raise KeyboardInterrupt
@@ -37,5 +39,10 @@ def main():
         for path in [payload.get('registry'),str(directory),payload.get('source'),payload.get('result')]:
             if path:detail=detail.replace(path,'[managed file]')
         detail=detail[:500] or type(exc).__name__
-    atomic_json(directory/'finished.json',{'state':state,'message':detail,'elapsed_seconds':time.monotonic()-started,'peak_RSS_KiB':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss})
+    if os.name == 'nt':
+        import psutil
+        peak_rss = psutil.Process().memory_info().peak_wset / 1024
+    else:
+        peak_rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    atomic_json(directory/'finished.json',{'state':state,'message':detail,'elapsed_seconds':time.monotonic()-started,'peak_RSS_KiB':peak_rss,'memory_limit_method':'supervisor RSS sampling' if os.name == 'nt' else 'RLIMIT_AS'})
 if __name__=='__main__':main()

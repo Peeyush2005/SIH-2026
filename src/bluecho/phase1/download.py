@@ -7,7 +7,38 @@ import shutil
 import time
 import urllib.request
 from pathlib import Path
-import fcntl
+from contextlib import contextmanager
+
+
+@contextmanager
+def download_lock(path):
+    """Serialize the shared download ledger on POSIX and Windows."""
+    with Path(path).open('a+b') as lock:
+        if os.name == 'nt':
+            import msvcrt
+            if lock.tell() == 0:
+                lock.write(b'0'); lock.flush()
+            lock.seek(0)
+            while True:
+                try:
+                    msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+                    break
+                except OSError as exc:
+                    if exc.errno not in (13, 11, 36):
+                        raise
+                    time.sleep(.1)
+            try:
+                yield
+            finally:
+                lock.seek(0)
+                msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            try:
+                yield
+            finally:
+                fcntl.flock(lock, fcntl.LOCK_UN)
 
 GIB = 1024 ** 3
 
@@ -25,7 +56,16 @@ def atomic_json(path, value):
         json.dump(value, f, indent=2, allow_nan=False)
         f.flush()
         os.fsync(f.fileno())
-    tmp.replace(path)
+    # Windows readers may briefly hold a handle without FILE_SHARE_DELETE.
+    # Keep atomic promotion; never replace it with an in-place partial write.
+    for attempt in range(20):
+        try:
+            tmp.replace(path)
+            break
+        except PermissionError:
+            if os.name != 'nt' or attempt == 19:
+                raise
+            time.sleep(.025)
 
 
 def download(spec, directory, *, ceiling=2*GIB, reserve=10*GIB, retries=3, max_seconds=600):
@@ -46,8 +86,7 @@ def download(spec, directory, *, ceiling=2*GIB, reserve=10*GIB, retries=3, max_s
     partial = directory/(name+'.part')
     binding = directory/(name+'.part.json')
     ledger_path = directory/'DOWNLOAD_LEDGER.json'
-    with (directory/'.download.lock').open('a') as lock:
-        fcntl.flock(lock, fcntl.LOCK_EX)
+    with download_lock(directory/'.download.lock'):
         ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else {'network_bytes':0,'artifacts':{},'events':[]}
         ledger.update(ceiling_bytes=ceiling, minimum_free_bytes=reserve)
         def verify(p):

@@ -2,7 +2,7 @@
 
 **Local sonar inspection, detection, and evidence review.**
 
-[PyPI package](https://pypi.org/project/bluecho-sonar/) · [Source code](https://github.com/Sharon-codes/SIH-2026) · [Documentation](https://github.com/Sharon-codes/SIH-2026/tree/main/docs) · [Report an issue](https://github.com/Sharon-codes/SIH-2026/issues)
+[Live dashboard](https://bluecho-sih-2026.vercel.app) · [Model weights](https://huggingface.co/SharonMelhi/BluEcho-SSS-Pipeline) · [PyPI package](https://pypi.org/project/bluecho-sonar/) · [Source code](https://github.com/Sharon-codes/SIH-2026) · [Documentation](https://github.com/Sharon-codes/SIH-2026/tree/main/docs) · [Report an issue](https://github.com/Sharon-codes/SIH-2026/issues)
 
 BluEcho is a Python toolkit and local dashboard for turning sonar imagery into reviewable detection results. It brings together model inference, annotated images, human review, and structured exports in a workflow that can run offline after dependencies and model files have been prepared.
 
@@ -18,6 +18,14 @@ The project is a research prototype. Its side-scan sonar (SSS) and forward-looki
 - **Portable evidence:** annotated images, object crops, JSON/CSV, GeoJSON, and local HTML review bundles through the relevant inspection and export commands.
 - **Source-bound geolocation:** coordinate enrichment when verified raster metadata or a matching sidecar supports it. Results without defensible locations retain null geometry.
 - **Controlled model setup:** explicit acquisition or local import, pinned model hashes, and separate model/data licence information.
+
+## Website and on-device inference
+
+The redesigned [BluEcho website](https://bluecho-sih-2026.vercel.app) runs the pipeline ONNX model **inside your browser**. Sonar images and review records stay in browser storage; no Python API or paid cloud inference server is required. First use downloads the hash-verified 10.6 MB model from Hugging Face and the WebAssembly runtime from the site.
+
+The web edition supports PNG, JPEG, BMP and PBM/portable images (32 MiB, up to 8 million pixels), tiled pipeline detection, image/map review, source-bound affine JSON metadata in EPSG:4326 or EPSG:3857, and JSON/CSV/GeoJSON/HTML/ZIP downloads. Keep the tab open during inference and export reports before clearing site data. Browser reports use the explicit `bluecho-browser/1.0` schema; the Python API retains its existing schema.
+
+The **local application** provides raw XTF, TIFF/GeoTIFF, additional model routes and broader metadata support. Browser execution is a separate runtime check, not a new accuracy benchmark. The public web detector labels pipelines only.
 
 ## Installation
 
