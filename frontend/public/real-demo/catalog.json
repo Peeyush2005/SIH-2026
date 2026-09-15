@@ -129,5 +129,138 @@
     },
     "detections": 1,
     "proposals": 0
+  },
+  {
+    "id": "can",
+    "name": "Can sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/can/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "908ef1b8e5728ad50ce7ce182202631686c43490219b561f10860a03655b4349",
+      "preview.jpg": "b299c2c705bfb537151da09ae863df2a906de1690d3f30e1759e7126dbc46168",
+      "quality.png": "1e74b648d37da49e74889d74aef7cebaf4f99e640715a617a57a67be0630b713",
+      "results.json": "400ec6a831adf12b17c51dbb25b0839a670a200e4332b51941a170ad1ac26d11",
+      "contexts/032879f86af9863b53c92fb2.png": "92ef186af903ff8305246875e388c62a47ff903bdc81bbcb50e37b19413753b1"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "chain",
+    "name": "Chain sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/chain/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "1d087fc52ac0bbdc93a539fd710b6f28407497d0c5ddf5b3caad18a79ca5f83a",
+      "preview.jpg": "1a8251701bc00cb7f1b7d6f4467c088054ae5bdd7b4db5e7a55141e00fd12a9d",
+      "quality.png": "c883ab0307304db2936c9fc0563df6150d649fd6e91aa4c54961cb7f023619e8",
+      "results.json": "a36793297dce735659d7f33e9c0b9bc4b8d5160887867f14e8ceaa6c9899efb8",
+      "contexts/1814f2964b3d0559ef25ce3a.png": "1bbe7ff262ef9373239669ccb99c4097ec9d5c0c8c48e0c928cf5c249beed332"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "carton",
+    "name": "Drink-carton sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/carton/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "2151d942cd15319dcb56016268178421cc47b8fd7974ccebd4d226fa249843b5",
+      "preview.jpg": "8950a619ece86149ca41c8606c20d9b5114cdb834bf23a37c5efb4818dae8e22",
+      "quality.png": "0325d4b571abc00c046b39ad4fbac8531320dff143ad4a77520b4b910026c0f9",
+      "results.json": "41a9a4ab2c9c0c5482068203a1885daaacc710e03473c221530b56050295adc8",
+      "contexts/cbf75e5faaded4f1fab46956.png": "5d01ba716577c28b2615f72cade93bdcffad598856a11b4215de5fabdae02988"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "valve",
+    "name": "Valve sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/valve/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "5599a1f25c6bcccddbae7ffb551fba7fecd91b4b4818cfba7a00aa12c279d9be",
+      "preview.jpg": "d2c1541b15425a6171d6d67b63f5708f7d5c26304f8fc6c5634fa1bd7511f7ba",
+      "quality.png": "3044ad40d84d3ee856b59e8e2dcdb30e1ea70e8d00eb2da7b6724d9e99060d5d",
+      "results.json": "1503a016dece8e5eb4e5eec3edfa572dada27ab88a937602039fb2a48e4bf913",
+      "contexts/b49e133f0921b2a514836a8d.png": "6feed4a62db94b00542458c2aff9068ead1c297c0b2ca7aebb392d49c0765730"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "standing-bottle",
+    "name": "Standing-bottle sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/standing-bottle/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "00e6d064bcd213819c0ee970f5b42df4df89fdeb5f05386d0d7f1c5a336e112d",
+      "preview.jpg": "5b14c9d757d913f6dfcbe7eb38e04998bd0c1703df7cfb52e8c711ce4c33752a",
+      "quality.png": "d61a97e14e54d714cb797f1b3c8fca0ceb2d0301e1d6e7f1f38067ddab1bcc40",
+      "results.json": "78f5df05d58647bbdaa15397dc2c237da7633c444dbdaf22685a115a4edb384f",
+      "contexts/276adc55e2449a7f87c52daa.png": "6e6c6440766ea052bf9b617ac5cf504899bf1c98c0fbfbdfc6f3265440d56cfd"
+    },
+    "detections": 1,
+    "proposals": 0
+  },
+  {
+    "id": "tire-bottle",
+    "name": "Tire & bottle sample",
+    "terrain": "ARIS \u00b7 water tank",
+    "description": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "hint": "Review the real image. Geographic position is unavailable for this sample.",
+    "model": "fls11-debris",
+    "modality": "FLS_ARIS",
+    "preview": "/real-demo/tire-bottle/preview.jpg",
+    "source": "https://zenodo.org/records/15101686",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "license": "CC-BY-NC-SA-4.0",
+    "files": {
+      "original.png": "0d4d11b6a09dd9e680994c28ded870778d9adbc7b57c58ef3344c249decae9e6",
+      "preview.jpg": "45b88d840d25fa78d3a380990ba855de4db2ffdce7304e22a859881a920fc0c5",
+      "quality.png": "dd58b8dae97f739768a3b1150b9bccc7faf53f309d62f04f0fe0d1cd324a778a",
+      "results.json": "0501bbeb11c1cee1f858f88b02f9818b94207a90b0e3df961ce8669fc511e6a9",
+      "contexts/873a045e077225112e31db4a.png": "ddc173ffe551b51369ca2248d1815b590e6d3dfe0a6e334eecdc926a30a4bde9",
+      "contexts/a65b7d6fba3770ab20600426.png": "8c97b79f560bfb6fb41e27682470e995304285fa1bde64c2770da450fb03f620"
+    },
+    "detections": 2,
+    "proposals": 0
   }
 ]

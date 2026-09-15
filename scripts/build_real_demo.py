@@ -25,6 +25,7 @@ def main():
     p = argparse.ArgumentParser()
     for name in ['samples', 'noaa', 'registry', 'output', 'work']:
         p.add_argument('--'+name, required=True, type=Path)
+    p.add_argument('--append-debris', action='store_true', help='Append six additional verified FLS scenes, preserving existing demo assets')
     a = p.parse_args()
     a.output.mkdir(parents=True, exist_ok=True)
     a.work.mkdir(parents=True, exist_ok=True)
@@ -38,7 +39,15 @@ def main():
         ('noaa0','Gulf survey · west','NOAA · georeferenced','noaa_window_0.tif','sonarvision-sss','SSS','NOAA H12907','CC0-1.0','https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html'),
         ('noaa1','Georeferenced survey','NOAA · real coordinates','noaa_window_1.tif','sonarvision-sss','SSS','NOAA H12907','CC0-1.0','https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html'),
     ]
-    catalog=[]
+    if a.append_debris:
+        rows=[(sid,name,'ARIS · water tank',filename,'fls11-debris','FLS_ARIS','Marine Debris FLS','CC-BY-NC-SA-4.0','https://zenodo.org/records/15101686') for sid,name,filename in [
+            ('can','Can sample','fls_0.png'),('chain','Chain sample','fls_1.png'),
+            ('carton','Drink-carton sample','fls_2.png'),('valve','Valve sample','fls_3.png'),
+            ('standing-bottle','Standing-bottle sample','fls_8.png'),('tire-bottle','Tire & bottle sample','fls_11.png')]]
+    catalog=json.loads((a.output/'catalog.json').read_text(encoding='utf-8')) if a.append_debris else []
+    if a.append_debris:
+        assert not {row[0] for row in rows}.intersection(item['id'] for item in catalog), 'These scenes already exist; use a fresh build directory'
+
     for sid,name,terrain,filename,model,modality,collection,license_id,url in rows:
         source=(a.noaa if sid.startswith('noaa') else a.samples)/filename
         if source.stem in manifest:
@@ -74,7 +83,7 @@ def main():
     (a.output/'catalog.json').write_text(json.dumps(catalog,indent=2),encoding='utf-8')
     (a.output/'ATTRIBUTION.md').write_text('''# Real sonar demo data
 
-These six examples contain real acoustic imagery and freshly executed detector outputs. No illustration, fabricated object, random confidence or artificial geographic anchor is included. PNG arrays were checked against decoded source pixels. Small JPEG previews alone are resized. JSON records source/image/model hashes and inference time. These are demonstration examples, not independent benchmarks.
+These examples contain real acoustic imagery and freshly executed detector outputs. No illustration, fabricated object, random confidence or artificial geographic anchor is included. PNG arrays were checked against decoded source pixels. Small JPEG previews alone are resized. JSON records source/image/model hashes and inference time. These are demonstration examples, not independent benchmarks.
 
 ## SubPipe — CC BY 4.0
 
@@ -91,7 +100,7 @@ Existing BluEcho development samples are decoded losslessly; no independent test
 Source: https://zenodo.org/records/15101686
 Creators: Matias Valdenegro, Bilal Wehbe, Yvan Petillot.
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-The two original ARIS water-tank samples (marine-debris-aris3k-4.png and marine-debris-aris3k-7.png), their previews and derived annotated displays retain these noncommercial/share-alike terms. Included for this noncommercial SIH research demonstration. They are not relicensed under the software license. No verified geographic metadata is available. Source labels and detector predictions are separate; material identity is not established by a label.
+The original ARIS water-tank samples (marine-debris-aris3k IDs 0, 1, 2, 3, 4, 7, 8 and 11), their previews and derived annotated displays retain these noncommercial/share-alike terms. Included for this noncommercial SIH research demonstration. They are not relicensed under the software license. No verified geographic metadata is available. Source labels and detector predictions are separate; material identity is not established by a label.
 
 ## NOAA H12907 — CC0 1.0
 

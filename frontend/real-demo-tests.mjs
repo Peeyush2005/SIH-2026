@@ -27,7 +27,7 @@ try{
   else {await page.getByRole('heading',{name:'Location metadata needed'}).waitFor();assert.equal(await page.locator('[data-map-candidate]').count(),0);}
   await page.getByRole('button',{name:'Image',exact:true}).click();await page.locator('svg.sonar').screenshot({path:path.join(out,sample.id+'.png')});
  }
- pass('All five featured demos load hash-verified real pixels and exact saved detector outputs');
+ pass('All eleven featured demos load hash-verified real pixels and exact saved detector outputs');
  pass('NOAA has metadata-derived coordinates; other samples retain unavailable positions');
  await page.getByRole('button',{name:'Open Shampoo-bottle sample',exact:true}).click();await ready();
  await page.getByLabel('Review note',{exact:true}).fill('Real sonar image; label remains unverified');await page.getByRole('button',{name:'Save note',exact:true}).click();await page.getByText('Review saved. This is not field verification.',{exact:true}).waitFor();
@@ -38,7 +38,8 @@ try{
  await page.reload();await ready();assert.equal(JSON.parse(await download('JSON','reloaded.json')).review_revision,2);pass('Real-demo reviews persist through reload');
  assert.match((await download('CSV','real.csv')).toString(),/false/);await download('GEOJSON','real.geojson');await download('PDF brief','real.pdf');await download('Evidence ZIP','real.zip');await download('Review candidates JSON','reviews.json');pass('All report formats download with real-source provenance');
  await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await page.screenshot({path:path.join(out,'mobile.png'),fullPage:true});
- let last=await page.locator('.active-scene h2').innerText();for(let i=0;i<3;i++){await page.getByRole('button',{name:'Surprise me',exact:true}).click();await ready();const next=await page.locator('.active-scene h2').innerText();assert.notEqual(last,next);last=next;}
+ let last=await page.locator('.active-scene h2').innerText();for(let i=0;i<3;i++){await page.getByRole('button',{name:'Surprise me',exact:true}).click();await page.waitForFunction(previous=>document.querySelector('.active-scene h2')?.textContent!==previous,last);await ready();const next=await page.locator('.active-scene h2').innerText();assert.notEqual(last,next);last=next;}
+ for(let i=0;i<14;i++){await page.getByRole('button',{name:i%2?'Open Shampoo-bottle sample':'Open Pipeline survey',exact:true}).click();await ready();}const revisited=JSON.parse(await download('JSON','revisited.json'));assert.equal(revisited.review_revision,2);
  assert.ok(!requests.some(s=>s.includes('.onnx')));pass('Sample switching is nonrepeating and saved results open without model downloads');
  assert.deepEqual(errors,[]);await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify({status:'PASS',checks,errors},null,2));
 }catch(e){await page.screenshot({path:path.join(out,'failure.png'),fullPage:true});throw e}finally{await browser.close()}

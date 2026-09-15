@@ -21,3 +21,7 @@ Frozen training/export manifest:
 ```
 
 `q.development_manifest(frozen)` excludes any held-out hash, held-out related group or group outside the explicit development allowlist. It outputs examples plus exclusion reasons and the frozen manifest hash. Broad group identity is the operator's responsibility: do not assign a new name to a related validation recording to evade the gate. Unknown groups fail closed. This is a future training/export hook only. There is no automatic pseudo-label acceptance, retraining, validation/test tuning or production weight promotion. An independently evaluated future model is required before claiming improved accuracy.
+
+## Decision feedback in the dashboard
+
+After saving Uncertain or False alert, an accessible confirmation explains the saved state, preservation of original predictions and what appears in reports. It offers the next unreviewed candidate, return to the saved finding, and report downloads. Uncertain boxes carry an amber outline and explicit label; false alerts carry grey dashed boxes and a False alert label. These UI decisions do not trigger training, external alerts or automatic rescans. Escape closes the confirmation; native dialog focus containment prevents accidental background actions.

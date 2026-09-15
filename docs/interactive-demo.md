@@ -42,3 +42,11 @@ The main demo picker and Surprise me now use four SubPipe/FLS examples. The two 
 ## Georeferenced example in 0.6.2
 
 The featured picker includes one Georeferenced survey sample (NOAA H12907, east window). Its 1024-pixel image retains the source NAD83 / UTM 15N affine transform. Map and exports use WGS84 estimates derived from that transform. The saved wreck-labelled prediction is unconfirmed, with possible false-alert geometry; neither hazard identity nor position error has field verification. Noaa0 remains outside the picker. All original real-demo asset hashes are preserved. The alignment and real-demo checks cover the five-sample picker.
+
+## Expanded debris library
+
+Eleven public scenes include eight FLS images with all ten debris source labels, pipeline and empty-source examples, and one georeferenced NOAA survey. The collection selector and horizontally scrolling gallery keep the workspace compact. Six new FLS scenes were built with `build_real_demo.py --append-debris`, preserving all original image/result hashes. Every new scene completed real local inference; no score or prediction was invented.
+
+On localhost only, an explicitly prepared `window.BLUECHO_LOCAL_DEMOS` catalog can extend the gallery with approved-access images in a separate private static bundle. The public website ignores that catalog, and the public source does not contain private imagery. GhostVision's dataset metadata says CC BY-SA 4.0 while its card says GPL; this phase keeps its imagery local pending clarification. Real ghost-net detection remains unsupported.
+
+Opening a sample again reuses its saved inspection when its source-result hash matches, preserving review decisions. New source versions receive separate inspections. A direct `?demo=noaa1` link opens the georeferenced sample; the parameter is consumed so reload resumes the saved review.

@@ -1,0 +1,293 @@
+{
+  "schema_version": "bluecho-browser/1.0",
+  "source_reference": {
+    "file": "fls_3.png",
+    "channel": null,
+    "ping_start": null,
+    "ping_end": null,
+    "sample_start": 0,
+    "sample_end": 438
+  },
+  "source_sha256": "32081453c6fabbd28f053c3ca5afd22fdd59244ce975481a8abcd92e0ad9df92",
+  "image_pixel_sha256": "98a09814fdf936a849b6be8a98b847110b0250134ab296d84ca5fb5236768853",
+  "image_dimensions": {
+    "width": 438,
+    "height": 658
+  },
+  "modality": "FLS_ARIS",
+  "models": [
+    {
+      "id": "fls11-debris",
+      "version": "385b4e1185e4",
+      "sha256": "385b4e1185e478ec7ae90fa3091586273ca956aa957cbba1dbb96eaeae351dc2",
+      "classes": {
+        "0": "mine",
+        "1": "can",
+        "2": "bottle",
+        "3": "drink-carton",
+        "4": "chain",
+        "5": "propeller",
+        "6": "tire",
+        "7": "hook",
+        "8": "valve",
+        "9": "shampoo-bottle",
+        "10": "standing-bottle"
+      },
+      "evidence_scope": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "calibration": "uncalibrated"
+    }
+  ],
+  "detections": [
+    {
+      "candidate_id": "b49e133f0921b2a514836a8d",
+      "candidate_type": "model_detection",
+      "source_reference": {
+        "file": "fls_3.png",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 438
+      },
+      "source_sha256": "32081453c6fabbd28f053c3ca5afd22fdd59244ce975481a8abcd92e0ad9df92",
+      "modality": "FLS_ARIS",
+      "class_id": 8,
+      "class_name": "valve",
+      "original_class": "valve",
+      "material_identity": null,
+      "model_id": "fls11-debris",
+      "model_version": "385b4e1185e4",
+      "model_sha256": "385b4e1185e478ec7ae90fa3091586273ca956aa957cbba1dbb96eaeae351dc2",
+      "model_score": 92.52924919128418,
+      "raw_score": 0.9252924919128418,
+      "score_type": "uncalibrated_model_score_0_100",
+      "box_xyxy_pixels": [
+        164.68241939544677,
+        241.23700599670408,
+        251.04197006225584,
+        338.3546573638916
+      ],
+      "mask": null,
+      "pixel_dimensions": {
+        "width": 86.35955066680907,
+        "height": 97.1176513671875
+      },
+      "coordinates": null,
+      "crs": null,
+      "position_method": null,
+      "position_reason": "INCOMPLETE_METADATA",
+      "metric_dimensions": null,
+      "source_location_reference": null,
+      "geographic_footprint": null,
+      "location_status": "unavailable",
+      "uncertainty": {
+        "status": "unknown"
+      },
+      "altitude_provenance": "unavailable",
+      "position_reason_codes": [
+        "INCOMPLETE_METADATA"
+      ],
+      "positioning_assumptions": [],
+      "metadata_provenance": null,
+      "footprint_status": "unavailable",
+      "footprint_reason": "position_unavailable",
+      "position_accuracy": "unvalidated_against_independent_reference",
+      "quality_flags": [
+        "geographical_position_unavailable"
+      ],
+      "review_state": "unreviewed",
+      "evidence_status": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+      "provenance": {
+        "preprocessing": {
+          "mode": "letterbox640",
+          "size": 640,
+          "color_order": "RGB",
+          "output_layout": "yolo",
+          "max_aspect_ratio": 4,
+          "intensity": "uint8 /255; centered 114 padding; preserve aspect ratio"
+        },
+        "decoding": {
+          "method": "unchanged decoded uint8 RGB",
+          "georeferencing": null
+        },
+        "terms": {
+          "weights": "Original author MIT; Ultralytics AGPL-3.0; separate source-data terms recorded in model card",
+          "source": "https://huggingface.co/SharonMelhi/BluEcho-FLS11-ONNX"
+        }
+      },
+      "source_filename": "fls_3.png",
+      "image_dimensions": {
+        "width": 438,
+        "height": 658
+      },
+      "native_class_name": "valve",
+      "mapped_class_name": null,
+      "score_calibrated": false,
+      "evidence": {
+        "crop": "crops/b49e133f0921b2a514836a8d.png",
+        "context": "contexts/b49e133f0921b2a514836a8d.png",
+        "original": "original.png",
+        "overlay": "annotated.png"
+      },
+      "window_mapping": {
+        "file": "fls_3.png",
+        "channel": null,
+        "ping_start": null,
+        "ping_end": null,
+        "sample_start": 0,
+        "sample_end": 438
+      },
+      "demo": true,
+      "synthetic": false,
+      "review_history": []
+    }
+  ],
+  "unvalidated_proposals": [],
+  "quality": {
+    "invalid_rows": 0,
+    "saturated_rows": 0,
+    "uncertain_low_signal_rows": 50,
+    "saturated_pixel_fraction": 6.9395289447752285e-06,
+    "regions": [
+      {
+        "flag": "uniform_low_signal_uncertain",
+        "box_xyxy_pixels": [
+          0,
+          0,
+          438,
+          34
+        ],
+        "evidence": "Entire displayed row <=1/255; can include legitimate margins or shadows",
+        "assessment": "uncertain_not_missing_data",
+        "position": {
+          "coordinates": null,
+          "crs": null,
+          "position_method": null,
+          "position_reason": "INCOMPLETE_METADATA",
+          "metric_dimensions": null,
+          "source_location_reference": null,
+          "geographic_footprint": null,
+          "location_status": "unavailable",
+          "uncertainty": {
+            "status": "unknown"
+          },
+          "altitude_provenance": "unavailable",
+          "position_reason_codes": [
+            "INCOMPLETE_METADATA"
+          ],
+          "positioning_assumptions": [],
+          "metadata_provenance": null,
+          "footprint_status": "unavailable",
+          "footprint_reason": "position_unavailable"
+        },
+        "recommendation": "Review source coverage and consider rescanning this interval if confirmed unusable; this is not a navigation plan"
+      },
+      {
+        "flag": "uniform_low_signal_uncertain",
+        "box_xyxy_pixels": [
+          0,
+          642,
+          438,
+          658
+        ],
+        "evidence": "Entire displayed row <=1/255; can include legitimate margins or shadows",
+        "assessment": "uncertain_not_missing_data",
+        "position": {
+          "coordinates": null,
+          "crs": null,
+          "position_method": null,
+          "position_reason": "INCOMPLETE_METADATA",
+          "metric_dimensions": null,
+          "source_location_reference": null,
+          "geographic_footprint": null,
+          "location_status": "unavailable",
+          "uncertainty": {
+            "status": "unknown"
+          },
+          "altitude_provenance": "unavailable",
+          "position_reason_codes": [
+            "INCOMPLETE_METADATA"
+          ],
+          "positioning_assumptions": [],
+          "metadata_provenance": null,
+          "footprint_status": "unavailable",
+          "footprint_reason": "position_unavailable"
+        },
+        "recommendation": "Review source coverage and consider rescanning this interval if confirmed unusable; this is not a navigation plan"
+      }
+    ],
+    "coverage": {
+      "complete_input": true,
+      "unassessed": []
+    },
+    "policy": "No quality-based rejection of detections. Dark shadows are not treated as missing rows. Originals remain unchanged."
+  },
+  "tracks": {
+    "type": "FeatureCollection",
+    "features": []
+  },
+  "decoding": {
+    "method": "unchanged decoded uint8 RGB",
+    "georeferencing": null
+  },
+  "evidence_scopes": [
+    "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited."
+  ],
+  "review_records": [],
+  "timings": {
+    "quality_seconds": 0.019950899994000793,
+    "models": [
+      {
+        "model_id": "fls11-debris",
+        "startup_seconds": 0.0015152000123634934,
+        "prediction_seconds": 0.0663840000052005,
+        "device": "cpu",
+        "backend": "onnx"
+      }
+    ],
+    "geotagging_seconds": 3.390002530068159e-05,
+    "export_seconds": 0.060848599998280406,
+    "window_total_seconds": 0.16512619995046407,
+    "decode_seconds": 0.030034299998078495,
+    "total_seconds": 0.19838960003107786
+  },
+  "memory": {
+    "process_rss_bytes": 353738752
+  },
+  "geographical_accuracy": "not evaluated against independent references",
+  "cross_model_policy": "No score averaging or cross-model duplicate suppression; each original model class and identity is retained",
+  "positioning_metadata": null,
+  "positioning_scope": "No geographic metadata",
+  "demo": {
+    "kind": "real_sonar_saved_inference",
+    "scenario": "valve",
+    "synthetic": false,
+    "collection": "Marine Debris FLS",
+    "source_url": "https://zenodo.org/records/15101686",
+    "license": "CC-BY-NC-SA-4.0",
+    "credit": "Matias Valdenegro, Bilal Wehbe, Yvan Petillot",
+    "source_filename": "fls_3.png",
+    "original_file_sha256": "32081453c6fabbd28f053c3ca5afd22fdd59244ce975481a8abcd92e0ad9df92",
+    "display_png_sha256": "5599a1f25c6bcccddbae7ffb551fba7fecd91b4b4818cfba7a00aa12c279d9be",
+    "image_changes": "Lossless RGB decoding to PNG; pixel array verified identical. Preview only is resized.",
+    "inference": "Saved output from an actual local CPU detector run; opening the demo does not run inference again.",
+    "inference_utc": "2026-09-15T13:59:58.151382+00:00",
+    "scope": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+    "location": "Unavailable: no verified per-image geographic metadata",
+    "disclaimer": "Real sonar image with saved detector output. Model labels are predictions, not field verification."
+  },
+  "runtime": "Saved Python CPU inference",
+  "saved_example": true,
+  "review_revision": 0,
+  "rescan_requests": [],
+  "evidence_scope": "Real water-tank image; source label names the object. Training overlap is not excluded; not an open-ocean accuracy test.",
+  "preprocessing": {
+    "source": "Original native inference; see candidate provenance"
+  },
+  "merging": {
+    "source": "Original native model configuration"
+  },
+  "map_layers": {
+    "processed": []
+  }
+}

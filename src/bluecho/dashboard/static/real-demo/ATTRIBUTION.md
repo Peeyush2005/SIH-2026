@@ -1,6 +1,6 @@
 # Real sonar demo data
 
-These six examples contain real acoustic imagery and freshly executed detector outputs. No illustration, fabricated object, random confidence or artificial geographic anchor is included. PNG arrays were checked against decoded source pixels. Small JPEG previews alone are resized. JSON records source/image/model hashes and inference time. These are demonstration examples, not independent benchmarks.
+These examples contain real acoustic imagery and freshly executed detector outputs. No illustration, fabricated object, random confidence or artificial geographic anchor is included. PNG arrays were checked against decoded source pixels. Small JPEG previews alone are resized. JSON records source/image/model hashes and inference time. These are demonstration examples, not independent benchmarks.
 
 ## SubPipe — CC BY 4.0
 
@@ -17,7 +17,7 @@ Existing BluEcho development samples are decoded losslessly; no independent test
 Source: https://zenodo.org/records/15101686
 Creators: Matias Valdenegro, Bilal Wehbe, Yvan Petillot.
 License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-The two original ARIS water-tank samples (marine-debris-aris3k-4.png and marine-debris-aris3k-7.png), their previews and derived annotated displays retain these noncommercial/share-alike terms. Included for this noncommercial SIH research demonstration. They are not relicensed under the software license. No verified geographic metadata is available. Source labels and detector predictions are separate; material identity is not established by a label.
+The original ARIS water-tank samples (marine-debris-aris3k IDs 0, 1, 2, 3, 4, 7, 8 and 11), their previews and derived annotated displays retain these noncommercial/share-alike terms. Included for this noncommercial SIH research demonstration. They are not relicensed under the software license. No verified geographic metadata is available. Source labels and detector predictions are separate; material identity is not established by a label.
 
 ## NOAA H12907 — CC0 1.0
 

@@ -30,7 +30,7 @@ This is a research and hackathon prototype. Sensor-specific models have differen
 | --- | --- |
 | **Sensor-specific detection** | Select a model for SSS or FLS imagery; inspect original-pixel bounding boxes and model scores. |
 | **Acoustic context** | Examine shadows, quality flags and surrounding seabed. Brightness and contrast controls change the display, preserving the inference input. |
-| **Human-in-the-loop review** | Retain, reject or mark findings uncertain; correct labels and boxes, add notes and preserve the original prediction and audit trail. |
+| **Human-in-the-loop review** | Retain, reject or mark findings uncertain; correct labels and boxes, add notes and preserve the original prediction and audit trail. A save confirmation explains uncertain/false-alert decisions and offers the next review or report step. |
 | **Metadata-backed locations** | Map findings when matching coordinates support them. Missing geography stays unavailable rather than being invented. |
 | **Batch inspection** | Queue images for sequential processing with separate source records, results and failures. |
 | **Portable reporting** | Export annotated imagery, PDF briefs, JSON, CSV, GeoJSON, HTML evidence bundles and review candidates for further curation. |
@@ -64,12 +64,14 @@ These screenshots show **real sonar pixels with predictions from actual saved CP
 ### Try the complete flow
 
 1. Open the [live dashboard](https://bluecho-sih-2026.vercel.app) and choose **Try demo**.
-2. Switch between pipeline, seabed, propeller, shampoo-bottle and georeferenced NOAA samples, or choose **Surprise me**.
+2. Switch between pipeline, seabed, georeferenced NOAA and eight forward-looking debris samples, or choose **Surprise me**.
 3. Inspect the original imagery, select a candidate and record a review decision.
 4. Open **Location, image context & provenance** to see what supports the finding.
-5. Download a PDF brief or an evidence bundle. Use **Reports** to revisit saved inspections.
+5. Use the collection filter to browse the ten FLS source labels, then download a PDF brief or an evidence bundle. Use **Reports** to revisit saved inspections.
 
 The seabed sample includes an empty detector result. An empty result does not prove an area is clear. The **Georeferenced survey** sample uses genuine NOAA H12907 raster metadata. Select **Map** to see its survey footprint and a metadata-derived candidate position in the Gulf of Mexico. The candidate is an unconfirmed model prediction; the location is not field verified. The other NOAA window remains outside the featured picker.
+
+The expanded debris library covers can, chain, drink-carton, valve, propeller, hook, shampoo-bottle, standing-bottle, bottle and tire. Each scene contains a separately executed saved detector result. Public demonstrations do not include unverified ghost-net detections. Approved-access crab-pot imagery can be shown in a separately prepared localhost presentation bundle; it is excluded from the public assets while its source licence statements remain inconsistent.
 
 ## Choose how to run BluEcho
 
