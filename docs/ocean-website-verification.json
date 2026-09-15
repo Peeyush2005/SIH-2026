@@ -1,0 +1,74 @@
+{
+  "version": "0.4.1",
+  "layout": {
+    "status": "PASS",
+    "checks": [
+      "Problem and solution visible",
+      "No homepage numbers, statistics, gallery or history clutter",
+      "Configuration appears after upload",
+      "Reports and model details remain accessible",
+      "Desktop and mobile layout checked",
+      "Sonar motion pauses and respects reduced motion",
+      "Features and value proposition are visible"
+    ],
+    "errors": []
+  },
+  "browser": {
+    "tests": [
+      "Real browser inference agrees with native pipeline example: score and box tolerances",
+      "No API requests or image uploads: inference and reporting run in browser",
+      "IndexedDB retains source, review revision and history across reload",
+      "Anomaly search filters real results",
+      "CSV, GeoJSON, portable HTML and evidence ZIP download",
+      "Source-bound synthetic affine sidecar produces map location without rerunning inference",
+      "Mobile workspace stays within 390px",
+      "Real negative image completes with zero candidates"
+    ],
+    "runtime": "onnxruntime-web 1.30.0 WASM CPU",
+    "native_parity": {
+      "browser_score": 70.03982067108154,
+      "native_score": 70.03985643386841,
+      "max_box_delta": 4.57763671875e-05
+    },
+    "status": "PASS",
+    "errors": [],
+    "uploads": []
+  },
+  "workflow": {
+    "checks": [
+      "Two real images complete sequentially through batch submission and remain individually reviewable",
+      "Display contrast preserves box geometry and resets",
+      "Focus workspace expands and Escape restores navigation",
+      "Human decision updates progress and exports provenance-preserving curation candidates",
+      "PDF brief downloads with real sonar image",
+      "Curation export respects displayed scope",
+      "Review decision and completion survive reload",
+      "Review desk remains within mobile viewport"
+    ],
+    "status": "PASS",
+    "errors": []
+  },
+  "local": {
+    "status": "PASS",
+    "tests": [
+      "Uploaded real pipeline image: actual CPU inference, one automatic box",
+      "SVG original-pixel box alignment at DPR 2, zoom and viewport resize; synchronized selection",
+      "Missing coordinates: no fabricated map marker",
+      "Review note, identity and revision persist through browser refresh",
+      "Real NOAA GeoTIFF live run: selectable positions and backend footprints, labels unconfirmed",
+      "Corrected box recomputes geography and footprint in Python; immutable original retained",
+      "All five export controls download the current review revision",
+      "Explicit scan region and reason persist as human-action workflow, no autonomous plan",
+      "Real zero-detection result remains usable",
+      "Invalid uploaded content produces a useful visible error",
+      "Browser XTF extent controls reach backend; cancel retains partial inferred windows",
+      "Saved examples explicitly distinguished from live inference",
+      "390px responsive review has no horizontal overflow; keyboard focus usable",
+      "Bundled frontend and actual inference operate with external browser requests blocked"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+    ],
+    "external": []
+  }
+}

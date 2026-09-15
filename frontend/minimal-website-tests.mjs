@@ -15,6 +15,14 @@ try{
  assert.equal(await page.locator('.overview-stats,.specialist-card,.result-summary,.recent-section').count(),0);
  assert.doesNotMatch(await page.locator('main').innerText(),/\d/);
  assert.equal(await page.getByLabel('Model route').count(),0);
+ await page.getByRole('heading',{name:/Your sonar/}).waitFor();
+ await page.getByRole('button',{name:'Pause animation',exact:true}).click();
+ assert.equal(await page.locator('.scope-sweep').evaluate(e=>getComputedStyle(e).animationPlayState),'paused');
+ await page.emulateMedia({reducedMotion:'reduce'});
+ assert.equal(await page.locator('.scope-sweep').evaluate(e=>getComputedStyle(e).animationName),'none');
+ await page.emulateMedia({reducedMotion:'no-preference'});
+ await page.getByRole('button',{name:'Play animation',exact:true}).click();
+ assert.equal(await page.locator('.scope-sweep').evaluate(e=>getComputedStyle(e).animationPlayState),'running');
  await page.screenshot({path:path.join(out,'desktop.png'),fullPage:true});
  await page.setViewportSize({width:390,height:844});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
@@ -28,6 +36,6 @@ try{
  await page.getByLabel('Confirm source modality').waitFor();
  await page.getByLabel('Model route').waitFor();
  assert.deepEqual(errors,[]);
- await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify({status:'PASS',checks:['Problem and solution visible','No homepage numbers, statistics, gallery or history clutter','Configuration appears after upload','Reports and model details remain accessible','Desktop and mobile layout checked'],errors},null,2));
+ await fs.writeFile(path.join(out,'receipt.json'),JSON.stringify({status:'PASS',checks:['Problem and solution visible','No homepage numbers, statistics, gallery or history clutter','Configuration appears after upload','Reports and model details remain accessible','Desktop and mobile layout checked','Sonar motion pauses and respects reduced motion','Features and value proposition are visible'],errors},null,2));
  console.log('PASS minimal homepage, progressive upload, secondary tools and mobile layout');
 }finally{await browser.close()}
