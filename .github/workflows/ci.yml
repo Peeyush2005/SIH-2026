@@ -18,6 +18,7 @@ jobs:
       - run: npm ci --prefix frontend
       - run: VITE_BROWSER_ENGINE=1 npm run build --prefix frontend
       - run: npm run build --prefix frontend
+      - run: python scripts/verify_demo_assets.py
       - run: python -m pip install build twine
       - run: python -m build
       - run: python -m twine check dist/*
