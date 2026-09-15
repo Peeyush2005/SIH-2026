@@ -12,7 +12,7 @@ const page=await context.newPage(),errors=[],receipt={checks:[]};page.on('pageer
 const pass=s=>{console.log('PASS',s);receipt.checks.push(s)};
 async function download(name,file){const event=page.waitForEvent('download');await page.getByRole('button',{name,exact:true}).click();await(await event).saveAs(path.join(out,file))}
 try{
- await page.goto(url);await page.getByText('Browser engine ready',{exact:true}).waitFor();
+ await page.goto(url);await page.locator('.specialist-card').first().waitFor();
  await page.locator('.batch-panel summary').click();
  await page.getByLabel('Batch sonar images',{exact:true}).setInputFiles([path.join(samples,'pipeline_positive.pbm'),path.join(samples,'pipeline_empty.pbm')]);
  await page.getByLabel('Confirm batch model and modality').selectOption('sss-pipeline-v3|SSS_LF');

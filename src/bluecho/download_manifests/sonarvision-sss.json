@@ -1,0 +1,6 @@
+{
+  "filename": "sonarvision.onnx",
+  "url": "https://huggingface.co/Dinoman1221/sonarvision-yolov8-esi-v6/resolve/f83895e4ae398030dc6dcbb9e98fe71e950d6db7/yolo_esi_v6_fp32.onnx",
+  "bytes": 12241743,
+  "sha256": "33a620674479e6251a3fb487e2b6a47dca777e3d3dd51d49c77fec6b2043ba72"
+}

@@ -18,9 +18,11 @@ export async function inspectionPDF(result:Obj,job:Obj,items:Obj[],base:string,s
  const ih=Math.min(100,174*c.height/c.width),iw=ih*c.width/c.height;if(y+ih>265)page();doc.addImage(c.toDataURL('image/jpeg',.9),'JPEG',18,y,iw,ih);y+=ih+7;
  text('Original image with current reviewed boxes. Display brightness/contrast adjustments are excluded.',9);rule();
  text('Interpretation',12,true);text('Model scores are uncalibrated confidence, not probability of hazard. Metadata positions are estimates. Review decisions are not field verification. No navigation clearance or independent-site accuracy is established.',10);
+ text(result.evidence_scope||'Consult the model card for evaluation scope.',9);
  if(!items.length)text('No contacts in this export scope. This does not establish that the source contains no hazards.');
  for(const [i,d] of items.entries()){
   if(y>195)page();rule();text(`${i+1}. ${d.class_name} | ${d.model_score.toFixed(1)}%`,14,true);
+  text(`Evidence: ${d.candidate_type||'model_detection'} | ${d.evidence_status||result.evidence_scope||'See model card'}`,9);
   text(`Review: ${d.review_state} | Candidate: ${d.candidate_id}`);text(`Box xyxy (pixels): ${d.box_xyxy_pixels.map((n:number)=>n.toFixed(2)).join(', ')}`);
   text(d.coordinates?`Latitude ${d.coordinates[1].toFixed(6)}, longitude ${d.coordinates[0].toFixed(6)} | ${d.position_method||'Metadata estimate'}`:'Geographic location unavailable');
   text(`Model: ${d.model_id} | ${d.model_version||'See evidence JSON'}`);text(`Weight SHA-256: ${d.model_sha256}`,8);

@@ -10,3 +10,7 @@ The packaged catalog is authoritative for IDs, native class order, architecture,
 Prefetch online with `bluecho models fetch ...`, then `bluecho models verify ...`. Copy the entire resulting registry (including catalog entry and conversion receipt where applicable) to the offline host. Install the tested wheel and CPU dependency wheels from an explicit wheelhouse. Run the same `bluecho inspect` command with the relocated registry; no original workspace path is needed. Missing/incompatible files and checksum failures stop clearly. Download completion uses atomic promotion; resumable partial downloads and HTML/error payload rejection are inherited from the verified downloader.
 
 The Linux CPU environment was provisioned with explicit torch 2.4.1+cpu and torchvision 0.19.1+cpu. Ultralytics also installs an NVIDIA management-library Python binding (`nvidia-ml-py`); this is not a CUDA runtime. Check the release footprint receipt for the actual dependency inventory. Bare `[inference]` installation is not promised CUDA-free unless CPU Torch is selected first.
+
+## Added in version 0.4
+
+`ghost-pot`, `fls11-debris` and `sonarvision-sss` have pinned direct ONNX acquisition and browser support. See [specialist evidence and source licences](specialists-0.4.md). These routes retain separate sensors and class maps. Crab-pot source-sample recall is low; mine outputs remain unvalidated proposals. No third-party model is presented as newly trained by BluEcho.

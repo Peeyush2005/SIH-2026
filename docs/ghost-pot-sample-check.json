@@ -1,0 +1,33 @@
+{
+  "scope": "Fixed source-test sample. Training overlap and recording independence unaudited; not a new-survey benchmark.",
+  "model_sha256": "0deec99405d2f85602e9947c90f46110dddb8d85669223c1ee35308f75cd318d",
+  "selection_sha256": "811e3219980ceec4a99f12c361751720b9121ac1a591375a31e7517d9242711d",
+  "image_count": 32,
+  "label_count": 39,
+  "filename_groups": [
+    "Rec09",
+    "Rec14",
+    "Rec8",
+    "Rec9"
+  ],
+  "threshold": 0.25,
+  "iou": 0.5,
+  "true_positives": 4,
+  "false_positives": 3,
+  "false_negatives": 35,
+  "precision": 0.5714285714285714,
+  "recall": 0.10256410256410256,
+  "AP50": 0.34994374928820615,
+  "mAP50_95": 0.1368329538166037,
+  "AP_method": "101-point interpolated precision, scores >= .001, class-correct one-to-one matching, IoUs .50:.05:.95",
+  "false_positives_per_original_image": 0.09375,
+  "latency_seconds_median_excluding_first": 0.13561429997207597,
+  "negative_images": 5,
+  "filename_group_note": "Rec09 and Rec9 may denote the same recording; these strings do not establish four independent groups.",
+  "hardware": {
+    "cpu": "Intel Core i5-1335U",
+    "os": "Windows-11-10.0.26200-SP0",
+    "onnxruntime": "1.24.4",
+    "threads": 4
+  }
+}

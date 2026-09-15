@@ -2,11 +2,11 @@
 import argparse,json,shutil,subprocess,sys,sysconfig,tempfile
 from pathlib import Path
 from bluecho.phase1.download import download,digest,atomic_json
-p=argparse.ArgumentParser();p.add_argument('--registry',required=True,type=Path);p.add_argument('--cache',required=True,type=Path);p.add_argument('--manifests',type=Path,default=Path(__file__).resolve().parents[1]/'download_manifests');p.add_argument('--model',choices=['uatd-fls','sss-wreck-experimental'],required=True);a=p.parse_args();root=a.registry.resolve();root.mkdir(parents=True,exist_ok=True)
+p=argparse.ArgumentParser();p.add_argument('--registry',required=True,type=Path);p.add_argument('--cache',required=True,type=Path);p.add_argument('--manifests',type=Path,default=Path(__file__).resolve().parents[1]/'download_manifests');p.add_argument('--model',choices=['uatd-fls','sss-wreck-experimental','ghost-pot','sonarvision-sss','fls11-debris'],required=True);a=p.parse_args();root=a.registry.resolve();root.mkdir(parents=True,exist_ok=True)
 spec=json.loads((a.manifests/(a.model+'.json')).read_text());receipt=download(spec,a.cache);src=a.cache.resolve()/spec['filename'];entry_path=root/(a.model+'.model.json');entry=json.loads(entry_path.read_text())
 destination=(root/entry['weights']['path']).resolve()
 if not destination.is_relative_to(root):raise ValueError('Registry weight path escapes its root')
-if a.model=='sss-wreck-experimental':
+if a.model!='uatd-fls':
     dst=root/entry['weights']['path'];dst.parent.mkdir(parents=True,exist_ok=True)
     if src!=dst:shutil.copyfile(src,dst)
     assert digest(dst)==entry['weights']['sha256']

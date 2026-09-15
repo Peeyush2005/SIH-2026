@@ -41,7 +41,7 @@ class Specialist:
             self.session=ort.InferenceSession(str(weight),sess_options=opts,providers=['CPUExecutionProvider'])
             self.input=self.session.get_inputs()[0].name
             shape=self.session.get_inputs()[0].shape
-            size=672 if entry['preprocessing']['mode']=='pad672' else 640
+            size=entry['preprocessing'].get('size',672 if entry['preprocessing']['mode']=='pad672' else 640)
             if shape != [1,3,size,size]:raise ModelError(f'Unexpected ONNX shape {shape}')
         else:
             import torch
@@ -67,6 +67,8 @@ class Specialist:
         import torch
         from ultralytics.utils.nms import non_max_suppression
         x=np.ascontiguousarray(np.asarray(rgb).transpose(2,0,1)[None],dtype=np.float32)/255.
+        if self.entry['preprocessing'].get('color_order')=='BGR':
+            x=np.ascontiguousarray(x[:,::-1])
         if self.runtime=='onnx':
             raw=torch.from_numpy(self.session.run(None,{self.input:x})[0])
         else:
@@ -74,6 +76,15 @@ class Specialist:
                 pred=self.model(torch.from_numpy(x).to(self.device))
                 raw=(pred[0] if isinstance(pred,(tuple,list)) else pred).cpu()
         if not torch.isfinite(raw).all():raise ModelError('Nonfinite prediction')
+        if self.entry['preprocessing'].get('output_layout')=='end2end':
+            if raw.ndim!=3 or raw.shape[0]!=1 or raw.shape[2]!=6:raise ModelError('Unexpected end-to-end output shape')
+            boxes=[]
+            for row in raw[0]:
+                if float(row[4])<threshold:continue
+                class_id=int(row[5])
+                if float(row[5])!=class_id or str(class_id) not in self.names:raise ModelError('Unexpected end-to-end class ID')
+                boxes.append({'xyxy':[float(v) for v in row[:4]],'score':float(row[4]),'class_id':class_id,'class_name':self.names[str(class_id)]})
+            return merge_nms(boxes,.5)[:300]
         if raw.shape[1] != 4+len(self.names):raise ModelError('Unexpected model output/class count')
         out=non_max_suppression(raw.clone(),conf_thres=threshold,iou_thres=.5,nc=len(self.names),max_det=300,max_time_img=10)[0]
         return [{'xyxy':[float(v) for v in r[:4]],'score':float(r[4]),'class_id':int(r[5]),'class_name':self.names[str(int(r[5]))]} for r in out.numpy()]
@@ -83,11 +94,14 @@ class Specialist:
         threshold=self.entry['threshold'] if threshold is None else threshold
         if not 0<=threshold<=1:raise InputError('Threshold must be 0..1')
         boxes=[];processed=None
-        if mode=='letterbox640':
+        if mode in ('letterbox640','letterbox256'):
             from ultralytics.data.augment import LetterBox
-            rgb=LetterBox((640,640),auto=False,scale_fill=False,scaleup=True)(image=np.asarray(image))
-            ratio=min(640/w,640/h);neww,newh=round(w*ratio),round(h*ratio)
-            left=round((640-neww)/2-.1);top=round((640-newh)/2-.1)
+            size=self.entry['preprocessing'].get('size',640)
+            if self.entry['preprocessing'].get('max_aspect_ratio') and max(w/h,h/w)>self.entry['preprocessing']['max_aspect_ratio']:
+                raise InputError('Specialist expects cropped frames with aspect ratio at most 4:1')
+            rgb=LetterBox((size,size),auto=False,scale_fill=False,scaleup=True)(image=np.asarray(image))
+            ratio=min(size/w,size/h);neww,newh=round(w*ratio),round(h*ratio)
+            left=round((size-neww)/2-.1);top=round((size-newh)/2-.1)
             for box in self.tile(Image.fromarray(rgb),threshold):
                 a,b,c,d=box['xyxy'];box['xyxy']=[(a-left)/ratio,(b-top)/ratio,(c-left)/ratio,(d-top)/ratio];boxes.append(box)
             if progress:progress(1,1)

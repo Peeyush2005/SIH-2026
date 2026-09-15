@@ -1,0 +1,42 @@
+{
+  "id": "ghost-pot",
+  "name": "GhostVision crab pots",
+  "status": "experimental",
+  "version": "0deec99405d2",
+  "modalities": [
+    "SSS"
+  ],
+  "output_task": "bounding_box_detection",
+  "runtime": "onnx",
+  "architecture": "YOLO26s",
+  "weights": {
+    "path": "ghost-pot.onnx",
+    "sha256": "0deec99405d2f85602e9947c90f46110dddb8d85669223c1ee35308f75cd318d"
+  },
+  "classes": {
+    "0": "Crab-Pot"
+  },
+  "threshold": 0.25,
+  "preprocessing": {
+    "mode": "letterbox640",
+    "size": 640,
+    "color_order": "RGB",
+    "output_layout": "end2end",
+    "max_aspect_ratio": 4,
+    "intensity": "uint8 /255; centered 114 padding; preserve aspect ratio"
+  },
+  "calibration": "uncalibrated",
+  "evidence_scope": "Experimental: 32-image source-test sample, 39 labels, TP 4 / FP 3 / FN 35 at score 0.25 and IoU 0.5. Low recall. Training overlap and independent-survey performance unaudited.",
+  "material_identity": false,
+  "unsupported_as_required_classes": [],
+  "terms": {
+    "weights": "CC BY-SA 4.0 model card; Ultralytics AGPL-3.0 metadata",
+    "source": "https://huggingface.co/PINGEcosystem/gv-yolo26"
+  },
+  "download": {
+    "filename": "ghost-pot.onnx",
+    "url": "https://huggingface.co/PINGEcosystem/gv-yolo26/resolve/818d51e9900efa3bd155dafb369145426fd6aa65/weights.onnx",
+    "bytes": 38167375,
+    "sha256": "0deec99405d2f85602e9947c90f46110dddb8d85669223c1ee35308f75cd318d"
+  }
+}

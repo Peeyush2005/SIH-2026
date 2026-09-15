@@ -40,7 +40,7 @@ def acquire(model_id,registry,*,action='verify',local=None):
             if not manifest.exists():raise ValueError('v3 import requires original manifest.json beside native.pt')
             shutil.copyfile(manifest,registry/entry['manifest'])
     elif action=='fetch':
-        if model_id not in ('uatd-fls','sss-wreck-experimental'):raise ValueError('No public redistribution URL authorized: import verified local weights and original manifest')
+        if model_id not in ('uatd-fls','sss-wreck-experimental','ghost-pot','sonarvision-sss','fls11-debris'):raise ValueError('No public redistribution URL authorized: import verified local weights and original manifest')
         script=files('bluecho').joinpath('tools/install_specialists.py')
         result=subprocess.run([sys.executable,str(script),'--registry',str(registry),'--cache',str(registry/'downloads'),'--model',model_id],capture_output=True,text=True)
         if result.returncode:raise ValueError('Verified acquisition failed: '+result.stderr[-1500:])

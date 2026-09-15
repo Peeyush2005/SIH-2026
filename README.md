@@ -19,7 +19,7 @@ The project is a research prototype. Its side-scan sonar (SSS) and forward-looki
 - **Source-bound geolocation:** coordinate enrichment when verified raster metadata or a matching sidecar supports it. Results without defensible locations retain null geometry.
 - **Controlled model setup:** explicit acquisition or local import, pinned model hashes, and separate model/data licence information.
 
-### Inspection desk, version 0.3
+### Inspection desk, version 0.4
 
 - **Guided human review:** contact queue, completion progress, retain/false-alert/uncertain decisions, optional advance to the next unreviewed contact, and J/K navigation. Notes, reviewers, revisions and original predictions stay attached to each contact.
 - **Batch image inspections:** submit up to four images from a confirmed sensor/model combination. Inference runs sequentially; each source has separate results and failures.
@@ -31,11 +31,11 @@ These workflows operate in both the browser edition and the local dashboard. PDF
 
 ## Website and on-device inference
 
-The redesigned [BluEcho website](https://bluecho-sih-2026.vercel.app) runs the pipeline ONNX model **inside your browser**. Sonar images and review records stay in browser storage; no Python API or paid cloud inference server is required. First use downloads the hash-verified 10.6 MB model from Hugging Face and the WebAssembly runtime from the site.
+The [BluEcho website](https://bluecho-sih-2026.vercel.app) runs **four selectable ONNX detectors inside your browser**: pipelines, forward-looking debris, crab pots, and experimental wrecks/debris. A new website layout puts model selection first, with an image-focused workspace and human review controls beside the sonar. Sonar images and review records stay in browser storage; no Python API or paid cloud inference server is required. First use downloads only the selected hash-verified model (approximately 11–38 MB) and the WebAssembly runtime. Switching models releases the previous inference session.
 
 The web edition supports PNG, JPEG, BMP and PBM/portable images (32 MiB, up to 8 million pixels), tiled pipeline detection, image/map review, source-bound affine JSON metadata in EPSG:4326 or EPSG:3857, and PDF/JSON/CSV/GeoJSON/HTML/ZIP downloads. Keep the tab open during inference and export reports before clearing site data. Browser reports use the explicit `bluecho-browser/1.0` schema; the Python API retains its existing schema.
 
-The **local application** provides raw XTF, TIFF/GeoTIFF, additional model routes and broader metadata support. Browser execution is a separate runtime check, not a new accuracy benchmark. The public web detector labels pipelines only.
+The **local application** provides raw XTF, TIFF/GeoTIFF, additional model routes and broader metadata support. Browser execution is a separate runtime check, not a new accuracy benchmark. Specialists accept cropped frames with aspect ratios up to 4:1; the pipeline route retains its documented strip tiling. Classes and sensor routes remain separate. These integrations do not establish detection of every hazard or higher accuracy than another project.
 
 ## Installation
 
@@ -63,6 +63,8 @@ Large detector weights and datasets are acquired separately. The distribution in
 ## Quick start
 
 ### 1. Prepare a model
+
+For the new specialists, use `bluecho models fetch --model ghost-pot --registry "$HOME/.cache/bluecho/models"` (or `fls11-debris` / `sonarvision-sss`). Use the corresponding sensor route from the table below. [Version 0.4 model evidence](docs/specialists-0.4.md) records source attribution, measured checks and limitations.
 
 The experimental SSS route has a pinned ONNX download of approximately 43 MiB. Review its model/data terms using `bluecho capabilities` before use:
 
@@ -107,6 +109,9 @@ See the [dashboard guide](https://github.com/Sharon-codes/SIH-2026/blob/main/doc
 | Model | Sensor route | Intended labels | Current evidence and setup |
 | --- | --- | --- | --- |
 | `sss-pipeline-v3` | `SSS_LF` | Pipeline | Evaluated on correlated development observations from one survey. Requires verified local weights and their original manifest. |
+| `ghost-pot` | `SSS` | Crab-Pot | GhostVision YOLO26s, source-test sample check; new-survey accuracy unmeasured. Browser and local ONNX. |
+| `fls11-debris` | `FLS_ARIS` | 11 source classes | Third-party YOLO11n: propeller, shampoo-bottle and can runtime checks; mine-labelled outputs remain unvalidated proposals. Browser and local ONNX. |
+| `sonarvision-sss` | `SSS` | unknown_debris, airplane, mine, wreck | Experimental SonarVision YOLOv8n; mine proposals unvalidated. Browser and local ONNX. |
 | `sss-wreck-experimental` | `SSS` | Experimental pipeline and wreck candidates | Pinned ONNX download. Independent wreck performance is unavailable; additional native labels remain unvalidated proposals. |
 | `uatd-fls` | `FLS_UATD` | Ten native classes, including cylinder | Selected compatibility sample; source overlap is unknown. Pinned acquisition with restricted conversion on Linux. |
 | `fls-debris-development` | `FLS_ARIS` | Ten debris classes | Trained development detector without an independent benchmark. Requires verified local import; inherited CC BY-NC-SA terms apply. |

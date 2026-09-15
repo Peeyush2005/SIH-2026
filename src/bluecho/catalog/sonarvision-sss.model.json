@@ -1,0 +1,47 @@
+{
+  "id": "sonarvision-sss",
+  "name": "SonarVision wrecks & debris",
+  "status": "experimental",
+  "version": "33a620674479",
+  "modalities": [
+    "SSS"
+  ],
+  "output_task": "bounding_box_detection",
+  "runtime": "onnx",
+  "architecture": "YOLOv8-ESI",
+  "weights": {
+    "path": "sonarvision.onnx",
+    "sha256": "33a620674479e6251a3fb487e2b6a47dca777e3d3dd51d49c77fec6b2043ba72"
+  },
+  "classes": {
+    "0": "unknown_debris",
+    "1": "airplane",
+    "2": "mine",
+    "3": "wreck"
+  },
+  "threshold": 0.25,
+  "preprocessing": {
+    "mode": "letterbox256",
+    "size": 256,
+    "color_order": "BGR",
+    "output_layout": "yolo",
+    "max_aspect_ratio": 4,
+    "intensity": "uint8 /255; centered 114 padding; preserve aspect ratio"
+  },
+  "calibration": "uncalibrated",
+  "evidence_scope": "Local runtime compatibility only. No independent accuracy measurement. Source model training/split overlap unaudited.",
+  "material_identity": false,
+  "unsupported_as_required_classes": [
+    2
+  ],
+  "terms": {
+    "weights": "Author MIT model card; Ultralytics AGPL-3.0 metadata",
+    "source": "https://huggingface.co/Dinoman1221/sonarvision-yolov8-esi-v6"
+  },
+  "download": {
+    "filename": "sonarvision.onnx",
+    "url": "https://huggingface.co/Dinoman1221/sonarvision-yolov8-esi-v6/resolve/f83895e4ae398030dc6dcbb9e98fe71e950d6db7/yolo_esi_v6_fp32.onnx",
+    "bytes": 12241743,
+    "sha256": "33a620674479e6251a3fb487e2b6a47dca777e3d3dd51d49c77fec6b2043ba72"
+  }
+}

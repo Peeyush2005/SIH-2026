@@ -1,0 +1,194 @@
+{
+  "version": "0.4.0",
+  "browser_specialists": {
+    "checks": [
+      "Four distinct model cards with explicit sensor selection",
+      "Real FLS browser inference finds propeller, shampoo-bottle and can without inventing locations",
+      "GhostVision ONNX executes in browser; labelled source-sample evaluation is reported separately",
+      "SonarVision ONNX executes with source class IDs and separately marked mine proposals",
+      "Switching among models preserves original pipeline inference",
+      "Top navigation, gallery and inspection remain within mobile width",
+      "No page errors or sonar source uploads"
+    ],
+    "runs": [
+      {
+        "model": "fls11-debris",
+        "file": "fls-sample-0.png",
+        "detections": [
+          {
+            "class": "propeller",
+            "score": 88.57842683792114,
+            "box": [
+              119.16776835918427,
+              367.88807196617125,
+              188.30592720508574,
+              465.5279749393463
+            ]
+          }
+        ],
+        "proposals": []
+      },
+      {
+        "model": "fls11-debris",
+        "file": "fls-sample-1.png",
+        "detections": [
+          {
+            "class": "shampoo-bottle",
+            "score": 91.86054468154907,
+            "box": [
+              181.7834533214569,
+              299.9272461414337,
+              237.9300034046173,
+              488.5129756450653
+            ]
+          }
+        ],
+        "proposals": []
+      },
+      {
+        "model": "fls11-debris",
+        "file": "fls-sample-2.png",
+        "detections": [
+          {
+            "class": "can",
+            "score": 91.83182716369629,
+            "box": [
+              169.19458031654358,
+              295.41908490657806,
+              263.2034389972687,
+              400.7098709344864
+            ]
+          }
+        ],
+        "proposals": []
+      },
+      {
+        "model": "ghost-pot",
+        "file": "Rec14_wcp_ss_port_00011_png_jpg.rf.248bef1091991fdade425133597b2927.jpg",
+        "detections": [
+          {
+            "class": "Crab-Pot",
+            "score": 33.67365896701813,
+            "box": [
+              15.156015396118164,
+              100.07630920410156,
+              66.5643081665039,
+              165.72067260742188
+            ]
+          },
+          {
+            "class": "Crab-Pot",
+            "score": 25.884243845939636,
+            "box": [
+              228.61880493164062,
+              67.41400909423828,
+              287.6591491699219,
+              160.5072021484375
+            ]
+          }
+        ],
+        "proposals": []
+      },
+      {
+        "model": "sonarvision-sss",
+        "file": "wreck_author_demo.jpg",
+        "detections": [
+          {
+            "class": "wreck",
+            "score": 41.238364577293396,
+            "box": [
+              85.40046691894531,
+              472.37993240356445,
+              158.1464958190918,
+              640
+            ]
+          }
+        ],
+        "proposals": []
+      },
+      {
+        "model": "sss-pipeline-v3",
+        "file": "pipeline_positive.pbm",
+        "detections": [
+          {
+            "class": "Pipeline",
+            "score": 70.03982067108154,
+            "box": [
+              998.8079643249512,
+              0.174346923828125,
+              1096.003131866455,
+              500
+            ]
+          }
+        ],
+        "proposals": []
+      }
+    ],
+    "status": "PASS",
+    "errors": [],
+    "uploads": []
+  },
+  "workflow": {
+    "checks": [
+      "Two real images complete sequentially through batch submission and remain individually reviewable",
+      "Display contrast preserves box geometry and resets",
+      "Focus workspace expands and Escape restores navigation",
+      "Human decision updates progress and exports provenance-preserving curation candidates",
+      "PDF brief downloads with real sonar image",
+      "Curation export respects displayed scope",
+      "Review decision and completion survive reload",
+      "Review desk remains within mobile viewport"
+    ],
+    "status": "PASS",
+    "errors": []
+  },
+  "pipeline_browser_regression": {
+    "tests": [
+      "Real browser inference agrees with native pipeline example: score and box tolerances",
+      "No API requests or image uploads: inference and reporting run in browser",
+      "IndexedDB retains source, review revision and history across reload",
+      "Anomaly search filters real results",
+      "CSV, GeoJSON, portable HTML and evidence ZIP download",
+      "Source-bound synthetic affine sidecar produces map location without rerunning inference",
+      "Mobile workspace stays within 390px",
+      "Real negative image completes with zero candidates"
+    ],
+    "runtime": "onnxruntime-web 1.30.0 WASM CPU",
+    "native_parity": {
+      "browser_score": 70.03982067108154,
+      "native_score": 70.03985643386841,
+      "max_box_delta": 4.57763671875e-05
+    },
+    "status": "PASS",
+    "errors": [],
+    "uploads": []
+  },
+  "python_targeted": {
+    "passed": 11,
+    "command": "python -m pytest tests/test_dashboard.py tests/test_hosted_sessions.py tests/phase1/test_specialist_formats.py -q"
+  },
+  "limitations": "Runtime checks are separate from labelled accuracy. GhostVision fixed-sample metrics are recorded separately.",
+  "local_browser": {
+    "status": "PASS",
+    "tests": [
+      "Uploaded real pipeline image: actual CPU inference, one automatic box",
+      "SVG original-pixel box alignment at DPR 2, zoom and viewport resize; synchronized selection",
+      "Missing coordinates: no fabricated map marker",
+      "Review note, identity and revision persist through browser refresh",
+      "Real NOAA GeoTIFF live run: selectable positions and backend footprints, labels unconfirmed",
+      "Corrected box recomputes geography and footprint in Python; immutable original retained",
+      "All five export controls download the current review revision",
+      "Explicit scan region and reason persist as human-action workflow, no autonomous plan",
+      "Real zero-detection result remains usable",
+      "Invalid uploaded content produces a useful visible error",
+      "Browser XTF extent controls reach backend; cancel retains partial inferred windows",
+      "Saved examples explicitly distinguished from live inference",
+      "390px responsive review has no horizontal overflow; keyboard focus usable",
+      "Bundled frontend and actual inference operate with external browser requests blocked"
+    ],
+    "errors": [
+      "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+    ],
+    "external": []
+  }
+}
