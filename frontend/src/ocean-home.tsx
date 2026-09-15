@@ -81,13 +81,13 @@ export function OceanStory({hosted,browser}:{hosted:boolean,browser:boolean}) {
  return <>
   <section className="problem-solution" aria-label="The problem and our solution">
    <article><p className="section-kicker">BENEATH THE NOISE</p><h2>The problem</h2><p>On the seafloor, debris can look like rock. Shadows can look like objects. Reading sonar takes patience, context and careful judgement.</p></article>
-   <article><p className="section-kicker">A CLEARER WAY THROUGH</p><h2>Our solution</h2><p>BluEcho brings detection, visual inspection and human review into one workspace—so every finding can become a report with evidence behind it.</p></article>
+   <article><p className="section-kicker">A CLEARER WAY THROUGH</p><h2>Our solution</h2><p>BluEco brings detection, visual inspection and human review into one workspace—so every finding can become a report with evidence behind it.</p></article>
   </section>
   <section className="ocean-features" id="bluecho-features"><div className="ocean-section-heading"><p className="section-kicker">BUILT FOR THE WHOLE INSPECTION</p><h2>From first look<br/><span>to a shareable report.</span></h2></div>
    <div className="feature-lines">{features.map(([icon,title,copy])=><article key={title}><span className="feature-symbol"><Icon name={icon} size={23}/></span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
   </section>
-  <section className="bluecho-difference"><div><p className="section-kicker">THE BLUECHO DIFFERENCE</p><h2>Your sonar.<br/>Your judgement.<br/><em>Your evidence.</em></h2><p>Our focus is the connection between a detection and a defensible decision. The source, model and review history travel with every finding.</p></div>
-   <ul><li><Icon name="shield"/><div><h3>{hosted?'A choice of where to work':'Private by design'}</h3><p>{hosted?'Use this hosted workspace or run BluEcho locally when your imagery needs to stay on your device.':browser?'Your images are analyzed in your browser. The local application supports offline workflows after setup.':'Process imagery locally, with offline workflows available after dependencies and models are prepared.'}</p></div></li>
+  <section className="bluecho-difference"><div><p className="section-kicker">THE BLUECO DIFFERENCE</p><h2>Your sonar.<br/>Your judgement.<br/><em>Your evidence.</em></h2><p>Our focus is the connection between a detection and a defensible decision. The source, model and review history travel with every finding.</p></div>
+   <ul><li><Icon name="shield"/><div><h3>{hosted?'A choice of where to work':'Private by design'}</h3><p>{hosted?'Use this hosted workspace or run BluEco locally when your imagery needs to stay on your device.':browser?'Your images are analyzed in your browser. The local application supports offline workflows after setup.':'Process imagery locally, with offline workflows available after dependencies and models are prepared.'}</p></div></li>
    <li><Icon name="check"/><div><h3>You stay in control</h3><p>Model suggestions start the inspection. Human review shapes the report, and original predictions remain traceable.</p></div></li>
    <li><Icon name="pin"/><div><h3>Evidence before certainty</h3><p>Clear model limitations, uncalibrated scores and source-backed locations. Experimental findings stay labelled.</p></div></li></ul>
   </section>

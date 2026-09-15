@@ -6,7 +6,10 @@ def main():
     directory=Path(sys.argv[1]);payload=json.loads((directory/'request.json').read_text())
     if os.name != 'nt':
         import resource
-        resource.setrlimit(resource.RLIMIT_AS,(payload.get('memory_mib',8192)*1024**2,)*2)
+        try:
+            resource.setrlimit(resource.RLIMIT_AS,(payload.get('memory_mib',8192)*1024**2,)*2)
+        except (ValueError,OSError):
+            pass # Some platforms (e.g. macOS) reject RLIMIT_AS; best-effort cap only.
     from bluecho.phase1.download import atomic_json
     started=time.monotonic()
     def cancel(*a):raise KeyboardInterrupt

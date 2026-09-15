@@ -41,7 +41,8 @@ def test_mask_inverse_padding_resize_and_rle():
 def test_budget_survives_reload_and_frozen_queue(tmp_path):
     atomic_json(tmp_path/'queue.json',{'training_ceiling_seconds':100,'preflight_training_seconds':12,'jobs':[]})
     plan,s=initialize(tmp_path);assert s['spent_seconds']==12
-    s['jobs']['x']={'spent_seconds':2};s['active']={'job':'x','last_monotonic':time.monotonic()-3,'last_wall':time.time()-3,'boot_id':Path('/proc/sys/kernel/random/boot_id').read_text().strip()}
+    boot_id = Path('/proc/sys/kernel/random/boot_id').read_text().strip() if Path('/proc/sys/kernel/random/boot_id').exists() else 'system-boot'
+    s['jobs']['x']={'spent_seconds':2};s['active']={'job':'x','last_monotonic':time.monotonic()-3,'last_wall':time.time()-3,'boot_id':boot_id}
     charge(s);assert 15<=s['spent_seconds']<16
     atomic_json(tmp_path/'ledger.json',s);_,reloaded=initialize(tmp_path);assert reloaded['spent_seconds']==s['spent_seconds']
     atomic_json(tmp_path/'queue.json',{'training_ceiling_seconds':101,'jobs':[]})

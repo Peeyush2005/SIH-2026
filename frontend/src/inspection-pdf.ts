@@ -6,8 +6,8 @@ export async function inspectionPDF(result:Obj,job:Obj,items:Obj[],base:string,s
  let y=24;const page=()=>{doc.addPage();y=24};
  function text(value:any,size=10,bold=false){doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size);doc.setTextColor(24,53,72);const lines=doc.splitTextToSize(clean(value),174);for(const line of lines){if(y>268)page();doc.text(line,18,y);y+=size*.47}y+=3}
  function rule(){doc.setDrawColor(219,229,235);doc.line(18,y,192,y);y+=8}
- doc.setProperties({title:'BluEcho inspection brief',author:'Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee, Aditya SS Varma | BluEcho | SIH 2026',subject:'Operator review and sonar evidence'});
- text('BluEcho',27,true);text('SONAR INSPECTION BRIEF / SIH 2026',10,true);rule();
+  doc.setProperties({title:'BluEco inspection brief',author:'Khushi Mhamane, Sharon Melhi, Kirti Rajput, Peeyush Rampal, Aditya Banerjee, Aditya SS Varma | BluEco | SIH 2026',subject:'Operator review and sonar evidence'});
+  text('BluEco',27,true);text('SONAR INSPECTION BRIEF / SIH 2026',10,true);rule();
  if(result.demo)text('REAL SONAR DEMO: saved results from an actual CPU detector run. Coordinates only where genuine source metadata exists. Not field verification.',11,true);
  if(result.demo)text(`${result.demo.credit} | ${result.demo.license} | ${result.demo.source_url}`,9);
  if(result.demo?.collection==='SubPipe')text('SubPipe is a public dataset of a submarine outfall pipeline, property of Oceanscan-MST. This dataset was acquired with a Light Autonomous Underwater Vehicle by Oceanscan-MST, within the scope of Challenge Camp 1 of the H2020 REMARO project.',9);

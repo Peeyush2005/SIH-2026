@@ -40,7 +40,7 @@ def charge(state):
     a=state.get('active')
     if not a:return
     now=time.monotonic();wall=time.time()
-    boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+    boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip() if Path('/proc/sys/kernel/random/boot_id').exists() else 'system-boot'
     # Monotonic continuity on the same boot. Across boots, charge the wall gap
     # conservatively instead of granting a fresh budget after uncertain shutdown.
     delta=max(0,now-a['last_monotonic']) if boot==a['boot_id'] else max(0,wall-a['last_wall'])
