@@ -10,3 +10,5 @@ recursive-include frontend/src *.tsx *.ts *.css
 include frontend/package.json frontend/package-lock.json frontend/tsconfig.json frontend/vite.config.ts frontend/index.html
 include frontend/tests.mjs frontend/browser-tests.mjs
 recursive-include scripts *.sh
+
+recursive-include frontend/licenses *.txt

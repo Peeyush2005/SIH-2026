@@ -6,7 +6,7 @@ export default defineConfig({build:{outDir:'../src/bluecho/dashboard/static',emp
  if(process.env.VITE_BROWSER_ENGINE==='1'){
   const out=resolve(root,'ort');mkdirSync(out,{recursive:true});
   for(const name of ['ort-wasm-simd-threaded.wasm','ort-wasm-simd-threaded.mjs'])copyFileSync(resolve(__dirname,'node_modules/onnxruntime-web/dist',name),resolve(out,name));
-  copyFileSync(resolve(__dirname,'node_modules/onnxruntime-web/LICENSE'),resolve(out,'LICENSE.txt'));
+  copyFileSync(resolve(__dirname,'licenses/ONNX-RUNTIME-LICENSE.txt'),resolve(out,'LICENSE.txt'));
  }
  // Browser mode uses the explicit /ort/ path; local API mode never loads WASM.
  // Remove only the redundant generated WASM asset, not application files.
