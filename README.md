@@ -55,15 +55,21 @@ These screenshots show **real sonar pixels with predictions from actual saved CP
 
 *Marine Debris FLS water-tank imagery with propeller- and hook-labelled predictions from the FLS11 model. Predicted identities are unverified. This is a separate sensor/model route, not an open-sea pipeline result. Image source: Marine Debris FLS, CC BY-NC-SA 4.0; see the attribution below.*
 
+### A survey with real geolocation
+
+![BluEcho geographic view of the NOAA Gulf survey, with its source-derived footprint and candidate estimate](https://raw.githubusercontent.com/Sharon-codes/SIH-2026/main/docs/images/georeferenced-survey.png)
+
+*NOAA H12907 side-scan imagery (CC0 1.0). The geographic view uses the source GeoTIFF affine transform, converted from NAD83 / UTM zone 15N to WGS84. The map shows an unconfirmed model candidate at a metadata-derived position; it is not a verified wreck or navigation chart.*
+
 ### Try the complete flow
 
 1. Open the [live dashboard](https://bluecho-sih-2026.vercel.app) and choose **Try demo**.
-2. Switch between pipeline, seabed, propeller and shampoo-bottle samples, or choose **Surprise me**.
+2. Switch between pipeline, seabed, propeller, shampoo-bottle and georeferenced NOAA samples, or choose **Surprise me**.
 3. Inspect the original imagery, select a candidate and record a review decision.
 4. Open **Location, image context & provenance** to see what supports the finding.
 5. Download a PDF brief or an evidence bundle. Use **Reports** to revisit saved inspections.
 
-The seabed sample includes an empty detector result. An empty result does not prove an area is clear. NOAA georeferencing examples remain available in source assets and existing saved reports, outside the featured sample picker.
+The seabed sample includes an empty detector result. An empty result does not prove an area is clear. The **Georeferenced survey** sample uses genuine NOAA H12907 raster metadata. Select **Map** to see its survey footprint and a metadata-derived candidate position in the Gulf of Mexico. The candidate is an unconfirmed model prediction; the location is not field verified. The other NOAA window remains outside the featured picker.
 
 ## Choose how to run BluEcho
 

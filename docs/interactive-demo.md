@@ -38,3 +38,7 @@ node frontend/real-demo-tests.mjs
 ## Layout refinement in 0.6.1
 
 The main demo picker and Surprise me now use four SubPipe/FLS examples. The two Gulf survey cards are removed from this entry flow; existing saved NOAA reports and their georeferencing remain readable. Report scope sits above an aligned export-button grid. Viewer, review, navigation and demo action groups have consistent heights and spacing. `frontend/alignment-tests.mjs` checks the four-card picker, report downloads and button geometry at 1536, 1024, 768 and 390 pixels.
+
+## Georeferenced example in 0.6.2
+
+The featured picker includes one Georeferenced survey sample (NOAA H12907, east window). Its 1024-pixel image retains the source NAD83 / UTM 15N affine transform. Map and exports use WGS84 estimates derived from that transform. The saved wreck-labelled prediction is unconfirmed, with possible false-alert geometry; neither hazard identity nor position error has field verification. Noaa0 remains outside the picker. All original real-demo asset hashes are preserved. The alignment and real-demo checks cover the five-sample picker.

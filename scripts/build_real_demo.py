@@ -36,7 +36,7 @@ def main():
         ('propeller','Propeller sample','ARIS · water tank','fls_4.png','fls11-debris','FLS_ARIS','Marine Debris FLS','CC-BY-NC-SA-4.0','https://zenodo.org/records/15101686'),
         ('bottle','Shampoo-bottle sample','ARIS · water tank','fls_7.png','fls11-debris','FLS_ARIS','Marine Debris FLS','CC-BY-NC-SA-4.0','https://zenodo.org/records/15101686'),
         ('noaa0','Gulf survey · west','NOAA · georeferenced','noaa_window_0.tif','sonarvision-sss','SSS','NOAA H12907','CC0-1.0','https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html'),
-        ('noaa1','Gulf survey · east','NOAA · georeferenced','noaa_window_1.tif','sonarvision-sss','SSS','NOAA H12907','CC0-1.0','https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html'),
+        ('noaa1','Georeferenced survey','NOAA · real coordinates','noaa_window_1.tif','sonarvision-sss','SSS','NOAA H12907','CC0-1.0','https://www.ngdc.noaa.gov/nos/H12001-H14000/H12907.html'),
     ]
     catalog=[]
     for sid,name,terrain,filename,model,modality,collection,license_id,url in rows:

@@ -110,8 +110,8 @@
   },
   {
     "id": "noaa1",
-    "name": "Gulf survey \u00b7 east",
-    "terrain": "NOAA \u00b7 georeferenced",
+    "name": "Georeferenced survey",
+    "terrain": "NOAA \u00b7 real coordinates",
     "description": "Real NOAA survey mosaic. Object labels are unconfirmed; model alerts may be false positives. Not for navigation.",
     "hint": "Select Map for genuine metadata-based locations.",
     "model": "sonarvision-sss",
