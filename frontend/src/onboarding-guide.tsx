@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from './design';
+import { useTranslation } from 'react-i18next';
 
 export const ONBOARDING_KEY = 'bluecho-onboarding-dismissed';
 
@@ -12,40 +13,44 @@ export interface OnboardingStep {
   detail: string;
 }
 
-export const ONBOARDING_STEPS: OnboardingStep[] = [
-  {
-    title: 'Upload Sonar Imagery',
-    subtitle: 'Step 1 of 4',
-    description: 'Import side-scan sonar (SSS) or forward-looking sonar (FLS) records. Raw XTF recordings and standard image formats (PNG, JPG, BMP, PBM) are all supported.',
-    icon: 'upload',
-    highlight: 'Your imagery stays private — processed locally on your device.',
-    detail: 'Supports XTF, PNG, JPG, BMP, PBM · TIFF / GeoTIFF'
-  },
-  {
-    title: 'Select Sensor & Detector',
-    subtitle: 'Step 2 of 4',
-    description: 'Confirm the sonar type and pair your imagery with a specialized detector. Each model is calibrated to a specific acoustic profile — side-scan pipelines, FLS debris, or ghost-pot detection.',
-    icon: 'model',
-    highlight: 'Detectors are tuned to specific sonar acoustics for maximum precision.',
-    detail: 'SSS · SSS_LF · FLS_ARIS · FLS_UATD sensor routes'
-  },
-  {
-    title: 'Inspect & Review Findings',
-    subtitle: 'Step 3 of 4',
-    description: 'Examine candidate detections directly on the original acoustic pixels. Retain valid findings, flag false alerts, adjust bounding boxes, and attach field notes — all decisions are traceable.',
-    icon: 'scan',
-    highlight: 'Human judgement stays in control; original model predictions remain immutable.',
-    detail: 'Retain · False alert · Uncertain · Correct label or box'
-  },
-  {
-    title: 'Export Defensible Reports',
-    subtitle: 'Step 4 of 4',
-    description: 'Download field-ready PDF summary briefs, mapped GeoJSON vectors, CSV anomaly logs, portable HTML evidence bundles, or complete ZIP packages for stakeholders and auditors.',
-    icon: 'file',
-    highlight: 'Every export preserves data provenance and your full review history.',
-    detail: 'PDF · GeoJSON · CSV · HTML · ZIP · JSON formats'
-  }
-];
+/** Returns the 4 onboarding steps translated to the active language. */
+export function useOnboardingSteps(): OnboardingStep[] {
+  const { t } = useTranslation();
+  return [
+    {
+      title: t('onboarding.step1_title'),
+      subtitle: t('onboarding.step1_subtitle'),
+      description: t('onboarding.step1_desc'),
+      icon: 'upload',
+      highlight: t('onboarding.step1_highlight'),
+      detail: t('onboarding.step1_detail'),
+    },
+    {
+      title: t('onboarding.step2_title'),
+      subtitle: t('onboarding.step2_subtitle'),
+      description: t('onboarding.step2_desc'),
+      icon: 'model',
+      highlight: t('onboarding.step2_highlight'),
+      detail: t('onboarding.step2_detail'),
+    },
+    {
+      title: t('onboarding.step3_title'),
+      subtitle: t('onboarding.step3_subtitle'),
+      description: t('onboarding.step3_desc'),
+      icon: 'scan',
+      highlight: t('onboarding.step3_highlight'),
+      detail: t('onboarding.step3_detail'),
+    },
+    {
+      title: t('onboarding.step4_title'),
+      subtitle: t('onboarding.step4_subtitle'),
+      description: t('onboarding.step4_desc'),
+      icon: 'file',
+      highlight: t('onboarding.step4_highlight'),
+      detail: t('onboarding.step4_detail'),
+    },
+  ];
+}
 
 export function OnboardingModal({
   isOpen,
@@ -58,6 +63,8 @@ export function OnboardingModal({
   onStartDemo?: () => void;
   onStartInspect?: () => void;
 }) {
+  const { t } = useTranslation();
+  const steps = useOnboardingSteps();
   const [currentStep, setCurrentStep] = useState(0);
   const [animDir, setAnimDir] = useState<'next'|'prev'|null>(null);
 
@@ -76,10 +83,10 @@ export function OnboardingModal({
 
   if (!isOpen) return null;
 
-  const step = ONBOARDING_STEPS[currentStep];
-  const isLast = currentStep === ONBOARDING_STEPS.length - 1;
+  const step = steps[currentStep];
+  const isLast = currentStep === steps.length - 1;
   const isFirst = currentStep === 0;
-  const progress = ((currentStep + 1) / ONBOARDING_STEPS.length) * 100;
+  const progress = ((currentStep + 1) / steps.length) * 100;
 
   function goTo(idx: number) {
     setAnimDir(idx > currentStep ? 'next' : 'prev');
@@ -108,23 +115,25 @@ export function OnboardingModal({
         <header className="onboarding-header">
           <div className="onboarding-badge">
             <Icon name="compass" size={15} />
-            <span>Operator Guide</span>
+            <span>{t('onboarding.badge')}</span>
           </div>
           <div className="onboarding-header-right">
-            <span className="onboarding-step-counter">{currentStep + 1} / {ONBOARDING_STEPS.length}</span>
-            <button className="onboarding-close" onClick={dismiss} aria-label="Close guide">
+            <span className="onboarding-step-counter">
+              {t('onboarding.step_counter', { current: currentStep + 1, total: steps.length })}
+            </span>
+            <button className="onboarding-close" onClick={dismiss} aria-label={t('onboarding.close')}>
               <Icon name="close" size={16} />
             </button>
           </div>
         </header>
 
         {/* ── Progress bar ── */}
-        <div className="onboarding-progress-track" role="progressbar" aria-valuenow={currentStep+1} aria-valuemin={1} aria-valuemax={ONBOARDING_STEPS.length}>
+        <div className="onboarding-progress-track" role="progressbar" aria-valuenow={currentStep+1} aria-valuemin={1} aria-valuemax={steps.length}>
           <div className="onboarding-progress-fill" style={{width: `${progress}%`}} />
         </div>
 
-        {/* ── "Protect Our Ocean with BluEco" tagline ── */}
-        <div className="ob-tagline" aria-label="Protect Our Ocean with BluEco">
+        {/* ── "Protect Our Ocean with BluEcho" tagline ── */}
+        <div className="ob-tagline" aria-label={t('onboarding.tagline')}>
           <span className="ob-tagline-pulse" aria-hidden="true" />
           <span className="ob-tagline-ocean" aria-hidden="true">🌊</span>
           <p className="ob-tagline-text">
@@ -151,7 +160,7 @@ export function OnboardingModal({
 
         {/* ── Step navigation pills ── */}
         <div className="onboarding-step-indicator" role="tablist" aria-label="Workflow steps">
-          {ONBOARDING_STEPS.map((s, idx) => (
+          {steps.map((s, idx) => (
             <button
               key={s.subtitle}
               role="tab"
@@ -207,10 +216,10 @@ export function OnboardingModal({
           <div className="onboarding-footer-left">
             <button className="onboarding-text-btn" onClick={handleDemo}>
               <Icon name="scan" size={14} />
-              Try demo
+              {t('onboarding.try_demo')}
             </button>
             <button className="onboarding-text-btn skip-btn" onClick={dismiss}>
-              Skip
+              {t('onboarding.skip')}
             </button>
           </div>
 
@@ -221,15 +230,15 @@ export function OnboardingModal({
               disabled={isFirst}
               aria-label="Previous step"
             >
-              ← Back
+              {t('onboarding.back')}
             </button>
             {!isLast ? (
               <button className="onboarding-nav-btn primary" onClick={() => goTo(currentStep + 1)}>
-                Next <Icon name="arrow" size={14} />
+                {t('onboarding.next')} <Icon name="arrow" size={14} />
               </button>
             ) : (
               <button className="onboarding-nav-btn primary" onClick={handleInspect}>
-                Start Inspection <Icon name="arrow" size={14} />
+                {t('onboarding.start')} <Icon name="arrow" size={14} />
               </button>
             )}
           </div>
@@ -247,31 +256,33 @@ export function HowItWorksSection({
   onStartDemo: () => void;
   onStartInspect: () => void;
 }) {
+  const { t } = useTranslation();
+  const steps = useOnboardingSteps();
   return (
-    <section className="how-it-works-section" aria-label="How BluEco Works">
+    <section className="how-it-works-section" aria-label={t('how_it_works.title')}>
       <div className="how-it-works-header">
         <div className="how-it-works-heading">
-          <p className="section-kicker">WORKFLOW OVERVIEW</p>
-          <h2>How BluEco Works in the Field</h2>
+          <p className="section-kicker">{t('how_it_works.kicker')}</p>
+          <h2>{t('how_it_works.title')}</h2>
           <p className="section-subtitle">
-            From raw acoustic pings to a validated inspection report — four clear stages.
+            {t('how_it_works.subtitle')}
           </p>
         </div>
         <div className="how-it-works-actions">
           <button className="help-trigger-button" onClick={onOpenGuide}>
             <Icon name="help" size={15} />
-            Operator Walkthrough
+            {t('how_it_works.walkthrough_btn')}
           </button>
           <button className="quick-demo-button" onClick={onStartDemo}>
             <Icon name="scan" size={15} />
-            Try Demo
+            {t('how_it_works.demo_btn')}
           </button>
         </div>
       </div>
 
       {/* Connector line + step cards */}
       <div className="workflow-steps-grid">
-        {ONBOARDING_STEPS.map((step, idx) => (
+        {steps.map((step, idx) => (
           <article className="workflow-step-card" key={step.subtitle} onClick={onOpenGuide} tabIndex={0} role="button" aria-label={`Learn about ${step.title}`}>
             <div className="step-card-top">
               <span className="step-card-number" aria-label={`Step ${idx + 1}`}>{idx + 1}</span>
