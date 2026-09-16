@@ -123,6 +123,32 @@ export function OnboardingModal({
           <div className="onboarding-progress-fill" style={{width: `${progress}%`}} />
         </div>
 
+        {/* ── "Protect Our Ocean with BluEco" tagline ── */}
+        <div className="ob-tagline" aria-label="Protect Our Ocean with BluEco">
+          <span className="ob-tagline-pulse" aria-hidden="true" />
+          <span className="ob-tagline-ocean" aria-hidden="true">🌊</span>
+          <p className="ob-tagline-text">
+            <strong>Protect Our Ocean</strong>{' '}with BluEcho
+          </p>
+          <span className="ob-tagline-ocean" aria-hidden="true">🌊</span>
+          <span className="ob-tagline-pulse" aria-hidden="true" />
+        </div>
+
+        {/* ── Animated ticker ── */}
+        <div className="ob-ticker" aria-hidden="true">
+          <div className="ob-ticker-track">
+            {Array.from({length: 8}).map((_, i) => (
+              <span key={i} className="ob-ticker-segment">
+                <span className="ob-ticker-wave">🌊</span>
+                <span className="ob-ticker-emphasis">PROTECT OUR OCEAN</span>
+                <span className="ob-ticker-divider">·</span>
+                <span className="ob-ticker-brand">WITH BLUECHO</span>
+                <span className="ob-ticker-divider">·</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* ── Step navigation pills ── */}
         <div className="onboarding-step-indicator" role="tablist" aria-label="Workflow steps">
           {ONBOARDING_STEPS.map((s, idx) => (
