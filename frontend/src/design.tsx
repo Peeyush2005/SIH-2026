@@ -15,6 +15,11 @@ export function Icon({name, size=20}:{name:string,size?:number}) {
     download:<><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></>,
     check:<path d="m5 12 4 4L19 6"/>,
     plus:<path d="M12 5v14M5 12h14"/>,
+    help:<><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01"/></>,
+    close:<path d="M18 6 6 18M6 6l12 12"/>,
+    info:<><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></>,
+    compass:<><circle cx="12" cy="12" r="9"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></>,
+    sparkle:<path d="m12 3 1.9 4.8L18.7 9.7l-4.8 1.9L12 16.4l-1.9-4.8L5.3 9.7l4.8-1.9L12 3z"/>,
   };
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]||paths.scan}</svg>;
 }

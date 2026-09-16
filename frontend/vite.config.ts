@@ -10,5 +10,5 @@ export default defineConfig({build:{outDir:'../src/bluecho/dashboard/static',emp
  }
  // Browser mode uses the explicit /ort/ path; local API mode never loads WASM.
  // Remove only the redundant generated WASM asset, not application files.
- const assets=resolve(root,'assets');for(const name of readdirSync(assets))if(/^ort-wasm-simd-threaded-[\w-]+\.wasm$/.test(name))unlinkSync(resolve(assets,name));
+ const assets=resolve(root,'assets');for(const name of readdirSync(assets))if(/^ort-wasm-simd-threaded-[\w-]+\.wasm$/.test(name)){try{unlinkSync(resolve(assets,name))}catch{}}
 }}]});
