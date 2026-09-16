@@ -13,12 +13,12 @@ function OceanBubbles() {
  return <div className="ocean-bubbles" aria-hidden="true">{bubbles.map(([left,size,duration,delay],i)=><span key={i} className="ocean-bubble ocean-moving" style={{left:left+'%',width:size,height:size,animationDuration:duration+'s',animationDelay:delay+'s'}}/>)}</div>;
 }
 
-export function InspectionWelcome({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,busy:boolean}) {
+export function InspectionWelcome({inspect,demo,busy,openGuide}:{inspect:()=>void,demo:()=>void,busy:boolean,openGuide?:()=>void}) {
  const {paused,setPaused,stopped}=useOceanMotion();
  return <section className={'inspection-welcome '+(stopped?'ocean-paused':'')}>
   <OceanBubbles/>
   <div className="welcome-copy"><p className="eyebrow">YOUR SONAR WORKSPACE</p><h1>A clearer view<br/><em>starts here.</em></h1><p>Bring your sonar imagery into focus. Inspect potential findings, review their context, and keep the evidence together.</p>
-   <div className="welcome-actions"><button className="primary" onClick={inspect}>New inspection<Icon name="arrow" size={18}/></button><button className="welcome-demo" disabled={busy} onClick={demo}><Icon name="scan" size={18}/>{busy?'Opening…':'Try demo'}</button></div>
+   <div className="welcome-actions"><button className="primary" onClick={inspect}>New inspection<Icon name="arrow" size={18}/></button><button className="welcome-demo" disabled={busy} onClick={demo}><Icon name="scan" size={18}/>{busy?'Opening…':'Try demo'}</button>{openGuide&&<button className="welcome-guide-btn" onClick={openGuide}><Icon name="help" size={17}/>How it works</button>}</div>
    <span className="welcome-hint">Explore the demo with real sonar imagery.</span>
   </div>
   <SonarSea paused={stopped}/>
@@ -50,7 +50,7 @@ function SonarSea({paused}:{paused:boolean}) {
  </div>;
 }
 
-export function OceanHero({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,busy:boolean}) {
+export function OceanHero({inspect,demo,busy,openGuide}:{inspect:()=>void,demo:()=>void,busy:boolean,openGuide?:()=>void}) {
  const {paused,setPaused,stopped}=useOceanMotion();
  return <section className={'minimal-hero ocean-hero '+(stopped?'ocean-paused':'')}>
   <OceanBubbles/>
@@ -58,7 +58,12 @@ export function OceanHero({inspect,demo,busy}:{inspect:()=>void,demo:()=>void,bu
    <div className="ocean-copy"><p className="eyebrow"><span/>MARINE ANOMALY INTELLIGENCE</p>
     <h1>Look deeper.<br/><em>See what matters.</em></h1>
     <p>Find potential debris in sonar imagery. Review the evidence, understand its location, and turn a finding into an actionable report.</p>
-    <div className="ocean-actions"><button className="primary" onClick={inspect}>Inspect sonar<Icon name="arrow" size={18}/></button><button className="demo-launch" disabled={busy} onClick={demo}><Icon name="scan" size={17}/>{busy?'Opening…':'Try demo'}</button><a href="#bluecho-features">Explore the features <span>↘</span></a></div>
+    <div className="ocean-actions">
+      <button className="primary" onClick={inspect}>Inspect sonar<Icon name="arrow" size={18}/></button>
+      <button className="demo-launch" disabled={busy} onClick={demo}><Icon name="scan" size={17}/>{busy?'Opening…':'Try demo'}</button>
+      {openGuide&&<button className="hero-guide-btn" onClick={openGuide}><Icon name="help" size={16}/>How it works</button>}
+      <a href="#bluecho-features">Explore features <span>↘</span></a>
+    </div>
     <p className="ocean-promise">From acoustic imagery to informed decisions.</p>
    </div>
    <SonarSea paused={stopped}/>
