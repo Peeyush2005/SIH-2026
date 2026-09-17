@@ -1,4 +1,9 @@
 /* Ocean instruments: one animated signature, quiet working surfaces. */
+
+/* ── Indic script font fallback (lazy-loaded by browser, only active via :lang selector) ── */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+:lang(hi),:lang(mr){font-family:'Noto Sans Devanagari','Segoe UI',system-ui,sans-serif}
+
 .website-shell{--navy:#062936;--ink:#123a46;--teal:#128e91;--surface:#f4f9f8;--ocean-signal:#80ebd0;background:var(--surface);font-family:"Segoe UI",system-ui,sans-serif}
 .website-shell .nav{height:84px;background:#062936;color:#edf7f5;border-bottom:1px solid #26505c;padding-inline:5%;gap:48px}
 .website-shell .brand{font-family:Bahnschrift,"Trebuchet MS",sans-serif;font-size:28px;color:#fff;letter-spacing:-1px;gap:10px}
@@ -661,3 +666,48 @@
 @media(max-width:850px){.website-shell .inspection-welcome{gap:0;padding:40px 6% 58px;grid-template-columns:1.2fr .8fr}.welcome-copy h1{font-size:42px}.inspection-welcome .sonar-instrument{transform:scale(.66)}.inspection-welcome .sonar-sea{height:320px}.welcome-actions{gap:10px}.website-shell .welcome-actions button{min-width:130px;padding-inline:14px}}
 @media(max-width:640px){.website-shell .inspection-welcome{grid-template-columns:1fr;gap:12px;padding:34px 24px 53px;border-radius:16px}.welcome-copy h1{font-size:43px}.welcome-copy>p:not(.eyebrow){font-size:13px}.welcome-copy .eyebrow{font-size:9px;margin-bottom:20px}.welcome-actions{display:grid;grid-template-columns:1fr;gap:10px}.website-shell .welcome-actions button{min-width:0;padding-inline:12px;gap:8px;font-size:12px;height:44px}.welcome-hint{font-size:11px}.inspection-welcome .sonar-sea{height:260px}.inspection-welcome .sonar-instrument{transform:scale(.62)}.ocean-bubble:nth-child(2n){display:none}}
 @media(prefers-reduced-motion:reduce){.ocean-bubble{display:none;animation:none}}
+
+/* ═══════════════════════════════════════════
+   LANGUAGE SWITCHER
+═══════════════════════════════════════════ */
+.lang-switcher{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  background:#0a2b38;
+  border:1px solid #1e4d5e;
+  border-radius:20px;
+  padding:3px;
+  flex-shrink:0;
+}
+.lang-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:5px 11px;
+  min-height:28px;
+  border-radius:16px;
+  border:none;
+  background:transparent;
+  color:#6a9daa;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.3px;
+  cursor:pointer;
+  transition:background .15s,color .15s;
+  white-space:nowrap;
+  line-height:1;
+}
+.lang-btn:hover{background:#143646;color:#c0e0e8}
+.lang-btn--active{
+  background:#1d5262;
+  color:#80ebd0;
+  box-shadow:0 0 0 1px rgba(128,235,208,.25);
+}
+/* Keep nav-footer wrapping nicely with the new switcher */
+.website-shell .nav-footer{flex-wrap:wrap;gap:8px}
+@media(max-width:640px){
+  .lang-btn{padding:4px 9px;font-size:10px}
+  .website-shell .nav-footer{flex-direction:column;align-items:stretch}
+  .lang-switcher{justify-content:center}
+}

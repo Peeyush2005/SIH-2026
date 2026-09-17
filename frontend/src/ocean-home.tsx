@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Icon} from './design';
+import { useTranslation } from 'react-i18next';
 
 function useOceanMotion() {
  const [paused,setPaused]=useState(()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -15,18 +16,20 @@ function OceanBubbles() {
 
 export function InspectionWelcome({inspect,demo,busy,openGuide}:{inspect:()=>void,demo:()=>void,busy:boolean,openGuide?:()=>void}) {
  const {paused,setPaused,stopped}=useOceanMotion();
+ const {t} = useTranslation();
  return <section className={'inspection-welcome '+(stopped?'ocean-paused':'')}>
   <OceanBubbles/>
-  <div className="welcome-copy"><p className="eyebrow">YOUR SONAR WORKSPACE</p><h1>A clearer view<br/><em>starts here.</em></h1><p>Bring your sonar imagery into focus. Inspect potential findings, review their context, and keep the evidence together.</p>
-   <div className="welcome-actions"><button className="primary" onClick={inspect}>New inspection<Icon name="arrow" size={18}/></button><button className="welcome-demo" disabled={busy} onClick={demo}><Icon name="scan" size={18}/>{busy?'Opening…':'Try demo'}</button>{openGuide&&<button className="welcome-guide-btn" onClick={openGuide}><Icon name="help" size={17}/>How it works</button>}</div>
-   <span className="welcome-hint">Explore the demo with real sonar imagery.</span>
+  <div className="welcome-copy"><p className="eyebrow">{t('welcome.eyebrow')}</p><h1>{t('welcome.headline_1')}<br/><em>{t('welcome.headline_em')}</em></h1><p>{t('welcome.body')}</p>
+   <div className="welcome-actions"><button className="primary" onClick={inspect}>{t('welcome.cta_new')}<Icon name="arrow" size={18}/></button><button className="welcome-demo" disabled={busy} onClick={demo}><Icon name="scan" size={18}/>{busy?t('welcome.cta_demo_loading'):t('welcome.cta_demo')}</button>{openGuide&&<button className="welcome-guide-btn" onClick={openGuide}><Icon name="help" size={17}/>{t('welcome.cta_how')}</button>}</div>
+   <span className="welcome-hint">{t('welcome.hint')}</span>
   </div>
   <SonarSea paused={stopped}/>
-  <button className="motion-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'Play animation':'Pause animation'}</button>
+  <button className="motion-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?t('hero.play_animation'):t('hero.pause_animation')}</button>
  </section>;
 }
 
 function SonarSea({paused}:{paused:boolean}) {
+ const {t} = useTranslation();
  return <div className={'sonar-sea '+(paused?'ocean-paused':'')} aria-hidden="true">
   <div className="sea-haze"/>
   <svg className="sea-contours" viewBox="0 0 660 480" fill="none">
@@ -46,55 +49,56 @@ function SonarSea({paused}:{paused:boolean}) {
    </div>
    <span className="scope-axis axis-n"/><span className="scope-axis axis-e"/><span className="scope-axis axis-s"/><span className="scope-axis axis-w"/>
   </div>
-  <span className="scope-caption"><i/>Illustrative sonar view</span>
+  <span className="scope-caption"><i/>{t('hero.caption')}</span>
  </div>;
 }
 
 export function OceanHero({inspect,demo,busy,openGuide}:{inspect:()=>void,demo:()=>void,busy:boolean,openGuide?:()=>void}) {
  const {paused,setPaused,stopped}=useOceanMotion();
+ const {t} = useTranslation();
  return <section className={'minimal-hero ocean-hero '+(stopped?'ocean-paused':'')}>
   <OceanBubbles/>
   <div className="ocean-hero-inner">
-   <div className="ocean-copy"><p className="eyebrow"><span/>MARINE ANOMALY INTELLIGENCE</p>
-    <h1>Look deeper.<br/><em>See what matters.</em></h1>
-    <p>Find potential debris in sonar imagery. Review the evidence, understand its location, and turn a finding into an actionable report.</p>
+   <div className="ocean-copy"><p className="eyebrow"><span/>{t('hero.eyebrow')}</p>
+    <h1>{t('hero.headline_1')}<br/><em>{t('hero.headline_em')}</em></h1>
+    <p>{t('hero.body')}</p>
     <div className="ocean-actions">
-      <button className="primary" onClick={inspect}>Inspect sonar<Icon name="arrow" size={18}/></button>
-      <button className="demo-launch" disabled={busy} onClick={demo}><Icon name="scan" size={17}/>{busy?'Opening…':'Try demo'}</button>
-      {openGuide&&<button className="hero-guide-btn" onClick={openGuide}><Icon name="help" size={16}/>How it works</button>}
-      <a href="#bluecho-features">Explore features <span>↘</span></a>
+      <button className="primary" onClick={inspect}>{t('hero.cta_inspect')}<Icon name="arrow" size={18}/></button>
+      <button className="demo-launch" disabled={busy} onClick={demo}><Icon name="scan" size={17}/>{busy?t('hero.cta_demo_loading'):t('hero.cta_demo')}</button>
+      {openGuide&&<button className="hero-guide-btn" onClick={openGuide}><Icon name="help" size={16}/>{t('hero.cta_how')}</button>}
+      <a href="#bluecho-features">{t('hero.explore')} <span>↘</span></a>
     </div>
-    <p className="ocean-promise">From acoustic imagery to informed decisions.</p>
+    <p className="ocean-promise">{t('hero.promise')}</p>
    </div>
    <SonarSea paused={stopped}/>
   </div>
   <div className="sea-horizon" aria-hidden="true"><svg className="ocean-moving wave-far" viewBox="0 0 1600 100" preserveAspectRatio="none"><path d="M0 40Q200 0 400 40T800 40T1200 40T1600 40V100H0Z"/></svg><svg className="ocean-moving wave-near" viewBox="0 0 1600 100" preserveAspectRatio="none"><path d="M0 45Q200 85 400 45T800 45T1200 45T1600 45V100H0Z"/></svg></div>
-  <button className="motion-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?'Play animation':'Pause animation'}</button>
+  <button className="motion-control" aria-pressed={paused} onClick={()=>setPaused(!paused)}>{paused?t('hero.play_animation'):t('hero.pause_animation')}</button>
  </section>;
 }
 
-const features=[
- ['scan','Sonar specialists','Choose a detector suited to side-scan or forward-looking imagery. Inspect predictions in the original image.'],
- ['wave','Acoustic context','Examine quality flags, shadows and the surrounding seabed alongside each potential object.'],
- ['check','Human review','Retain, reject or correct a finding. Your notes and decisions stay linked to the original prediction.'],
- ['pin','Metadata-backed maps','Place findings on a map when matching coordinates are available. Missing locations stay clearly marked.'],
- ['model','Batch inspections','Queue several images and review each result separately, without mixing their sources or evidence.'],
- ['file','Portable reports','Take annotated imagery, review history and findings with you in PDF, JSON, CSV or GeoJSON.'],
-];
-
 export function OceanStory({hosted,browser}:{hosted:boolean,browser:boolean}) {
+ const {t} = useTranslation();
+ const features:[string,string,string][]=[
+  ['scan', t('features.specialists_title'), t('features.specialists_body')],
+  ['wave', t('features.acoustic_title'),    t('features.acoustic_body')],
+  ['check',t('features.review_title'),      t('features.review_body')],
+  ['pin',  t('features.maps_title'),        t('features.maps_body')],
+  ['model',t('features.batch_title'),       t('features.batch_body')],
+  ['file', t('features.reports_title'),     t('features.reports_body')],
+ ];
  return <>
-  <section className="problem-solution" aria-label="The problem and our solution">
-   <article><p className="section-kicker">BENEATH THE NOISE</p><h2>The problem</h2><p>On the seafloor, debris can look like rock. Shadows can look like objects. Reading sonar takes patience, context and careful judgement.</p></article>
-   <article><p className="section-kicker">A CLEARER WAY THROUGH</p><h2>Our solution</h2><p>BluEco brings detection, visual inspection and human review into one workspace—so every finding can become a report with evidence behind it.</p></article>
+  <section className="problem-solution" aria-label={t('story.problem_title')}>
+   <article><p className="section-kicker">{t('story.problem_kicker')}</p><h2>{t('story.problem_title')}</h2><p>{t('story.problem_body')}</p></article>
+   <article><p className="section-kicker">{t('story.solution_kicker')}</p><h2>{t('story.solution_title')}</h2><p>{t('story.solution_body')}</p></article>
   </section>
-  <section className="ocean-features" id="bluecho-features"><div className="ocean-section-heading"><p className="section-kicker">BUILT FOR THE WHOLE INSPECTION</p><h2>From first look<br/><span>to a shareable report.</span></h2></div>
+  <section className="ocean-features" id="bluecho-features"><div className="ocean-section-heading"><p className="section-kicker">{t('story.features_kicker')}</p><h2>{t('story.features_headline_1')}<br/><span>{t('story.features_headline_em')}</span></h2></div>
    <div className="feature-lines">{features.map(([icon,title,copy])=><article key={title}><span className="feature-symbol"><Icon name={icon} size={23}/></span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
   </section>
-  <section className="bluecho-difference"><div><p className="section-kicker">THE BLUECO DIFFERENCE</p><h2>Your sonar.<br/>Your judgement.<br/><em>Your evidence.</em></h2><p>Our focus is the connection between a detection and a defensible decision. The source, model and review history travel with every finding.</p></div>
-   <ul><li><Icon name="shield"/><div><h3>{hosted?'A choice of where to work':'Private by design'}</h3><p>{hosted?'Use this hosted workspace or run BluEco locally when your imagery needs to stay on your device.':browser?'Your images are analyzed in your browser. The local application supports offline workflows after setup.':'Process imagery locally, with offline workflows available after dependencies and models are prepared.'}</p></div></li>
-   <li><Icon name="check"/><div><h3>You stay in control</h3><p>Model suggestions start the inspection. Human review shapes the report, and original predictions remain traceable.</p></div></li>
-   <li><Icon name="pin"/><div><h3>Evidence before certainty</h3><p>Clear model limitations, uncalibrated scores and source-backed locations. Experimental findings stay labelled.</p></div></li></ul>
+  <section className="bluecho-difference"><div><p className="section-kicker">{t('story.diff_kicker')}</p><h2>{t('story.diff_headline_1')}<br/>{t('story.diff_headline_2')}<br/><em>{t('story.diff_headline_em')}</em></h2><p>{t('story.diff_body')}</p></div>
+   <ul><li><Icon name="shield"/><div><h3>{hosted?t('story.diff_private_title_hosted'):t('story.diff_private_title_local')}</h3><p>{hosted?t('story.diff_private_body_hosted'):browser?t('story.diff_private_body_browser'):t('story.diff_private_body_local')}</p></div></li>
+   <li><Icon name="check"/><div><h3>{t('story.diff_control_title')}</h3><p>{t('story.diff_control_body')}</p></div></li>
+   <li><Icon name="pin"/><div><h3>{t('story.diff_evidence_title')}</h3><p>{t('story.diff_evidence_body')}</p></div></li></ul>
   </section>
  </>;
 }
